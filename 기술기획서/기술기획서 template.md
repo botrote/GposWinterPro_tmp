@@ -81,17 +81,16 @@
 
 ## Field
 
-- public enum Type{} 유닛의 타입
-- unsigned int maxHealth
-- unsigned int curHealth
-- unsigned int defense
-- unsigned int attack
-- unsigned int speed
-- unsigned int range
+- protected unsigned int maxHealth
+- protected unsigned int curHealth
+- protected unsigned int defense
+- protected unsigned int attack
+- protected unsigned int speed
+- protected unsigned int range
 - Projectile projectile
 - unsigned static int numOfUnit 현재 스테이지에 있는 해당 유닛의 수.
 - bool init 초기화 여부
-- Type type 유닛의 타입(언데드 등)
+- Race race 유닛의 종족값(언데드 등)
 - List<Buff> Buffs 유닛이 받고 있는 디버프/버프
 
 ## Method
@@ -102,8 +101,8 @@
 - void Shoot(Unit Target) 다른 유닛을 향해 투사체/마법 발사
 - void Shoot(Position pos) 특정 위치를 향해 투사체/마법 발사
 - void Move(Position pos) 특정 위치를 향해 이동
-- public int getNum() 유닛의 수를 반환
 - void Die() 유닛이 죽었을 때 발생하는 이벤트 등을 처리함(CampaignManager에 플래그를 세우는 등)
+- public abstract int getNumofUnit() 해당 유닛의 개수 반환
 
 ## Player : Unit
 
@@ -128,6 +127,8 @@
 - public void UseSkill(Skill skill, Position pos)
 - public void GetExperience(unsigned int exp) 
 - void LevelManage() 레벨업 시 관련 수치를 업데이트함
+- public delegate void Command(Position pos) 아군 유닛들에게 이동 명령
+- public override int getNumofUnit() 1 반환
 
 ## NPC : Unit
 
@@ -135,6 +136,7 @@
 
 ## Field
 
+- AI ai
 - Skill skill
 - unsigned float RateOfSpecialAttack
 
@@ -150,12 +152,16 @@
 ## Field
 
 - unsigned const int exp
+- private unsigned static int num 유닛의 개수(구체 클래스에만 만들 것)
 
 ## Method
 
+- public override int getNumofUnit() 유닛의 개수 반환(구체 클래스에만 만들 것)
+
 ## Minion : NPC
-‘
-- 적 유닛 클래스.
+
+- 아군 유닛 클래스.
+- private unsigned static int num 유닛의 개수(구체 클래스에만 만들 것)
 
 ## Field
 
@@ -163,7 +169,10 @@
 
 ## Method’
 
+- Awake() 플레이어 델리게이트에 스스로의 Move 추가(ai에 옮길 수도 있음)
 - public int getNotch() 노치값 반환
+- public override int getNumofUnit() 유닛의 개수 반환(구체 클래스에만 만들 것)
+- OnDestroy() 플레이어 델리게이트에서 스스로의 Move 삭제(Awake()와 같이 ai에 옮길 수도 있음)
 
 ## Building : Unit
 
