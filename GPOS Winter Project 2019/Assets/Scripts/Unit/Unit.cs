@@ -4,6 +4,16 @@ using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
 {
+    protected ushort maxHealth;
+    protected ushort curHealth;
+    protected ushort defense;
+    protected ushort attack;
+    protected float speed;
+    protected float range;
+    protected Projectile projectile;
+    protected Race race; //유닛의 종족값(언데드 등)
+    protected List<Buff> Buffs; //유닛이 받고 있는 디버프/버프
+
     void Awake()
     {
 
@@ -20,15 +30,6 @@ public abstract class Unit : MonoBehaviour
 
     }
 
-    protected readonly ushort maxHealth;
-    protected ushort curHealth;
-    protected ushort defense;
-    protected ushort attack;
-    protected ushort speed;
-    protected ushort range;
-    protected Projectile projectile;
-    protected Race race; //유닛의 종족값(언데드 등)
-    protected List<Buff> Buffs; //유닛이 받고 있는 디버프/버프
     void Damage(ushort damage, Unit attacker) //유닛이 데미지를 입음, 결과적으로 사망하면 Die() 호출
     {
         if (curHealth - damage / defense <= 0)
