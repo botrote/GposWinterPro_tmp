@@ -88,14 +88,10 @@
 - protected unsigned int speed
 - protected unsigned int range
 - Projectile projectile
-- unsigned static int numOfUnit 현재 스테이지에 있는 해당 유닛의 수.
-- bool init 초기화 여부
 - Race race 유닛의 종족값(언데드 등)
 - List<Buff> Buffs 유닛이 받고 있는 디버프/버프
 
 ## Method
-- void Awake() 총 유닛 수 조정, 인스턴시에이트로 생성자를 부를 수 없으므로 알아서 관련 값을 참조해 초기화하게 할 것.
-- void Init(int maxHealth, int curHealth, …) 유닛의 정보 초기화
 - void Damage(int damage, Unit attacker) 유닛이 데미지를 입음, 결과적으로 사망하면 Die() 호출
 - void Attack(Unit Target) 다른 유닛을 근접 공격함
 - void Shoot(Unit Target) 다른 유닛을 향해 투사체/마법 발사
