@@ -10,21 +10,22 @@ public abstract class NPC : Unit
     }
 
     protected ushort exp;
-    protected Skill skill;
-    protected AI ai;
+    //protected Skill skill;
+    //protected AI ai;
     protected float RateOfSpecialAttack;
 
     // Start is called before the first frame update
-    void Awake()
+    protected new void Awake()
     {
+        base.Awake();
         //(아군이면)플레이어 델리게이트 추가
     }
 
     // Update is called once per frame
-    void Update()
-    {
-
-    }
+    //protected new void Update()
+    //{
+    //    base.Update();
+    //}
 
     private void OnDestroy()
     {

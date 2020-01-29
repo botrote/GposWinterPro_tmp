@@ -3,6 +3,8 @@
 1. 기술기획서 작성
 2. Enemy와 Minion 클래스를 모두 NPC 클래스로 통합, 공격을 인터페이스로 분리
 3. 유닛 생성 패턴을 옵저버 패턴으로 변경(델리게이트)
+4. getNumofUnit 삭제, Buff 삭제
+
 
 # (게임이름) 기술기획서 Template
 
@@ -87,20 +89,16 @@
 ## Field
 
 - enum Race 종족값
-- protected unsigned int maxHealth
-- protected unsigned int curHealth
-- protected unsigned int defense
-- protected unsigned int attack
-- protected unsigned int speed
-- protected unsigned int range
-- Projectile projectile
+- public abstract int maxHealth{ get; }
+- protected ushort curHealth
+- protected ushort defense
+- protected ushort speed
 - Race race 유닛의 종족값(언데드 등)
 
 ## Method
 - void Damage(int damage, Unit attacker) 유닛이 데미지를 입음, 결과적으로 사망하면 Die() 호출
 - void Move(Position pos) 특정 위치를 향해 이동
-- void Die() 유닛이 죽었을 때 발생하는 이벤트 등을 처리함(CampaignManager에 플래그를 세우는 등)
-- public abstract int getNumofUnit() 해당 유닛의 개수 반환
+- void Die() 유닛이 죽었을 때 발생하는 이벤트 등을 처리함(CampaignManager에 플래그를 세우는 등) 
 
 ## Player : Unit
 
@@ -125,8 +123,7 @@
 - public void UseSkill(Skill skill, Position pos)
 - public void GetExperience(unsigned int exp) 
 - void LevelManage() 레벨업 시 관련 수치를 업데이트함
-- public delegate void Command(Position pos) 아군 유닛들에게 이동 명령
-- public override int getNumofUnit() 1 반환
+- public delegate void Command(Position pos) 아군 유닛들에게 이동 명령 
 
 ## NPC : Unit
 
@@ -144,8 +141,7 @@
 ## Method
 
 - specialAttack(Unit target)
-- specialAttack(Position pos)
-- public override int getNumofUnit() 유닛의 개수 반환(구체 클래스에만 만들 것)
+- specialAttack(Position pos) 
 - Awake() 플레이어 델리게이트에 스스로의 Move 추가(ai에 옮길 수도 있음)
 - public int getNotch() 노치값 반환
 - OnDestroy() 플레이어 델리게이트에서 스스로의 Move 삭제(Awake()와 같이 ai에 옮길 수도 있음)
@@ -191,14 +187,11 @@
 - OnTriggerStay()
 - Effect() 트리거 내의 대상에게 효과 발동 및 유지
 
-## Buff
+## Skill
 
-- 버프/디버프 효과, 도트나 힐, 공격력/방어력 배수 등.
+- 특수 공격(마법 등)
 
 ## Field
-
-- unsigned float AttackFactor
-- unsigned float DefenseFactor
 
 ## Method
 

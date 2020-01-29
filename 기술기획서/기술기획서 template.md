@@ -97,13 +97,11 @@
 
 ## Field
 
-- protected unsigned int maxHealth
-- protected unsigned int curHealth
-- protected unsigned int defense
-- protected unsigned int attack
-- protected unsigned int speed
-- protected unsigned int range
-- Projectile projectile
+- enum Race 종족값
+- public abstract int maxHealth{ get; }
+- protected ushort curHealth
+- protected ushort defense
+- protected ushort speed
 - Race race 유닛의 종족값(언데드 등)
 - List<Buff> Buffs 유닛이 받고 있는 디버프/버프
 
