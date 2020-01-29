@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Zombie : Minion
+public class Zombie : NPC , IMeleeAttack
 {
     private static ushort zombieNumber = 0;
     private const ushort zombieNotch = 1;
@@ -17,6 +17,11 @@ public class Zombie : Minion
         get { return zombieNotch; }
     }
 
+    public void MeleeAttack(Unit Target)
+    {
+
+    }
+
     protected virtual void Init()
     {
         ai = new AI();
@@ -27,6 +32,7 @@ public class Zombie : Minion
         defense = zombieDefense;
         range = zombieRange;
         speed = zombieSpeed;
+        race = Race.Undead;
         zombieNumber++;
     }
 
@@ -45,6 +51,8 @@ public class Zombie : Minion
     {
         zombieNumber--;
     }
+
+    
 
     public override int getNumofUnit()
     {

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Race {None, Undead, Villager, Soldier, Elite, Commander, Hero}
+
 public abstract class Unit : MonoBehaviour
 {
     protected ushort maxHealth;
@@ -10,10 +12,8 @@ public abstract class Unit : MonoBehaviour
     protected ushort attack;
     protected float speed;
     protected float range;
-    protected Projectile projectile;
     protected Race race; //유닛의 종족값(언데드 등)
-    protected List<Buff> Buffs; //유닛이 받고 있는 디버프/버프
-
+    
     void Awake()
     {
 
@@ -42,18 +42,6 @@ public abstract class Unit : MonoBehaviour
         {
             curHealth -= (ushort)(damage / defense);
         }
-    }
-    void Attack(Unit Target) //다른 유닛을 근접 공격함
-    {
-        Target.Damage(attack, this);
-    }
-    void Shoot(Unit Target) //다른 유닛을 향해 투사체/마법 발사
-    {
-
-    }
-    void Shoot(Vector2 pos) //특정 위치를 향해 투사체/마법 발사
-    {
-
     }
     void Move(Vector2 pos) //특정 위치를 향해 이동
     {
