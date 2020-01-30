@@ -27,14 +27,19 @@ public abstract class Unit : MonoBehaviour
     private Unit pursuit;
     public abstract ushort MaxHealth { get; }
     protected ushort curHealth;
-    protected ushort defense;
-    protected float speed;
-    protected Race race; //유닛의 종족값(언데드 등)
+    protected abstract ushort defense { get; }
+    protected abstract float speed { get; }
+    protected abstract Race race { get; }
     private Rigidbody2D unitRigidbody2D;
     private Transform unitTransform;
     private Coroutine damagedCoroutine;
     public Vector2 position { get { return unitTransform.position; } }
-    public abstract Team TeamTag { get; } 
+    public abstract Team TeamTag { get; }
+    /// <summary>
+    /// 유닛의 이름, 팩토리의 product와 일치시켜야 함.
+    /// </summary>
+    /// <returns></returns>
+    public abstract string Unitname { get; }
 
     protected void Awake()
     {
@@ -43,9 +48,10 @@ public abstract class Unit : MonoBehaviour
         unitTransform = gameObject.GetComponent<Transform>();
         destpos = unitTransform.position;
         curBehaviour = Behaviour.Idle;
+        curHealth = MaxHealth;
     }
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
 
     }
@@ -117,6 +123,21 @@ public abstract class Unit : MonoBehaviour
         }
     }
     /// <summary>
+    /// 유닛의 체력 증가, 최대 체력을 넘지 않도록 조절
+    /// </summary>
+    /// <param name="damage"></param>
+    public void Heal(ushort amount)
+    {
+        if(MaxHealth <= curHealth + amount)
+        {
+            curHealth = MaxHealth;
+        }
+        else
+        {
+            curHealth += amount;
+        }
+    }
+    /// <summary>
     /// 유닛이 죽었을 때 발생하는 이벤트 등을 처리함(CampaignManager에 플래그를 세우는 등)
     /// </summary>
     protected void Die()
@@ -129,8 +150,9 @@ public abstract class Unit : MonoBehaviour
     /// <returns></returns>
     private IEnumerator paintRed()
     {
+        Color original = gameObject.GetComponent<SpriteRenderer>().color;
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1,0,0) ;
         yield return new  WaitForSeconds(0.5f);
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(1,1,1);
+        gameObject.GetComponent<SpriteRenderer>().color = original;
     }
 }

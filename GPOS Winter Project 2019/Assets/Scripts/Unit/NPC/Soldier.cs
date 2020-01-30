@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Soldier : NPC , IMeleeAttack
+public class Soldier : NPC, IMeleeAttack
 {
+    private const string unitname = "Soldier";
     private const ushort soldierNotch = 1;
     private const ushort soldierHealth = 50;
     private const ushort soldierAttack = 5;
     private const ushort soldierDefense = 1;
     private const float soldierRange = 4.0f;
     private const float soldierSpeed = 1.0f;
+    private const Race soldierRace = Race.Soldier;
     private const float soldierMeleeCool = 3.0f;
     private float MeleeCool;
 
@@ -17,17 +19,34 @@ public class Soldier : NPC , IMeleeAttack
     {
         get { return Team.Enemy; }
     }
-
     public override ushort Notch
     {
         get { return soldierNotch; }
     }
-
     public override ushort MaxHealth
     {
         get { return soldierHealth; }
     }
-
+    protected override float RateOfSpecialAttack
+    {
+        get { return 0; }
+    }
+    protected override ushort defense
+    {
+        get { return soldierDefense; }
+    }
+    protected override float speed
+    {
+        get { return soldierSpeed; }
+    }
+    protected override Race race
+    {
+        get { return soldierRace; }
+    }
+    public override string Unitname
+    {
+        get { return unitname; }
+    }
     public void MeleeAttack(Unit Target)
     {
         if( Vector2.Distance(Target.position, this.position) <= soldierRange)
@@ -36,21 +55,16 @@ public class Soldier : NPC , IMeleeAttack
             Target.Damage(soldierAttack);
             MeleeCool = 0;
         }
-        else if (Vector2.Distance(Target.position, this.Dest) > soldierRange + 1)
+        else if (Vector2.Distance(Target.position, this.position) > soldierRange + 1)
         {
             this.Dest = Target.position;
         }
     }
 
-    protected virtual void Init()
+    protected override void Init()
     {
         //ai = new AI();
         //skill = new Skill();
-        RateOfSpecialAttack = 0;
-        curHealth = MaxHealth;
-        defense = soldierDefense;
-        speed = soldierSpeed;
-        race = Race.Undead;
     }
 
     void Awake()

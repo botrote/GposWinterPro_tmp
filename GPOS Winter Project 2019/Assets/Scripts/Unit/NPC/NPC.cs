@@ -12,7 +12,12 @@ public abstract class NPC : Unit
     protected ushort exp;
     //protected Skill skill;
     //protected AI ai;
-    protected float RateOfSpecialAttack;
+    protected abstract float RateOfSpecialAttack { get; }
+    
+    /// <summary>
+    /// AI, Skill 초기화
+    /// </summary>
+    protected abstract void Init();
 
     // Start is called before the first frame update
     protected new void Awake()
