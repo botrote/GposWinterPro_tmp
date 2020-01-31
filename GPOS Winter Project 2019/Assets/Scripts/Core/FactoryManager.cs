@@ -9,16 +9,16 @@ public class FactoryManager : MonoBehaviour
         get;
         private set;
     }
-    Dictionary<string, UnitFactory> factoryDict;
+    public static Dictionary<string, UnitFactory> factoryDict = new Dictionary<string, UnitFactory>();
     // Start is called before the first frame update
     void Awake()
     {
-        factoryDict = new Dictionary<string, UnitFactory>();
-        UnitFactory[] factories = gameObject.GetComponents<UnitFactory>();
-        for(int i = 0; i<factories.Length; i++)
-        {
-            factoryDict.Add(factories[i].Product, factories[i]);
-        }
+        //factoryDict = new Dictionary<string, UnitFactory>();
+        //UnitFactory[] factories = gameObject.GetComponents<UnitFactory>();
+        //for(int i = 0; i<factories.Length; i++)
+        //{
+        //    factoryDict.Add(factories[i].Product, factories[i]);
+        //}
         isFactoryLoaded = true;
     }
     public GameObject PlaceUnit(string name, Vector2 pos, params object[] parameter)

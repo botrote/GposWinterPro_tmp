@@ -11,7 +11,7 @@ public abstract class NPC : Unit
 
     protected ushort exp;
     //protected Skill skill;
-    //protected AI ai;
+    protected AI ai;
     protected abstract float RateOfSpecialAttack { get; }
     
     /// <summary>

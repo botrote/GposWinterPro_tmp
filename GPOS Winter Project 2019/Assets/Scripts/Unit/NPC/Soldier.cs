@@ -9,7 +9,7 @@ public class Soldier : NPC, IMeleeAttack
     private const ushort soldierHealth = 50;
     private const ushort soldierAttack = 5;
     private const ushort soldierDefense = 1;
-    private const float soldierRange = 4.0f;
+    private const float soldierMeleeRange = 1.0f;
     private const float soldierSpeed = 1.0f;
     private const Race soldierRace = Race.Soldier;
     private const float soldierMeleeCool = 3.0f;
@@ -49,15 +49,11 @@ public class Soldier : NPC, IMeleeAttack
     }
     public void MeleeAttack(Unit Target)
     {
-        if( Vector2.Distance(Target.position, this.position) <= soldierRange)
+        if( Vector2.Distance(Target.position, this.position) <= soldierMeleeRange)
         {
             if (soldierMeleeCool > MeleeCool) return;
             Target.Damage(soldierAttack);
             MeleeCool = 0;
-        }
-        else if (Vector2.Distance(Target.position, this.position) > soldierRange + 1)
-        {
-            this.Dest = Target.position;
         }
     }
 
@@ -70,6 +66,7 @@ public class Soldier : NPC, IMeleeAttack
     void Awake()
     {
         base.Awake();
+        Dest = new Vector2(0, 0);
         Init();
     }
 
@@ -81,11 +78,15 @@ public class Soldier : NPC, IMeleeAttack
         {
             MeleeCool += Time.deltaTime;
         }
-        MeleeAttack(GameObject.FindGameObjectWithTag(Team.Friendly.ToString()).GetComponent<Unit>());
     }
 
     private void OnDestroy()
     {
 
+    }
+
+    public float getMeleeRange()
+    {
+        return soldierMeleeRange;
     }
 }

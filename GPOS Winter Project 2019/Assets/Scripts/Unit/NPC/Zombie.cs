@@ -9,7 +9,7 @@ public class Zombie : NPC , IMeleeAttack
     private const ushort zombieHealth = 50;
     private const ushort zombieAttack = 5;
     private const ushort zombieDefense = 1;
-    private const float zombieRange = 0;
+    private const float zombieMeleeRange = 1.0f;
     private const float zombieSpeed = 1.0f;
     private const Race zombieRace = Race.Undead;
 
@@ -53,7 +53,7 @@ public class Zombie : NPC , IMeleeAttack
 
     protected override void Init()
     {
-        //ai = new AI();
+        //ai = new FriendlyMeleeAI<Zombie>(this);
         //skill = new Skill();
     }
 
@@ -61,7 +61,6 @@ public class Zombie : NPC , IMeleeAttack
     {
         base.Awake();
         Init();
-        Dest = new Vector2(10, 0);
     }
 
     // Update is called once per frame
@@ -73,5 +72,10 @@ public class Zombie : NPC , IMeleeAttack
     private void OnDestroy()
     {
 
+    }
+
+    public float getMeleeRange()
+    {
+        return zombieMeleeRange;
     }
 }

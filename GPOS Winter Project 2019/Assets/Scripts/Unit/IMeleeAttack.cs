@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-interface IMeleeAttack
+public interface IMeleeAttack
 {
+    float getMeleeRange();
     void MeleeAttack(Unit Target); //다른 유닛을 근접 공격함
 }

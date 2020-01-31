@@ -37,7 +37,6 @@ public class WaveManager : MonoBehaviour
     }
     private void Spawnwave()
     {
-        Debug.Log("ARRRRRRRRRRRRR");
         factorymanager.PlaceUnit("Zombie", new Vector2(0, 0));
         factorymanager.PlaceUnit("Zombie", new Vector2(3, 0));
         factorymanager.PlaceUnit("Zombie", new Vector2(5, 0));

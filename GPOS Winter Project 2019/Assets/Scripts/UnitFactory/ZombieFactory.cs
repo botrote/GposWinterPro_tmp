@@ -13,6 +13,7 @@ public class ZombieFactory : UnitFactory
 
     protected void Awake()
     {
+        base.Awake();
         template = Resources.Load("Prefabs/Zombie") as GameObject;
     }
 

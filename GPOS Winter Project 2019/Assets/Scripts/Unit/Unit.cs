@@ -13,13 +13,13 @@ public abstract class Unit : MonoBehaviour
     /// <summary>
     /// 유닛의 이동 목적지
     /// </summary>
-    protected Vector2 Dest
+    public Vector2 Dest
     {
         get { return destpos; }
         set
         {
             //if(Mathf.Abs(pos.x) > map.x || Mathf.Abs(pos.y) > map.y)
-            Debug.Log(gameObject.ToString() + "moving to" + value.ToString());
+            //Debug.Log(gameObject.ToString() + "moving to" + value.ToString());
             destpos = value;
             curBehaviour = Behaviour.Moving;
         }
@@ -62,6 +62,7 @@ public abstract class Unit : MonoBehaviour
         {
             default:
             case Behaviour.Idle:
+                unitRigidbody2D.velocity = Vector2.zero;
                 break;
             case Behaviour.Moving:
                 {

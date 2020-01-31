@@ -13,6 +13,7 @@ public class SoldierFactory : UnitFactory
 
     protected void Awake()
     {
+        base.Awake();
         template = Resources.Load("Prefabs/Soldier") as GameObject;
     }
 

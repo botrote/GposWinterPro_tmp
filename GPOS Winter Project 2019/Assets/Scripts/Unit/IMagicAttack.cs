@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-interface IMagicAttack
+public interface IMagicAttack
 {
+    float getMagicRange();
     void MagicAttack();
     void MagicAttack(Unit target);
     void MagicAttack(Vector2 pos);
