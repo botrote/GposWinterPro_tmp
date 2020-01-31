@@ -4,6 +4,8 @@
 2. Enemy와 Minion 클래스를 모두 NPC 클래스로 통합, 공격을 인터페이스로 분리
 
 # (게임이름) 기술기획서 Template
+## Unity 2019.3.0f3
+
 
 ## Class name here
 
