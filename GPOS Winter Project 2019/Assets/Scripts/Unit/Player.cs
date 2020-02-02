@@ -14,15 +14,15 @@ public class Player : Unit
     {
         get { return (ushort)(100 + Manager.GetComponent<WaveManager>().getWave * 300); }
     }
-    protected override ushort defense
+    public override ushort defense
     {
         get { return (ushort)(1 + Manager.GetComponent<WaveManager>().getWave * 8); }
     }
-    protected override float speed
+    public override float speed
     {
         get { return playerSpeed; }
     }
-    protected override Race race
+    public override Race race
     {
         get { return Race.None; }
     }

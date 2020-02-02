@@ -6,6 +6,7 @@ public class Soldier : NPC, IMeleeAttack
 {
     private const string unitname = "Soldier";
     private const ushort soldierNotch = 1;
+    private const ushort soldierExp = 1;
     private const ushort soldierHealth = 50;
     private const ushort soldierAttack = 5;
     private const ushort soldierDefense = 1;
@@ -31,15 +32,15 @@ public class Soldier : NPC, IMeleeAttack
     {
         get { return 0; }
     }
-    protected override ushort defense
+    public override ushort defense
     {
         get { return soldierDefense; }
     }
-    protected override float speed
+    public override float speed
     {
         get { return soldierSpeed; }
     }
-    protected override Race race
+    public override Race race
     {
         get { return soldierRace; }
     }
@@ -47,6 +48,12 @@ public class Soldier : NPC, IMeleeAttack
     {
         get { return unitname; }
     }
+
+    public override ushort Exp
+    {
+        get { return soldierExp; }
+    }
+
     public void MeleeAttack(Unit Target)
     {
         if( Vector2.Distance(Target.position, this.position) <= soldierMeleeRange)
@@ -59,15 +66,12 @@ public class Soldier : NPC, IMeleeAttack
 
     protected override void Init()
     {
-        //ai = new AI();
         //skill = new Skill();
     }
 
     void Awake()
     {
         base.Awake();
-        Dest = new Vector2(0, 0);
-        Init();
     }
 
     // Update is called once per frame

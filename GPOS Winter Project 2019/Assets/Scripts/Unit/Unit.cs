@@ -2,11 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// 플레이어, 적/아군 유닛의 기반 클래스. 기초 스탯 관리 및 데미지, 이동 관련 기능 포함함.
+/// </summary>
 public abstract class Unit : MonoBehaviour
 {
+    /// <summary>
+    /// 종족값, 사제의 언데드 추가 데미지 등에 필요함.
+    /// </summary>
     public enum Race { None, Undead, Villager, Soldier, Elite, Commander, Hero }
+    /// <summary>
+    /// 현재 이동 상태(정지 혹은 이동중)
+    /// </summary>
     public enum Behaviour { Idle, Moving }
+    /// <summary>
+    /// 피아 식별용(AI는 게임오브젝트의 태그로 인식할 것을 권장함)
+    /// </summary>
     public enum Team { Enemy, Friendly }
     private Behaviour curBehaviour;
     private Vector2 destpos;
@@ -24,16 +35,36 @@ public abstract class Unit : MonoBehaviour
             curBehaviour = Behaviour.Moving;
         }
     }
-    private Unit pursuit;
+    /// <summary>
+    /// 최대 체력
+    /// </summary>
     public abstract ushort MaxHealth { get; }
-    protected ushort curHealth;
-    protected abstract ushort defense { get; }
-    protected abstract float speed { get; }
-    protected abstract Race race { get; }
+    /// <summary>
+    /// 현재 체력
+    /// </summary>
+    public ushort curHealth { get; protected set; }
+    /// <summary>
+    /// 방어도
+    /// </summary>
+    public abstract ushort defense { get; }
+    /// <summary>
+    /// 속도
+    /// </summary>
+    public abstract float speed { get; }
+    /// <summary>
+    /// 종족값
+    /// </summary>
+    public abstract Race race { get; }
     private Rigidbody2D unitRigidbody2D;
     private Transform unitTransform;
     private Coroutine damagedCoroutine;
+    /// <summary>
+    /// 현재 유닛의 위치
+    /// </summary>
     public Vector2 position { get { return unitTransform.position; } }
+    /// <summary>
+    /// 유닛의 피아
+    /// </summary>
     public abstract Team TeamTag { get; }
     /// <summary>
     /// 유닛의 이름, 팩토리의 product와 일치시켜야 함.

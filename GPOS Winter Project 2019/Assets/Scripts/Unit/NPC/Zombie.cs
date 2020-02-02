@@ -25,15 +25,15 @@ public class Zombie : NPC , IMeleeAttack
     {
         get { return zombieHealth; }
     }
-    protected override ushort defense
+    public override ushort defense
     {
         get { return zombieDefense; }
     }
-    protected override float speed
+    public override float speed
     {
         get { return zombieSpeed; }
     }
-    protected override Race race
+    public override Race race
     {
         get { return zombieRace; }
     }
@@ -42,6 +42,11 @@ public class Zombie : NPC , IMeleeAttack
         get { return unitname; }
     }
     protected override float RateOfSpecialAttack
+    {
+        get { return 0; }
+    }
+
+    public override ushort Exp
     {
         get { return 0; }
     }
@@ -60,7 +65,6 @@ public class Zombie : NPC , IMeleeAttack
     void Awake()
     {
         base.Awake();
-        Init();
     }
 
     // Update is called once per frame

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 아군 근접 공격 AI, 현재 구현된 기능은 플레이어와 일정 거리 이하를 유지하는 것 외에는 없음.
+/// </summary>
 public class FriendlyMeleeAI : AI
 {
     protected Unit Target;
