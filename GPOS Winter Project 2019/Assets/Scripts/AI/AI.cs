@@ -9,6 +9,7 @@ using UnityEngine;
 /// </summary>
 public abstract class AI : MonoBehaviour
 {
+    public const float MaxDist = 5f;
     /// <summary>
     /// AI가 조작할 유닛 클래스.
     /// </summary>

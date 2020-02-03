@@ -9,9 +9,11 @@ public class Zombie : NPC , IMeleeAttack
     private const ushort zombieHealth = 50;
     private const ushort zombieAttack = 5;
     private const ushort zombieDefense = 1;
-    private const float zombieMeleeRange = 1.0f;
+    private const float zombieMeleeRange = 3.0f;
     private const float zombieSpeed = 1.0f;
     private const Race zombieRace = Race.Undead;
+    private const float zombieMeleeCool = 3.0f;
+    private float MeleeCool;
 
     public override Team TeamTag
     {
@@ -53,7 +55,12 @@ public class Zombie : NPC , IMeleeAttack
 
     public void MeleeAttack(Unit Target)
     {
-
+        if (Vector2.Distance(Target.position, this.position) <= zombieMeleeRange)
+        {
+            if (zombieMeleeCool > MeleeCool) return;
+            Target.Damage(zombieAttack);
+            MeleeCool = 0;
+        }
     }
 
     protected override void Init()
@@ -64,14 +71,19 @@ public class Zombie : NPC , IMeleeAttack
 
     void Awake()
     {
+        MeleeCool = 0;
         base.Awake();
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    base.Update();
-    //}
+    //Update is called once per frame
+    void Update()
+    {
+        base.Update();
+        if (MeleeCool <= zombieMeleeCool)
+        {
+            MeleeCool += Time.deltaTime;
+        }
+    }
 
     private void OnDestroy()
     {

@@ -10,7 +10,7 @@ public class Soldier : NPC, IMeleeAttack
     private const ushort soldierHealth = 50;
     private const ushort soldierAttack = 5;
     private const ushort soldierDefense = 1;
-    private const float soldierMeleeRange = 1.0f;
+    private const float soldierMeleeRange = 3.0f;
     private const float soldierSpeed = 1.0f;
     private const Race soldierRace = Race.Soldier;
     private const float soldierMeleeCool = 3.0f;
@@ -66,6 +66,7 @@ public class Soldier : NPC, IMeleeAttack
 
     protected override void Init()
     {
+        MeleeCool = 0;
         //skill = new Skill();
     }
 

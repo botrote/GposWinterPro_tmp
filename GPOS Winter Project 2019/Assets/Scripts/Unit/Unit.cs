@@ -58,6 +58,7 @@ public abstract class Unit : MonoBehaviour
     private Rigidbody2D unitRigidbody2D;
     private Transform unitTransform;
     private Coroutine damagedCoroutine;
+    Color original;
     /// <summary>
     /// 현재 유닛의 위치
     /// </summary>
@@ -74,6 +75,7 @@ public abstract class Unit : MonoBehaviour
 
     protected void Awake()
     {
+        original = gameObject.GetComponent<SpriteRenderer>().color;
         gameObject.tag = TeamTag.ToString();
         unitRigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         unitTransform = gameObject.GetComponent<Transform>();
@@ -182,7 +184,6 @@ public abstract class Unit : MonoBehaviour
     /// <returns></returns>
     private IEnumerator paintRed()
     {
-        Color original = gameObject.GetComponent<SpriteRenderer>().color;
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1,0,0) ;
         yield return new  WaitForSeconds(0.5f);
         gameObject.GetComponent<SpriteRenderer>().color = original;
