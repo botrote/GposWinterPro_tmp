@@ -6,6 +6,8 @@ public class WaveManager : MonoBehaviour
 {
     private uint wave;
     private FactoryManager factorymanager;
+    private Coroutine WaveCoroutine;
+    private bool WaveWaiting;
     public uint getWave
     {
         get { return wave; }
@@ -26,18 +28,42 @@ public class WaveManager : MonoBehaviour
     {
         if (factorymanager.isFactoryLoaded)
         {
-            Spawnwave();
+            factorymanager.PlaceUnit("Zombie", new Vector2(2, 0));
+            factorymanager.PlaceUnit("Zombie", new Vector2(4, 0));
+            factorymanager.PlaceUnit("Zombie", new Vector2(6, 0));
+            factorymanager.PlaceUnit("Zombie", new Vector2(2, 2));
+            factorymanager.PlaceUnit("Zombie", new Vector2(4, 2));
+            factorymanager.PlaceUnit("Zombie", new Vector2(2, 4));
+            factorymanager.PlaceUnit("Zombie", new Vector2(4, 4));
+            factorymanager.PlaceUnit("Zombie", new Vector2(4, 6));
         }
     }
 
-    // Update is called once per frame
+    private void Update()
+    {
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && GameObject.FindGameObjectsWithTag("Building").Length == 0)
+        {
+            if (factorymanager.isFactoryLoaded && !WaveWaiting)
+            {
+                Debug.Log("Next wave in 10 seconds");
+                WaveCoroutine = StartCoroutine(SpawnwaveLater(10));
+            }
+        }
+    }
+    
+    private IEnumerator SpawnwaveLater(float second)
+    {
+        WaveWaiting = true;
+        yield return new WaitForSeconds(second);
+        Spawnwave();
+        WaveWaiting = false;
+        yield return null;
+    }
 
     private void Spawnwave()
     {
-        factorymanager.PlaceUnit("Zombie", new Vector2(0, 0));
-        factorymanager.PlaceUnit("Zombie", new Vector2(3, 0));
-        factorymanager.PlaceUnit("Zombie", new Vector2(5, 0));
-        factorymanager.PlaceUnit("Soldier", new Vector2(0, 5));
-        factorymanager.PlaceUnit("Building", new Vector2(-10,0),"Soldier", (uint)5 , 5.0f);
+        factorymanager.PlaceUnit("Building", new Vector2(10, 0), "Soldier", (uint)1, 5f);
+        factorymanager.PlaceUnit("Building", new Vector2(-10, 4), "Soldier", (uint)1, 5f);
+        factorymanager.PlaceUnit("Building", new Vector2(-10, -4), "Soldier", (uint)1, 5f);
     }
 }
