@@ -5,10 +5,10 @@ using UnityEngine;
 public class Zombie : NPC , IMeleeAttack
 {
     private const string unitname = "Zombie";
-    private const ushort zombieNotch = 1;
-    private const ushort zombieHealth = 50;
-    private const ushort zombieAttack = 5;
-    private const ushort zombieDefense = 1;
+    private const uint zombieNotch = 1;
+    private const uint zombieHealth = 50;
+    private const uint zombieAttack = 5;
+    private const uint zombieDefense = 1;
     private const float zombieMeleeRange = 3.0f;
     private const float zombieSpeed = 1.0f;
     private const Race zombieRace = Race.Undead;
@@ -19,15 +19,15 @@ public class Zombie : NPC , IMeleeAttack
     {
         get { return Team.Friendly; }
     }
-    public override ushort Notch
+    public override uint Notch
     {
         get { return zombieNotch; }
     }
-    public override ushort MaxHealth
+    public override uint MaxHealth
     {
         get { return zombieHealth; }
     }
-    public override ushort defense
+    public override uint defense
     {
         get { return zombieDefense; }
     }
@@ -48,7 +48,7 @@ public class Zombie : NPC , IMeleeAttack
         get { return 0; }
     }
 
-    public override ushort Exp
+    public override uint Exp
     {
         get { return 0; }
     }
@@ -65,13 +65,12 @@ public class Zombie : NPC , IMeleeAttack
 
     protected override void Init()
     {
-        //ai = new FriendlyMeleeAI<Zombie>(this);
+        MeleeCool = 0;
         //skill = new Skill();
     }
 
     void Awake()
     {
-        MeleeCool = 0;
         base.Awake();
     }
 

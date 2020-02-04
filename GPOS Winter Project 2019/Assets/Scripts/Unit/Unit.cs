@@ -18,13 +18,13 @@ public abstract class Unit : MonoBehaviour
     /// <summary>
     /// 피아 식별용(AI는 게임오브젝트의 태그로 인식할 것을 권장함)
     /// </summary>
-    public enum Team { Enemy, Friendly }
+    public enum Team { Building, Enemy, Friendly }
     private Behaviour curBehaviour;
     private Vector2 destpos;
     /// <summary>
     /// 유닛의 이동 목적지
     /// </summary>
-    public Vector2 Dest
+    public virtual Vector2 Dest
     {
         get { return destpos; }
         set
@@ -38,15 +38,15 @@ public abstract class Unit : MonoBehaviour
     /// <summary>
     /// 최대 체력
     /// </summary>
-    public abstract ushort MaxHealth { get; }
+    public abstract uint MaxHealth { get; }
     /// <summary>
     /// 현재 체력
     /// </summary>
-    public ushort curHealth { get; protected set; }
+    public uint curHealth { get; protected set; }
     /// <summary>
     /// 방어도
     /// </summary>
-    public abstract ushort defense { get; }
+    public abstract uint defense { get; }
     /// <summary>
     /// 속도
     /// </summary>
@@ -117,29 +117,7 @@ public abstract class Unit : MonoBehaviour
     /// 유닛이 데미지를 입음, 결과적으로 사망하면 Die() 호출
     /// </summary>
     /// <param name="damage">데미지 값</param>
-    /// <param name="attacker">공격자 유닛</param>
-    public void Damage(ushort damage, Unit attacker)
-    {
-        Debug.Log( gameObject.ToString() + "damaged, dmg : " + damage);
-        if(damagedCoroutine != null)
-            StopCoroutine(damagedCoroutine);
-        damagedCoroutine = StartCoroutine(paintRed());
-        if (curHealth - damage / defense <= 0)
-        {
-            curHealth = 0;
-            Die();
-            return;
-        }
-        else
-        {
-            curHealth -= (ushort)(damage / defense);
-        }
-    }
-    /// <summary>
-    /// 유닛이 데미지를 입음, 결과적으로 사망하면 Die() 호출
-    /// </summary>
-    /// <param name="damage">데미지 값</param>
-    public void Damage(ushort damage)
+    public virtual void Damage(uint damage)
     {
         Debug.Log(gameObject.ToString() + "damaged, dmg : " + damage);
         if (damagedCoroutine != null)
@@ -153,14 +131,14 @@ public abstract class Unit : MonoBehaviour
         }
         else
         {
-            curHealth -= (ushort)(damage / defense);
+            curHealth -= (uint)(damage / defense);
         }
     }
     /// <summary>
     /// 유닛의 체력 증가, 최대 체력을 넘지 않도록 조절
     /// </summary>
     /// <param name="damage"></param>
-    public void Heal(ushort amount)
+    public void Heal(uint amount)
     {
         if(MaxHealth <= curHealth + amount)
         {

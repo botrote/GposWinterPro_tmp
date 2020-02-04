@@ -10,13 +10,13 @@ public class Player : Unit
     {
         get { return Team.Friendly; }
     }
-    public override ushort MaxHealth
+    public override uint MaxHealth
     {
-        get { return (ushort)(100 + Manager.GetComponent<WaveManager>().getWave * 300); }
+        get { return (uint)(100 + Manager.GetComponent<WaveManager>().getWave * 300); }
     }
-    public override ushort defense
+    public override uint defense
     {
-        get { return (ushort)(1 + Manager.GetComponent<WaveManager>().getWave * 8); }
+        get { return (uint)(1 + Manager.GetComponent<WaveManager>().getWave * 8); }
     }
     public override float speed
     {

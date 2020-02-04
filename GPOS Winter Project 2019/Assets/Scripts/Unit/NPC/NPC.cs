@@ -10,11 +10,11 @@ public abstract class NPC : Unit
     /// <summary>
     /// 유닛의 놋치(적 유닛에게는 아무 값이나 넣어도 됨)
     /// </summary>
-    public abstract ushort Notch{ get; }
+    public abstract uint Notch{ get; }
     /// <summary>
     /// 유닛을 죽였을 때 얻는 경험치(아군 유닛은 0으로 할 것을 권장함)
     /// </summary>
-    public abstract ushort Exp{ get; }
+    public abstract uint Exp{ get; }
     //protected Skill skill;
     protected abstract float RateOfSpecialAttack { get; }
     

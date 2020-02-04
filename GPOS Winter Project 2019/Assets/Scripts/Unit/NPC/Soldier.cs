@@ -5,11 +5,11 @@ using UnityEngine;
 public class Soldier : NPC, IMeleeAttack
 {
     private const string unitname = "Soldier";
-    private const ushort soldierNotch = 1;
-    private const ushort soldierExp = 1;
-    private const ushort soldierHealth = 50;
-    private const ushort soldierAttack = 5;
-    private const ushort soldierDefense = 1;
+    private const uint soldierNotch = 1;
+    private const uint soldierExp = 1;
+    private const uint soldierHealth = 50;
+    private const uint soldierAttack = 5;
+    private const uint soldierDefense = 1;
     private const float soldierMeleeRange = 3.0f;
     private const float soldierSpeed = 1.0f;
     private const Race soldierRace = Race.Soldier;
@@ -20,11 +20,11 @@ public class Soldier : NPC, IMeleeAttack
     {
         get { return Team.Enemy; }
     }
-    public override ushort Notch
+    public override uint Notch
     {
         get { return soldierNotch; }
     }
-    public override ushort MaxHealth
+    public override uint MaxHealth
     {
         get { return soldierHealth; }
     }
@@ -32,7 +32,7 @@ public class Soldier : NPC, IMeleeAttack
     {
         get { return 0; }
     }
-    public override ushort defense
+    public override uint defense
     {
         get { return soldierDefense; }
     }
@@ -49,7 +49,7 @@ public class Soldier : NPC, IMeleeAttack
         get { return unitname; }
     }
 
-    public override ushort Exp
+    public override uint Exp
     {
         get { return soldierExp; }
     }

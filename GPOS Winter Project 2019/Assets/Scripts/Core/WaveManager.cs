@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    private ushort wave;
+    private uint wave;
     private FactoryManager factorymanager;
-    public ushort getWave
+    public uint getWave
     {
         get { return wave; }
     }
@@ -31,15 +31,13 @@ public class WaveManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
 
-    }
     private void Spawnwave()
     {
         factorymanager.PlaceUnit("Zombie", new Vector2(0, 0));
         factorymanager.PlaceUnit("Zombie", new Vector2(3, 0));
         factorymanager.PlaceUnit("Zombie", new Vector2(5, 0));
         factorymanager.PlaceUnit("Soldier", new Vector2(0, 5));
+        factorymanager.PlaceUnit("Building", new Vector2(-10,0),"Soldier", (uint)5 , 5.0f);
     }
 }
