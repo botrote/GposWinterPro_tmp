@@ -19,7 +19,7 @@ public abstract class Unit : MonoBehaviour
     /// 피아 식별용(AI는 게임오브젝트의 태그로 인식할 것을 권장함)
     /// </summary>
     public enum Team { Building, Enemy, Friendly }
-    private Behaviour curBehaviour;
+    public Behaviour curBehaviour { get; protected set; }
     private Vector2 destpos;
     /// <summary>
     /// 유닛의 이동 목적지

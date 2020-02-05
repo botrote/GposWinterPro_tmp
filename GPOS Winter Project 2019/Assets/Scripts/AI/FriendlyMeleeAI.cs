@@ -33,6 +33,7 @@ public class FriendlyMeleeAI : AI
         while (true)
         {
             if (Target == null) curAction = Action.Idle;
+            if (player.curBehaviour == Unit.Behaviour.Moving) body.Dest = body.position + (player.Dest - player.position);
             if (Vector2.Distance(player.position, body.position) >= MaxDist) curAction = Action.Rally;
             switch (curAction)
             {
