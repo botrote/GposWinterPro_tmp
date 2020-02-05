@@ -1,11 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 아군 근접 공격 AI, 인식 거리에 적이 있을 경우 적을 추적하여 공격, 없을 경우 마왕 주위로 돌아옴.
+/// 아군 원거리 공격 AI, 인식 거리에 적이 있을 경우 적을 추적하여 공격, 없을 경우 마왕 주위로 돌아옴.
 /// </summary>
-public class FriendlyMeleeAI : AI
+public class FriendlyMissileAI : AI
 {
     protected Unit Target;
     public enum Action { Idle, Rally, Pursue, Engage }
@@ -53,7 +53,7 @@ public class FriendlyMeleeAI : AI
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Pursue:
-                    if (Vector2.Distance(Target.position, body.position) < ((IMeleeAttack)body).getMeleeRange()) curAction = Action.Engage;
+                    if (Vector2.Distance(Target.position, body.position) < ((IMissileAttack)body).getMissileRange()) curAction = Action.Engage;
                     else
                     {
                         body.Dest = Target.position;
@@ -61,8 +61,7 @@ public class FriendlyMeleeAI : AI
                     }
                     break;
                 case Action.Engage:
-                    //if (Vector2.Distance(Target.position, body.position) > ((IMeleeAttack)body).getMeleeRange()) curAction = Action.Idle;
-                    ((IMeleeAttack)body).MeleeAttack(Target);
+                    ((IMissileAttack)body).Shoot(Target);
                     yield return new WaitForSeconds(0.1f);
                     break;
             }
@@ -76,14 +75,15 @@ public class FriendlyMeleeAI : AI
         float distanceCurTarget = Vector2.Distance(possibletargets[0].GetComponent<Unit>().position, body.position);
         for (int i = 1; i < possibletargets.Length; i++)
         {
-            if (Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, player.position) < MaxDist + ((IMeleeAttack)body).getMeleeRange()
+            if (Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, player.position) < MaxDist + ((IMissileAttack)body).getMissileRange()
                 && distanceCurTarget < Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, body.position))
             {
                 curTarget = possibletargets[i].GetComponent<Unit>();
                 distanceCurTarget = Vector2.Distance(curTarget.position, body.position);
             }
         }
-        if (Vector2.Distance(curTarget.position, player.position) >= MaxDist + ((IMeleeAttack)body).getMeleeRange()) return null;
+        if (Vector2.Distance(curTarget.position, player.position) >= MaxDist + ((IMissileAttack)body).getMissileRange()) return null;
         return curTarget;
     }
 }
+
