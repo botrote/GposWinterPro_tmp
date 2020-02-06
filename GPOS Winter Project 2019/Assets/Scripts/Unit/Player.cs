@@ -32,12 +32,15 @@ public class Player : Unit
     }
 
     protected GameObject Manager;
+    protected ISkill skill;
 
     // Start is called before the first frame update
     protected void Awake()
     {
+        skill = new EarthQuake();
         Manager = GameObject.Find("Manager");
         Manager.GetComponent<InputManager>().RightClickInput += new InputManager.CoordInputEventHandler(Move);
+        Manager.GetComponent<InputManager>().PressQ += new InputManager.InputEventHandler(Useskill);
         base.Awake();
     }
     protected void Start()
@@ -54,5 +57,9 @@ public class Player : Unit
     protected void Move(Vector2 pos)
     {
         Dest = pos;
+    }
+    protected void Useskill()
+    {
+        skill.UseSkill(this);
     }
 }
