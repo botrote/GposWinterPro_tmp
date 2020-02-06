@@ -61,8 +61,8 @@ public class FriendlyMeleeAI : AI
                     }
                     break;
                 case Action.Engage:
-                    //if (Vector2.Distance(Target.position, body.position) > ((IMeleeAttack)body).getMeleeRange()) curAction = Action.Idle;
-                    ((IMeleeAttack)body).MeleeAttack(Target);
+                    if (Vector2.Distance(Target.position, body.position) >= ((IMeleeAttack)body).getMeleeRange()) curAction = Action.Pursue;
+                    else ((IMeleeAttack)body).MeleeAttack(Target);
                     yield return new WaitForSeconds(0.1f);
                     break;
             }
@@ -76,14 +76,14 @@ public class FriendlyMeleeAI : AI
         float distanceCurTarget = Vector2.Distance(possibletargets[0].GetComponent<Unit>().position, body.position);
         for (int i = 1; i < possibletargets.Length; i++)
         {
-            if (Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, player.position) < MaxDist + ((IMeleeAttack)body).getMeleeRange()
-                && distanceCurTarget < Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, body.position))
+            if (Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, player.position) < MaxBattleDist
+                && distanceCurTarget > Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, body.position))
             {
                 curTarget = possibletargets[i].GetComponent<Unit>();
                 distanceCurTarget = Vector2.Distance(curTarget.position, body.position);
             }
         }
-        if (Vector2.Distance(curTarget.position, player.position) >= MaxDist + ((IMeleeAttack)body).getMeleeRange()) return null;
+        if (Vector2.Distance(curTarget.position, player.position) >= MaxBattleDist) return null;
         return curTarget;
     }
 }
