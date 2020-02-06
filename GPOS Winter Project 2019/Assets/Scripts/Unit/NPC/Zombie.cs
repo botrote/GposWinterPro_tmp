@@ -23,15 +23,15 @@ public class Zombie : NPC , IMeleeAttack
     {
         get { return zombieNotch; }
     }
-    public override uint MaxHealth
+    public override uint NPCMaxHealth
     {
         get { return zombieHealth; }
     }
-    public override uint defense
+    public override uint NPCdefense
     {
         get { return zombieDefense; }
     }
-    public override float speed
+    public override float NPCspeed
     {
         get { return zombieSpeed; }
     }
@@ -58,7 +58,7 @@ public class Zombie : NPC , IMeleeAttack
         if (Vector2.Distance(Target.position, this.position) <= zombieMeleeRange)
         {
             if (zombieMeleeCool > MeleeCool) return;
-            Target.Damage(zombieAttack);
+            Target.Damage((uint)(zombieAttack * friendlyAttackFactor));
             MeleeCool = 0;
         }
     }
