@@ -7,17 +7,47 @@ using UnityEngine;
 /// </summary>
 public abstract class NPC : Unit
 {
+
+    public static float friendlyHealthFactor
+    {
+        get { return 1; }
+    }
+    public static float friendlyAttackFactor
+    {
+        get { return 1; }
+    }
+    public static float friendlySpeedFactor
+    {
+        get { return 1; }
+    }
+    public static float friendlyDefenseFactor
+    {
+        get { return 1; }
+    }
+    public override uint MaxHealth
+    {
+        get { return (uint)((TeamTag == Team.Friendly ? friendlyHealthFactor : 1) * NPCMaxHealth); }
+    }
+    public override uint defense
+    {
+        get { return (uint)((TeamTag == Team.Friendly ? friendlyDefenseFactor : 1) * NPCdefense); }
+    }
+    public override float speed
+    {
+        get { return (uint)((TeamTag == Team.Friendly ? friendlySpeedFactor : 1) * NPCspeed); }
+    }
+    public abstract uint NPCMaxHealth { get; }
+    public abstract uint NPCdefense { get; }
+    public abstract float NPCspeed { get; }
+    protected abstract float RateOfSpecialAttack { get; }
     /// <summary>
     /// 유닛의 놋치(적 유닛에게는 아무 값이나 넣어도 됨)
     /// </summary>
-    public abstract uint Notch{ get; }
+    public abstract uint Notch { get; }
     /// <summary>
     /// 유닛을 죽였을 때 얻는 경험치(아군 유닛은 0으로 할 것을 권장함)
     /// </summary>
-    public abstract uint Exp{ get; }
-    //protected Skill skill;
-    protected abstract float RateOfSpecialAttack { get; }
-    
+    public abstract uint Exp { get; }
     /// <summary>
     /// 변수 초기화 함수
     /// </summary>
