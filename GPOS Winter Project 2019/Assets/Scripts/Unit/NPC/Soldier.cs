@@ -24,19 +24,19 @@ public class Soldier : NPC, IMeleeAttack
     {
         get { return soldierNotch; }
     }
-    public override uint MaxHealth
-    {
-        get { return soldierHealth; }
-    }
     protected override float RateOfSpecialAttack
     {
         get { return 0; }
     }
-    public override uint defense
+    public override uint NPCMaxHealth
+    {
+        get { return soldierHealth; }
+    }
+    public override uint NPCdefense
     {
         get { return soldierDefense; }
     }
-    public override float speed
+    public override float NPCspeed
     {
         get { return soldierSpeed; }
     }
