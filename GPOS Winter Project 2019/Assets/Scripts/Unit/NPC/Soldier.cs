@@ -30,15 +30,15 @@ public class Soldier : NPC, IMeleeAttack
     }
     public override uint NPCMaxHealth
     {
-        get { return zombieHealth; }
+        get { return soldierHealth; }
     }
     public override uint NPCdefense
     {
-        get { return zombieDefense; }
+        get { return soldierDefense; }
     }
     public override float NPCspeed
     {
-        get { return zombieSpeed; }
+        get { return soldierSpeed; }
     }
     public override Race race
     {
