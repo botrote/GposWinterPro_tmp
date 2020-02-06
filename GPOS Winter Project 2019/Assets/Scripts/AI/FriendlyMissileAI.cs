@@ -61,7 +61,8 @@ public class FriendlyMissileAI : AI
                     }
                     break;
                 case Action.Engage:
-                    ((IMissileAttack)body).Shoot(Target);
+                    if (Vector2.Distance(Target.position, body.position) >= ((IMissileAttack)body).getMissileRange()) curAction = Action.Pursue;
+                    else ((IMissileAttack)body).Shoot(Target);
                     yield return new WaitForSeconds(0.1f);
                     break;
             }
@@ -75,14 +76,14 @@ public class FriendlyMissileAI : AI
         float distanceCurTarget = Vector2.Distance(possibletargets[0].GetComponent<Unit>().position, body.position);
         for (int i = 1; i < possibletargets.Length; i++)
         {
-            if (Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, player.position) < MaxDist + ((IMissileAttack)body).getMissileRange()
-                && distanceCurTarget < Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, body.position))
+            if (Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, player.position) < MaxBattleDist
+                && distanceCurTarget > Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, body.position))
             {
                 curTarget = possibletargets[i].GetComponent<Unit>();
                 distanceCurTarget = Vector2.Distance(curTarget.position, body.position);
             }
         }
-        if (Vector2.Distance(curTarget.position, player.position) >= MaxDist + ((IMissileAttack)body).getMissileRange()) return null;
+        if (Vector2.Distance(curTarget.position, player.position) >= MaxBattleDist) return null;
         return curTarget;
     }
 }
