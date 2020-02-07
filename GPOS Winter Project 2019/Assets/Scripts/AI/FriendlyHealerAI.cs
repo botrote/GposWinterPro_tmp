@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 아군 원거리 공격 AI, 인식 거리에 적이 있을 경우 적을 추적하여 공격, 없을 경우 마왕 주위로 돌아옴.
+/// 아군 힐러 AI, 인식 거리내의 체력 비율이 가장 낮은 아군을 쫒아가 치유, 없을 경우 마왕 주위로 돌아옴.
 /// </summary>
-public class FriendlyMissileAI : AI
+public class FriendlyHealerAI : AI
 {
     protected Unit Target;
-    public enum Action { Idle, Rally, Pursue, Engage }
+    public enum Action { Idle, Rally, Pursue, Heal }
     protected Action curAction;
     protected Player player;
     protected IEnumerator FSMCoroutine;
@@ -53,16 +53,16 @@ public class FriendlyMissileAI : AI
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Pursue:
-                    if (Vector2.Distance(Target.position, body.position) < ((IMissileAttack)body).getMissileRange()) curAction = Action.Engage;
+                    if (Vector2.Distance(Target.position, body.position) < ((IHealer)body).getHealRange()) curAction = Action.Heal;
                     else
                     {
                         body.Dest = Target.position;
                         yield return new WaitForSeconds(0.1f);
                     }
                     break;
-                case Action.Engage:
-                    if (Vector2.Distance(Target.position, body.position) >= ((IMissileAttack)body).getMissileRange()) curAction = Action.Pursue;
-                    else ((IMissileAttack)body).Shoot(Target);
+                case Action.Heal:
+                    if (Vector2.Distance(Target.position, body.position) >= ((IHealer)body).getHealRange()) curAction = Action.Pursue;
+                    else ((IHealer)body).Heal(Target);
                     yield return new WaitForSeconds(0.1f);
                     break;
             }
@@ -70,21 +70,24 @@ public class FriendlyMissileAI : AI
     }
     protected Unit FindTarget()
     {
-        GameObject[] possibletargets = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] possibletargets = GameObject.FindGameObjectsWithTag("Friendly");
         if (possibletargets.Length == 0) return null;
         Unit curTarget = possibletargets[0].GetComponent<Unit>();
-        float distanceCurTarget = Vector2.Distance(possibletargets[0].GetComponent<Unit>().position, body.position);
+        float hpCurTarget = (float)curTarget.curHealth/curTarget.MaxHealth;
+        if (curTarget == body) curTarget = possibletargets[1].GetComponent<Unit>();
         for (int i = 1; i < possibletargets.Length; i++)
         {
-            if (Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, player.position) < MaxBattleDist
-                && distanceCurTarget > Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, body.position))
+            if (possibletargets[i].GetComponent<Unit>() != body)
             {
-                curTarget = possibletargets[i].GetComponent<Unit>();
-                distanceCurTarget = Vector2.Distance(curTarget.position, body.position);
+                if (Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, player.position) < MaxBattleDist
+                && hpCurTarget > (float)(possibletargets[i].GetComponent<Unit>().curHealth)/(possibletargets[i].GetComponent<Unit>().MaxHealth))
+                {
+                    curTarget = possibletargets[i].GetComponent<Unit>();
+                    hpCurTarget = (float)(possibletargets[i].GetComponent<Unit>().curHealth)/(possibletargets[i].GetComponent<Unit>().MaxHealth);
+                }
             }
         }
         if (Vector2.Distance(curTarget.position, player.position) >= MaxBattleDist) return null;
         return curTarget;
     }
 }
-

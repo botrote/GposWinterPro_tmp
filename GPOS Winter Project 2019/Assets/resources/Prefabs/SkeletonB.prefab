@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 1878285545877007511}
   - component: {fileID: 1878285545877007508}
   - component: {fileID: 1878285545877007509}
-  - component: {fileID: 4457411879327172784}
-  - component: {fileID: 9205695470225315558}
   - component: {fileID: 3553951926410880249}
+  - component: {fileID: 4940165181144810121}
+  - component: {fileID: 7395373656398379754}
   m_Layer: 0
-  m_Name: Zombie
+  m_Name: SkeletonB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9c138420896ba6f4e8b24f839daa5773, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 2f4c7efcc1f4dae4a9d42dff45bed514, type: 3}
+  m_Color: {r: 0.8000001, g: 0.8000001, b: 0.8000001, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -106,30 +106,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4457411879327172784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1878285545877007514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cf7419cb6d75714086afac979f47cc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9205695470225315558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1878285545877007514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ebe206a14940894f8ac1ef71d13fd7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &3553951926410880249
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -146,3 +122,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &4940165181144810121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878285545877007514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2863c25052cdb4bb15d03411c4f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7395373656398379754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878285545877007514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c281e86007efc49bf9d5afb164c6f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
