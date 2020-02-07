@@ -32,26 +32,24 @@ public class EnemyMeleeAI : AI
         yield return new WaitForSeconds(Random.Range(0f, 0.5f));
         while (true)
         {
+            if (Target == null) curAction = Action.Idle;
+            else
+            {
+                if (Vector2.Distance(Target.position, body.position) >= ((IMeleeAttack)body).getMeleeRange()) curAction = Action.Pursue;
+                else curAction=Action.Engage;
+            }
             switch (curAction)
             {
                 default:
                 case Action.Idle:
                     Target = FindTarget();
-                    if (Target != null) curAction = Action.Pursue;
-                    else yield return new WaitForSeconds(0.1f);
+                    yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Pursue:
-                    if (Target == null) curAction = Action.Idle;
-                    if (Vector2.Distance(Target.position, body.position) < ((IMeleeAttack)body).getMeleeRange()) curAction = Action.Engage;
-                    else
-                    {
-                        body.Dest = Target.position - (Target.position - body.position).normalized * (((IMeleeAttack)body).getMeleeRange() - 1.0f);
-                        yield return new WaitForSeconds(0.5f);
-                    }
+                    body.Dest = Target.position;
+                    yield return new WaitForSeconds(0.5f);
                     break;
                 case Action.Engage:
-                    if (Target == null) curAction = Action.Idle;
-                    if (Vector2.Distance(Target.position, body.position) > ((IMeleeAttack)body).getMeleeRange()) curAction = Action.Idle;
                     ((IMeleeAttack)body).MeleeAttack(Target);
                     yield return new WaitForSeconds(0.1f);
                     break;
@@ -66,7 +64,7 @@ public class EnemyMeleeAI : AI
         float distanceCurTarget = Vector2.Distance(possibletargets[0].GetComponent<Unit>().position, body.position); 
         for (int i = 1; i < possibletargets.Length; i++)
         {
-            if(distanceCurTarget < Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, body.position))
+            if(distanceCurTarget > Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, body.position))
             {
                 curTarget = possibletargets[i].GetComponent<Unit>();
                 distanceCurTarget = Vector2.Distance(curTarget.position, body.position);

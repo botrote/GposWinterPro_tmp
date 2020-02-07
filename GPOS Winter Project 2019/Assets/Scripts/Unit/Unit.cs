@@ -168,6 +168,7 @@ public abstract class Unit : MonoBehaviour
     /// <param name="damage"></param>
     public void Heal(uint amount)
     {
+        Debug.Log(this + "Healed!");
         if(MaxHealth <= curHealth + amount)
         {
             curHealth = MaxHealth;

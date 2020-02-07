@@ -37,31 +37,30 @@ public class FriendlyHealerAI : AI
                 if (Vector2.Distance(player.position, body.position) >= MaxDist) curAction = Action.Rally;
                 else curAction = Action.Idle; 
             }
-            if (player.curBehaviour == Unit.Behaviour.Moving) body.Dest = body.position + (player.Dest - player.position);
+            else
+            {
+                if (Vector2.Distance(Target.position, body.position) >= ((IHealer)body).getHealRange()) curAction = Action.Pursue;
+                else curAction = Action.Heal;
+            }
+            //if (player.curBehaviour == Unit.Behaviour.Moving) body.Dest = body.position + (player.Dest - player.position);
             switch (curAction)
             {
                 default:
                 case Action.Idle:
                     Target = FindTarget();
-                    if (Target != null) curAction = Action.Pursue;
-                    else yield return new WaitForSeconds(0.1f);
+                    yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Rally:
+                    body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 1.0f);
                     Target = FindTarget();
-                    if (Target != null) curAction = Action.Pursue;
-                    else body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 1.0f);
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Pursue:
-                    if (Vector2.Distance(Target.position, body.position) < ((IHealer)body).getHealRange()) curAction = Action.Heal;
-                    else
-                    {
-                        body.Dest = Target.position;
-                        yield return new WaitForSeconds(0.1f);
-                    }
+                    body.Dest = Target.position + (body.position - Target.position).normalized * ((IHealer)body).getHealRange();
+                    yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Heal:
-                    if (Vector2.Distance(Target.position, body.position) >= ((IHealer)body).getHealRange()) curAction = Action.Pursue;
+                    if (Target.curHealth>=Target.MaxHealth) Target = FindTarget();
                     else ((IHealer)body).Heal(Target);
                     yield return new WaitForSeconds(0.1f);
                     break;
@@ -88,6 +87,7 @@ public class FriendlyHealerAI : AI
             }
         }
         if (Vector2.Distance(curTarget.position, player.position) >= MaxBattleDist) return null;
-        return curTarget;
+        else if(curTarget.curHealth>=curTarget.MaxHealth) return null;
+        else return curTarget;
     }
 }

@@ -28,14 +28,9 @@ public class WaveManager : MonoBehaviour
     {
         if (factorymanager.isFactoryLoaded)
         {
-            factorymanager.PlaceUnit("Zombie", new Vector2(2, 0));
-            factorymanager.PlaceUnit("Zombie", new Vector2(4, 0));
-            factorymanager.PlaceUnit("Zombie", new Vector2(6, 0));
-            factorymanager.PlaceUnit("Zombie", new Vector2(2, 2));
-            factorymanager.PlaceUnit("Zombie", new Vector2(4, 2));
-            factorymanager.PlaceUnit("Zombie", new Vector2(2, 4));
-            factorymanager.PlaceUnit("Zombie", new Vector2(4, 4));
-            factorymanager.PlaceUnit("Zombie", new Vector2(4, 6));
+            factorymanager.PlaceUnit("SkeletonS", new Vector2(2, 0));
+            factorymanager.PlaceUnit("SkeletonB", new Vector2(4, 2));
+            factorymanager.PlaceUnit("Ghost", new Vector2(4, 6));
         }
     }
 
