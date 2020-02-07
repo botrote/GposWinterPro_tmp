@@ -55,6 +55,7 @@ public class Ghost : NPC , IHealer
 
     public void Heal(Unit Target)
     {
+        Debug.Log("Healing "+ Target + " , " + GhostHeal);
         if (Vector2.Distance(Target.position, this.position) <= GhostHealRange)
         {
             if (GhostHealCool > HealCool) return;

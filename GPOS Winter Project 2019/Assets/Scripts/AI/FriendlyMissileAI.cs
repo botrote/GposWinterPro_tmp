@@ -37,32 +37,30 @@ public class FriendlyMissileAI : AI
                 if (Vector2.Distance(player.position, body.position) >= MaxDist) curAction = Action.Rally;
                 else curAction = Action.Idle; 
             }
-            if (player.curBehaviour == Unit.Behaviour.Moving) body.Dest = body.position + (player.Dest - player.position);
+            else
+            {
+                if (Vector2.Distance(Target.position, body.position) >= ((IMissileAttack)body).getMissileRange()) curAction = Action.Pursue;
+                else curAction = Action.Engage;
+            }
+            //if (player.curBehaviour == Unit.Behaviour.Moving) body.Dest = body.position + (player.Dest - player.position);
             switch (curAction)
             {
                 default:
                 case Action.Idle:
                     Target = FindTarget();
-                    if (Target != null) curAction = Action.Pursue;
-                    else yield return new WaitForSeconds(0.1f);
+                    yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Rally:
+                    body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 1.0f);
                     Target = FindTarget();
-                    if (Target != null) curAction = Action.Pursue;
-                    else body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 1.0f);
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Pursue:
-                    if (Vector2.Distance(Target.position, body.position) < ((IMissileAttack)body).getMissileRange()) curAction = Action.Engage;
-                    else
-                    {
-                        body.Dest = Target.position;
-                        yield return new WaitForSeconds(0.1f);
-                    }
+                    body.Dest = Target.position + (body.position - Target.position).normalized * ((IMissileAttack)body).getMissileRange();
+                    yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Engage:
-                    if (Vector2.Distance(Target.position, body.position) >= ((IMissileAttack)body).getMissileRange()) curAction = Action.Pursue;
-                    else ((IMissileAttack)body).Shoot(Target);
+                    ((IMissileAttack)body).Shoot(Target);
                     yield return new WaitForSeconds(0.1f);
                     break;
             }

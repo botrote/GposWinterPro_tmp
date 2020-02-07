@@ -7,13 +7,13 @@ public class Soldier : NPC, IMeleeAttack
     private const string unitname = "Soldier";
     private const uint soldierNotch = 1;
     private const uint soldierExp = 1;
-    private const uint soldierHealth = 50;
-    private const uint soldierAttack = 5;
+    private const uint soldierHealth = 30;
+    private const uint soldierAttack = 10;
     private const uint soldierDefense = 1;
-    private const float soldierMeleeRange = 3.0f;
-    private const float soldierSpeed = 1.0f;
+    private const float soldierMeleeRange = 1.0f;
+    private const float soldierSpeed = 4.0f;
     private const Race soldierRace = Race.Soldier;
-    private const float soldierMeleeCool = 3.0f;
+    private const float soldierMeleeCool = 1.2f;
     private float MeleeCool;
 
     public override Team TeamTag
