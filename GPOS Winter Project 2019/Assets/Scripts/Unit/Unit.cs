@@ -108,6 +108,13 @@ public abstract class Unit : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
+        foreach(IBuff buff in Buffs)
+        {
+            if (!buff.Update(Time.deltaTime))
+            {
+                Buffs.Remove(buff);
+            }
+        }
         switch (curBehaviour)
         {
             default:
