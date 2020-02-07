@@ -59,7 +59,6 @@ public abstract class Unit : MonoBehaviour
     private Transform unitTransform;
     private Coroutine damagedCoroutine;
     private Coroutine HPBuffCoroutine;
-    public bool isStunned;
     Color original;
     /// <summary>
     /// 현재 유닛의 위치
@@ -75,11 +74,22 @@ public abstract class Unit : MonoBehaviour
     /// <returns></returns>
     public abstract string Unitname { get; }
 
-    public List<IBuff> Buffs; 
+    public List<IBuff> Buffs;
+    
+    public bool isStunned
+    {
+        get
+        {
+            foreach (IBuff buff in Buffs)
+            {
+                if (buff.isStun()) return true;
+            }
+            return false;
+        }
+    }
 
     protected void Awake()
     {
-        isStunned = false;
         original = gameObject.GetComponent<SpriteRenderer>().color;
         gameObject.tag = TeamTag.ToString();
         unitRigidbody2D = gameObject.GetComponent<Rigidbody2D>();

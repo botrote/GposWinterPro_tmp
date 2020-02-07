@@ -11,4 +11,5 @@ public interface IBuff
     float getSpdBuff();
     float getAttBuff();
     int getHPBuff();
+    bool isStun();
 }
