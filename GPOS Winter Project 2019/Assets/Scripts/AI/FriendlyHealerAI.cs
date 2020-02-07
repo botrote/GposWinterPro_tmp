@@ -34,7 +34,7 @@ public class FriendlyHealerAI : AI
         {
             if (Target == null)
             {
-                if (Vector2.Distance(player.position, body.position) >= MaxDist) curAction = Action.Rally;
+                if (Vector2.Distance(player.position, body.position) >= (MaxDist-3.0f)) curAction = Action.Rally;
                 else curAction = Action.Idle; 
             }
             else
