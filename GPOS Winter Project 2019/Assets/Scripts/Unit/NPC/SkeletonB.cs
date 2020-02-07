@@ -55,6 +55,7 @@ public class SkeletonB : NPC , IMissileAttack
 
     public void Shoot(Unit Target)
     {
+        if (isStunned) return;
         if (Vector2.Distance(Target.position, this.position) <= SkeletonBMissileRange)
         {
             if (SkeletonBMissileCool > MissileCool) return;
@@ -64,7 +65,7 @@ public class SkeletonB : NPC , IMissileAttack
     }
     public void Shoot(Vector2 pos)
     {
-        
+        if (isStunned) return;
     }
 
     protected override void Init()

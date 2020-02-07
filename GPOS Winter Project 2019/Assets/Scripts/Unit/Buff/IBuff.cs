@@ -7,5 +7,8 @@ using UnityEngine;
 /// </summary>
 public interface IBuff
 {
-
+    float getDefBuff();
+    float getSpdBuff();
+    float getAttBuff();
+    int getHPBuff();
 }

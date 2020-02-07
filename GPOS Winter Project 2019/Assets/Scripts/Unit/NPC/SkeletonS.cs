@@ -55,6 +55,7 @@ public class SkeletonS : NPC , IMeleeAttack
 
     public void MeleeAttack(Unit Target)
     {
+        if (isStunned) return;
         if (Vector2.Distance(Target.position, this.position) <= SkeletonSMeleeRange)
         {
             if (SkeletonSMeleeCool > MeleeCool) return;

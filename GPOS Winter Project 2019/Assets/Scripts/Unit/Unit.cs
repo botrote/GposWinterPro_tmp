@@ -58,6 +58,8 @@ public abstract class Unit : MonoBehaviour
     private Rigidbody2D unitRigidbody2D;
     private Transform unitTransform;
     private Coroutine damagedCoroutine;
+    private Coroutine HPBuffCoroutine;
+    public bool isStunned;
     Color original;
     /// <summary>
     /// 현재 유닛의 위치
@@ -73,8 +75,11 @@ public abstract class Unit : MonoBehaviour
     /// <returns></returns>
     public abstract string Unitname { get; }
 
+    public List<IBuff> Buffs; 
+
     protected void Awake()
     {
+        isStunned = false;
         original = gameObject.GetComponent<SpriteRenderer>().color;
         gameObject.tag = TeamTag.ToString();
         unitRigidbody2D = gameObject.GetComponent<Rigidbody2D>();
@@ -82,6 +87,8 @@ public abstract class Unit : MonoBehaviour
         destpos = unitTransform.position;
         curBehaviour = Behaviour.Idle;
         curHealth = MaxHealth;
+        Buffs = new List<IBuff>();
+        HPBuffCoroutine = StartCoroutine(DOT());
     }
     // Start is called before the first frame update
     protected void Start()
@@ -99,10 +106,16 @@ public abstract class Unit : MonoBehaviour
                 break;
             case Behaviour.Moving:
                 {
+                    if (isStunned) break;
                     Vector2 curpos = unitTransform.position;
                     if (Vector2.Distance(curpos, destpos) > 1.0f)
                     {
-                        unitRigidbody2D.velocity = (destpos - curpos).normalized * speed;
+                        float spdFactor = 1;
+                        foreach(IBuff buff in Buffs)
+                        {
+                            spdFactor *= buff.getSpdBuff();
+                        }
+                        unitRigidbody2D.velocity = (destpos - curpos).normalized * speed * spdFactor;
                     }
                     else
                     {
@@ -119,11 +132,16 @@ public abstract class Unit : MonoBehaviour
     /// <param name="damage">데미지 값</param>
     public virtual void Damage(uint damage)
     {
+        float defFactor = 1;
+        foreach(IBuff buff in Buffs)
+        {
+            defFactor *= buff.getDefBuff();
+        }
         Debug.Log(gameObject.ToString() + "damaged, dmg : " + damage);
         if (damagedCoroutine != null)
             StopCoroutine(damagedCoroutine);
         damagedCoroutine = StartCoroutine(paintRed());
-        if (curHealth - damage / defense <= 0)
+        if (curHealth - damage / (defense*defFactor) <= 0)
         {
             curHealth = 0;
             Die();
@@ -131,7 +149,7 @@ public abstract class Unit : MonoBehaviour
         }
         else
         {
-            curHealth -= (uint)(damage / defense);
+            curHealth -= (uint)(damage / (defense * defFactor));
         }
     }
     /// <summary>
@@ -165,5 +183,23 @@ public abstract class Unit : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1,0,0) ;
         yield return new  WaitForSeconds(0.5f);
         gameObject.GetComponent<SpriteRenderer>().color = original;
+    }
+    private IEnumerator DOT()
+    {
+        int hpchange = 0;
+        foreach (IBuff buff in Buffs)
+        {
+            hpchange += buff.getHPBuff();
+        }
+        if (hpchange > 0)
+        {
+            Heal((uint)hpchange);
+        }
+        else if(hpchange < 0)
+        {
+            hpchange = 0 - hpchange;
+            Damage((uint)hpchange);
+        }
+        yield return new WaitForSeconds(1f);
     }
 }

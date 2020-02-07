@@ -56,7 +56,8 @@ public class Soldier : NPC, IMeleeAttack
 
     public void MeleeAttack(Unit Target)
     {
-        if( Vector2.Distance(Target.position, this.position) <= soldierMeleeRange)
+        if (isStunned) return;
+        if ( Vector2.Distance(Target.position, this.position) <= soldierMeleeRange)
         {
             if (soldierMeleeCool > MeleeCool) return;
             Target.Damage(soldierAttack);

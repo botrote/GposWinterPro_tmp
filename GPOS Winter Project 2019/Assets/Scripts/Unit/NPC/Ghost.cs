@@ -55,6 +55,7 @@ public class Ghost : NPC , IHealer
 
     public void Heal(Unit Target)
     {
+        if (isStunned) return;
         if (Vector2.Distance(Target.position, this.position) <= GhostHealRange)
         {
             if (GhostHealCool > HealCool) return;
