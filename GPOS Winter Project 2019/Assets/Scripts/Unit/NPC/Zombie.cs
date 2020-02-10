@@ -8,7 +8,7 @@ public class Zombie : NPC , IMeleeAttack
     private const uint zombieNotch = 0;
     private const uint zombieHealth = 7;
     private const uint zombieAttack = 10;
-    private const uint zombieDefense = 1;
+    private const uint zombieDefense = 0;
     private const float zombieMeleeRange = 1.0f;
     private const float zombieSpeed = 3.0f;
     private const Race zombieRace = Race.Undead;

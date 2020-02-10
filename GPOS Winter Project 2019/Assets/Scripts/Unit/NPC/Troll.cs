@@ -8,7 +8,7 @@ public class Troll : NPC , IMeleeAttack
     private const uint TrollNotch = 2;
     private const uint TrollHealth = 20;
     private const uint TrollAttack = 10;
-    private const uint TrollDefense = 1;
+    private const uint TrollDefense = 0;
     private const float TrollMeleeRange = 1.0f;
     private const float TrollSpeed = 5.0f;
     private const Race TrollRace = Race.None;

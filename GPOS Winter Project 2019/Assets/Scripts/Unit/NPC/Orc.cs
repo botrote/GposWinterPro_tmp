@@ -8,7 +8,7 @@ public class Orc : NPC , IMeleeAttack
     private const uint OrcNotch = 2;
     private const uint OrcHealth = 60;
     private const uint OrcAttack = 7;
-    private const uint OrcDefense = 1;
+    private const uint OrcDefense = 10;
     private const float OrcMeleeRange = 1.0f;
     private const float OrcSpeed = 1.2f;
     private const Race OrcRace = Race.None;

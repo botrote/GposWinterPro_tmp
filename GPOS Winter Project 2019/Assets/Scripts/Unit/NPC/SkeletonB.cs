@@ -8,7 +8,7 @@ public class SkeletonB : NPC , IMissileAttack
     private const uint SkeletonBNotch = 1;
     private const uint SkeletonBHealth = 25;
     private const uint SkeletonBAttack = 10;
-    private const uint SkeletonBDefense = 1;
+    private const uint SkeletonBDefense = 0;
     private const float SkeletonBMissileRange = 5.0f;
     private const float SkeletonBSpeed = 3.0f;
     private const Race SkeletonBRace = Race.Undead;

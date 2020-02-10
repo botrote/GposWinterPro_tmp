@@ -8,7 +8,7 @@ public class Lich : NPC , IMissileAttack
     private const uint LichNotch = 4;
     private const uint LichHealth = 30;
     private const uint LichAttack = 15;
-    private const uint LichDefense = 1;
+    private const uint LichDefense = 0;
     private const float LichMissileRange = 5.0f;
     private const float LichDamageRadius = 1.0f;
     private const float LichSpeed = 5.0f;

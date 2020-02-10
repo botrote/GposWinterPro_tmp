@@ -8,7 +8,7 @@ public class Goblin : NPC , IMissileAttack
     private const uint GoblinNotch = 2;
     private const uint GoblinHealth = 20;
     private const uint GoblinAttack = 20;
-    private const uint GoblinDefense = 1;
+    private const uint GoblinDefense = 0;
     private const float GoblinMissileRange = 3.5f;
     private const float GoblinDamageRadius = 1.5f;
     private const float GoblinSpeed = 3.0f;
