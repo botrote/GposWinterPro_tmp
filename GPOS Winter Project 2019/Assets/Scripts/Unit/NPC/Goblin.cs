@@ -62,7 +62,7 @@ public class Goblin : NPC , IMissileAttack
             if (GoblinMissileCool > MissileCool) return;
             else
             {
-                Collider[] Targets = Physics.OverlapSphere(Target.position, GoblinDamageRadius);
+                Collider2D[] Targets = Physics2D.OverlapCircleAll(Target.position, GoblinDamageRadius);
                 for(int i=0; i<Targets.Length; i++)
                 {
                     if(Targets[i].gameObject.GetComponent<Unit>().TeamTag.Equals("Enemy")) Targets[i].gameObject.GetComponent<Unit>().Damage((uint)(GoblinAttack * friendlyAttackFactor));

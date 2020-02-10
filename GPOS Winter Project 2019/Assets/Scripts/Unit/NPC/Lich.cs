@@ -62,7 +62,7 @@ public class Lich : NPC , IMissileAttack
             if (LichMissileCool > MissileCool) return;
             else
             {
-                Collider[] Targets = Physics.OverlapSphere(Target.position, LichDamageRadius);
+                Collider2D[] Targets = Physics2D.OverlapCircleAll(Target.position, LichDamageRadius);
                 for(int i=0; i<Targets.Length; i++)
                 {
                     if(Targets[i].gameObject.GetComponent<Unit>().TeamTag.Equals("Enemy")) Targets[i].gameObject.GetComponent<Unit>().Damage((uint)(LichAttack * friendlyAttackFactor));
