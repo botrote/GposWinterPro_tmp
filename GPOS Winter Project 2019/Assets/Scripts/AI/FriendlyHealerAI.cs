@@ -51,7 +51,7 @@ public class FriendlyHealerAI : AI
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Rally:
-                    body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 1.0f);
+                    body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 4.0f);
                     Target = FindTarget();
                     yield return new WaitForSeconds(0.1f);
                     break;
