@@ -5,14 +5,14 @@ using UnityEngine;
 public class Zombie : NPC , IMeleeAttack
 {
     private const string unitname = "Zombie";
-    private const uint zombieNotch = 1;
-    private const uint zombieHealth = 50;
-    private const uint zombieAttack = 5;
+    private const uint zombieNotch = 0;
+    private const uint zombieHealth = 7;
+    private const uint zombieAttack = 10;
     private const uint zombieDefense = 1;
-    private const float zombieMeleeRange = 3.0f;
-    private const float zombieSpeed = 1.0f;
+    private const float zombieMeleeRange = 1.0f;
+    private const float zombieSpeed = 3.0f;
     private const Race zombieRace = Race.Undead;
-    private const float zombieMeleeCool = 3.0f;
+    private const float zombieMeleeCool = 1.0f;
     private float MeleeCool;
 
     public override Team TeamTag

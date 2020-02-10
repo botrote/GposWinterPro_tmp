@@ -33,6 +33,7 @@ public class WaveManager : MonoBehaviour
             factorymanager.PlaceUnit("Orc", new Vector2(2,3));
             factorymanager.PlaceUnit("Troll", new Vector2(6,6));
             factorymanager.PlaceUnit("Goblin", new Vector2(6,4));
+            factorymanager.PlaceUnit("Lich", new Vector2(0,4));
             factorymanager.PlaceUnit("Ghost", new Vector2(4, 6));
         }
     }
