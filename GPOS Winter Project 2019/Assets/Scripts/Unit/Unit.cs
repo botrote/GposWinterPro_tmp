@@ -158,7 +158,7 @@ public abstract class Unit : MonoBehaviour
         if (damagedCoroutine != null)
             StopCoroutine(damagedCoroutine);
         damagedCoroutine = StartCoroutine(paintRed());
-        if (curHealth - damage / (defense*defFactor) <= 0)
+        if (curHealth - damage * (1f - ((float)(defense)*defFactor)/100) <= 0)
         {
             curHealth = 0;
             Die();
@@ -166,7 +166,7 @@ public abstract class Unit : MonoBehaviour
         }
         else
         {
-            curHealth -= (uint)(damage / (defense * defFactor));
+            curHealth -= (uint)(damage * (1f - ((float)(defense) * defFactor) / 100));
         }
     }
     /// <summary>
