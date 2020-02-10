@@ -32,15 +32,18 @@ public class Player : Unit
     }
 
     protected GameObject Manager;
-    protected ISkill skill;
+    protected ISkill[] skill;
+    public IPerk[] perk;
 
     // Start is called before the first frame update
     protected void Awake()
     {
-        skill = new EarthQuake();
+        skill = new ISkill[3];
+        perk = new IPerk[15];
+        skill[0] = new EarthQuake();
         Manager = GameObject.Find("Manager");
         Manager.GetComponent<InputManager>().RightClickInput += new InputManager.CoordInputEventHandler(Move);
-        Manager.GetComponent<InputManager>().PressQ += new InputManager.InputEventHandler(Useskill);
+        Manager.GetComponent<InputManager>().PressKey += new InputManager.InputEventHandler(UseSkill);
         base.Awake();
     }
     protected void Start()
@@ -58,8 +61,21 @@ public class Player : Unit
     {
         Dest = pos;
     }
-    protected void Useskill()
+    protected void UseSkill(KeyCode key)
     {
-        skill.UseSkill(this);
+        switch (key)
+        {
+            case KeyCode.Q:
+                skill[0].UseSkill(this);
+                break;
+            case KeyCode.W:
+                skill[1].UseSkill(this);
+                break;
+            case KeyCode.E:
+                skill[2].UseSkill(this);
+                break;
+            default:
+                break;
+        }
     }
 }

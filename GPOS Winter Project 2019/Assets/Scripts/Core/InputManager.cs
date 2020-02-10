@@ -5,8 +5,8 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     public delegate void CoordInputEventHandler(Vector2 pos);
-    public delegate void InputEventHandler();
-    public event InputEventHandler PressQ;
+    public delegate void InputEventHandler(KeyCode key);
+    public event InputEventHandler PressKey;
     public event CoordInputEventHandler LeftClickInput;
     public event CoordInputEventHandler RightClickInput;
     Camera cam;
@@ -25,9 +25,17 @@ public class InputManager : MonoBehaviour
             Vector2 pos = cam.ScreenToWorldPoint(Input.mousePosition);
             RightClickInput(pos);
         }
-        if (Input.GetKeyDown(KeyCode.Q) && PressQ != null)
+        if (Input.GetKeyDown(KeyCode.Q) && PressKey != null)
         {
-            PressQ();
+            PressKey(KeyCode.Q);
+        }
+        if (Input.GetKeyDown(KeyCode.W) && PressKey != null)
+        {
+            PressKey(KeyCode.W);
+        }
+        if (Input.GetKeyDown(KeyCode.E) && PressKey != null)
+        {
+            PressKey(KeyCode.E);
         }
     }
     void PrintInput(Vector2 pos)
