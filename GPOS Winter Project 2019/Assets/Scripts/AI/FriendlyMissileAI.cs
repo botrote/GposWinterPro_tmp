@@ -1,11 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 아군 근접 공격 AI, 인식 거리에 적이 있을 경우 적을 추적하여 공격, 없을 경우 마왕 주위로 돌아옴.
+/// 아군 원거리 공격 AI, 인식 거리에 적이 있을 경우 적을 추적하여 공격, 없을 경우 마왕 주위로 돌아옴.
 /// </summary>
-public class FriendlyMeleeAI : AI
+public class FriendlyMissileAI : AI
 {
     protected Unit Target;
     public enum Action { Idle, Rally, Pursue, Engage }
@@ -39,7 +39,7 @@ public class FriendlyMeleeAI : AI
             }
             else
             {
-                if (Vector2.Distance(Target.position, body.position) >= ((IMeleeAttack)body).getMeleeRange()) curAction = Action.Pursue;
+                if (Vector2.Distance(Target.position, body.position) >= ((IMissileAttack)body).getMissileRange()) curAction = Action.Pursue;
                 else curAction = Action.Engage;
             }
             //if (player.curBehaviour == Unit.Behaviour.Moving) body.Dest = body.position + (player.Dest - player.position);
@@ -56,11 +56,11 @@ public class FriendlyMeleeAI : AI
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Pursue:
-                    body.Dest = Target.position;
+                    body.Dest = Target.position + (body.position - Target.position).normalized * ((IMissileAttack)body).getMissileRange();
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Engage:
-                    ((IMeleeAttack)body).MeleeAttack(Target);
+                    ((IMissileAttack)body).Shoot(Target);
                     yield return new WaitForSeconds(0.1f);
                     break;
             }
@@ -85,3 +85,4 @@ public class FriendlyMeleeAI : AI
         return curTarget;
     }
 }
+

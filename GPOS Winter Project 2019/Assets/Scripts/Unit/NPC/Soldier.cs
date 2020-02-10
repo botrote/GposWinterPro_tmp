@@ -7,13 +7,13 @@ public class Soldier : NPC, IMeleeAttack
     private const string unitname = "Soldier";
     private const uint soldierNotch = 1;
     private const uint soldierExp = 1;
-    private const uint soldierHealth = 50;
-    private const uint soldierAttack = 5;
+    private const uint soldierHealth = 30;
+    private const uint soldierAttack = 10;
     private const uint soldierDefense = 1;
-    private const float soldierMeleeRange = 3.0f;
-    private const float soldierSpeed = 1.0f;
+    private const float soldierMeleeRange = 1.0f;
+    private const float soldierSpeed = 4.0f;
     private const Race soldierRace = Race.Soldier;
-    private const float soldierMeleeCool = 3.0f;
+    private const float soldierMeleeCool = 1.2f;
     private float MeleeCool;
 
     public override Team TeamTag
@@ -24,19 +24,19 @@ public class Soldier : NPC, IMeleeAttack
     {
         get { return soldierNotch; }
     }
-    public override uint MaxHealth
-    {
-        get { return soldierHealth; }
-    }
     protected override float RateOfSpecialAttack
     {
         get { return 0; }
     }
-    public override uint defense
+    public override uint NPCMaxHealth
+    {
+        get { return soldierHealth; }
+    }
+    public override uint NPCdefense
     {
         get { return soldierDefense; }
     }
-    public override float speed
+    public override float NPCspeed
     {
         get { return soldierSpeed; }
     }
@@ -56,7 +56,8 @@ public class Soldier : NPC, IMeleeAttack
 
     public void MeleeAttack(Unit Target)
     {
-        if( Vector2.Distance(Target.position, this.position) <= soldierMeleeRange)
+        if (isStunned) return;
+        if ( Vector2.Distance(Target.position, this.position) <= soldierMeleeRange)
         {
             if (soldierMeleeCool > MeleeCool) return;
             Target.Damage(soldierAttack);

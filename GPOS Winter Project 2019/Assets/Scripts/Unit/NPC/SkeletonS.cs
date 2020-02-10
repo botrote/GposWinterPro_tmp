@@ -1,18 +1,18 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Zombie : NPC , IMeleeAttack
+public class SkeletonS : NPC , IMeleeAttack
 {
-    private const string unitname = "Zombie";
-    private const uint zombieNotch = 1;
-    private const uint zombieHealth = 50;
-    private const uint zombieAttack = 5;
-    private const uint zombieDefense = 1;
-    private const float zombieMeleeRange = 3.0f;
-    private const float zombieSpeed = 1.0f;
-    private const Race zombieRace = Race.Undead;
-    private const float zombieMeleeCool = 3.0f;
+    private const string unitname = "SkeletonS";
+    private const uint SkeletonSNotch = 1;
+    private const uint SkeletonSHealth = 30;
+    private const uint SkeletonSAttack = 10;
+    private const uint SkeletonSDefense = 1;
+    private const float SkeletonSMeleeRange = 1.0f;
+    private const float SkeletonSSpeed = 5.0f;
+    private const Race SkeletonSRace = Race.Undead;
+    private const float SkeletonSMeleeCool = 1.0f;
     private float MeleeCool;
 
     public override Team TeamTag
@@ -21,23 +21,23 @@ public class Zombie : NPC , IMeleeAttack
     }
     public override uint Notch
     {
-        get { return zombieNotch; }
+        get { return SkeletonSNotch; }
     }
     public override uint NPCMaxHealth
     {
-        get { return zombieHealth; }
+        get { return SkeletonSHealth; }
     }
     public override uint NPCdefense
     {
-        get { return zombieDefense; }
+        get { return SkeletonSDefense; }
     }
     public override float NPCspeed
     {
-        get { return zombieSpeed; }
+        get { return SkeletonSSpeed; }
     }
     public override Race race
     {
-        get { return zombieRace; }
+        get { return SkeletonSRace; }
     }
     public override string Unitname
     {
@@ -56,10 +56,10 @@ public class Zombie : NPC , IMeleeAttack
     public void MeleeAttack(Unit Target)
     {
         if (isStunned) return;
-        if (Vector2.Distance(Target.position, this.position) <= zombieMeleeRange)
+        if (Vector2.Distance(Target.position, this.position) <= SkeletonSMeleeRange)
         {
-            if (zombieMeleeCool > MeleeCool) return;
-            Target.Damage((uint)(zombieAttack * friendlyAttackFactor));
+            if (SkeletonSMeleeCool > MeleeCool) return;
+            Target.Damage((uint)(SkeletonSAttack * friendlyAttackFactor));
             MeleeCool = 0;
         }
     }
@@ -79,7 +79,7 @@ public class Zombie : NPC , IMeleeAttack
     void Update()
     {
         base.Update();
-        if (MeleeCool <= zombieMeleeCool)
+        if (MeleeCool <= SkeletonSMeleeCool)
         {
             MeleeCool += Time.deltaTime;
         }
@@ -92,6 +92,6 @@ public class Zombie : NPC , IMeleeAttack
 
     public float getMeleeRange()
     {
-        return zombieMeleeRange;
+        return SkeletonSMeleeRange;
     }
 }
