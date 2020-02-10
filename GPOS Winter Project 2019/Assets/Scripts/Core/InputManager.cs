@@ -17,6 +17,11 @@ public class InputManager : MonoBehaviour
         RightClickInput += new CoordInputEventHandler(PrintInput);
     }
 
+    public Vector2 getMousePosition()
+    {
+        return cam.ScreenToWorldPoint(Input.mousePosition);
+    }
+
     // Update is called once per frame
     void Update()
     {

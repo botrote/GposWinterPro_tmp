@@ -13,14 +13,16 @@ public class EarthQuake : ISkill
 
     public void UseSkill(Unit Target)
     {
-        Debug.Log("RRRRRRRRRRRRRRRRRRR");
-        GameObject [] targets =  GameObject.FindGameObjectsWithTag("Enemy");
-        Debug.Log(targets.Length);
-        foreach(GameObject target in targets)
+        Collider2D[] subjects = Physics2D.OverlapCircleAll(Target.position, Radius);
+        Debug.Log(subjects.Length);
+        foreach (Collider2D subject in subjects)
         {
-            if(Vector2.Distance(target.transform.position, Target.position)<Radius)
+            if (subject.gameObject.tag.Equals("Enemy")||subject.gameObject.tag.Equals("Friendly"))
             {
-                target.GetComponent<Unit>().Damage(damage);
+                if (!subject.gameObject.tag.Equals(Target.TeamTag.ToString()))
+                {
+                    subject.gameObject.GetComponent<Unit>().Damage(damage);
+                }
             }
         }
     }

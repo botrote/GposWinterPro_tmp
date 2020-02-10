@@ -41,6 +41,8 @@ public class Player : Unit
         skill = new ISkill[3];
         perk = new IPerk[15];
         skill[0] = new EarthQuake();
+        skill[1] = new Fireball();
+        skill[2] = new HealSkill();
         Manager = GameObject.Find("Manager");
         Manager.GetComponent<InputManager>().RightClickInput += new InputManager.CoordInputEventHandler(Move);
         Manager.GetComponent<InputManager>().PressKey += new InputManager.InputEventHandler(UseSkill);
