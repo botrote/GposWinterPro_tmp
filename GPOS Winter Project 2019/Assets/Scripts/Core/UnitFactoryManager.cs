@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 유닛 팩토리 매니저, 유닛을 생성할 때에는 항상 이 클래스에 요청해야 함.
 /// </summary>
-public class FactoryManager : MonoBehaviour
+public class UnitFactoryManager : MonoBehaviour
 {
     /// <summary>
     /// 팩토리 객체가 모두 추가되면 true여야 함

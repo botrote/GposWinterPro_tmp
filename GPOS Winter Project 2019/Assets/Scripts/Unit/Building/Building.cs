@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Building : Unit
 {
-    protected FactoryManager factorymanager;
+    protected UnitFactoryManager factorymanager;
     protected Coroutine SpawnCoroutine;
     protected bool isInitialized;
     public override uint MaxHealth
@@ -37,7 +37,7 @@ public class Building : Unit
     protected void Awake()
     {
         isInitialized = false;
-        factorymanager = GameObject.Find("UnitFactory").GetComponent<FactoryManager>();
+        factorymanager = GameObject.Find("UnitFactory").GetComponent<UnitFactoryManager>();
     }
 
     protected void Update()
