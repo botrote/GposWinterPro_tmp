@@ -60,15 +60,8 @@ public class Lich : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= LichMissileRange)
         {
             if (LichMissileCool > MissileCool) return;
-            else
-            {
-                Collider2D[] Targets = Physics2D.OverlapCircleAll(Target.position, LichDamageRadius);
-                for(int i=0; i<Targets.Length; i++)
-                {
-                    if(Targets[i].gameObject.GetComponent<Unit>().TeamTag.Equals("Enemy")) Targets[i].gameObject.GetComponent<Unit>().Damage((uint)(LichAttack * friendlyAttackFactor));
-                }
-                MissileCool = 0;
-            }
+            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("DeathBall", this, Target.position, Target.position, (int)LichAttack, 0f, 1f, LichDamageRadius);
+            MissileCool = 0;
         }
     }
     public void Shoot(Vector2 pos)
