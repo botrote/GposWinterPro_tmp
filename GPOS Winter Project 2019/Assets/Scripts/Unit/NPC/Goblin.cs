@@ -60,15 +60,8 @@ public class Goblin : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= GoblinMissileRange)
         {
             if (GoblinMissileCool > MissileCool) return;
-            else
-            {
-                Collider2D[] Targets = Physics2D.OverlapCircleAll(Target.position, GoblinDamageRadius);
-                for(int i=0; i<Targets.Length; i++)
-                {
-                    if(Targets[i].gameObject.GetComponent<Unit>().TeamTag.Equals("Enemy")) Targets[i].gameObject.GetComponent<Unit>().Damage((uint)(GoblinAttack * friendlyAttackFactor));
-                }
-                MissileCool = 0;
-            }
+            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Explosive", this, this.position, Target.position, (int)GoblinAttack, 10f, 1f, GoblinDamageRadius);
+            MissileCool = 0;
         }
     }
     public void Shoot(Vector2 pos)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
     private uint wave;
-    private FactoryManager factorymanager;
+    private UnitFactoryManager factorymanager;
     private Coroutine WaveCoroutine;
     private bool WaveWaiting;
     public uint getWave
@@ -21,19 +21,19 @@ public class WaveManager : MonoBehaviour
 
     void Awake()
     {
-        factorymanager = GameObject.Find("UnitFactory").GetComponent<FactoryManager>();
+        factorymanager = GameObject.Find("UnitFactory").GetComponent<UnitFactoryManager>();
     }
 
     private void Start()
     {
         if (factorymanager.isFactoryLoaded)
         {
-            factorymanager.PlaceUnit("SkeletonS", new Vector2(2, 0));
-            factorymanager.PlaceUnit("SkeletonB", new Vector2(4, 2));
-            factorymanager.PlaceUnit("Orc", new Vector2(2,3));
-            factorymanager.PlaceUnit("Troll", new Vector2(6,6));
+            //factorymanager.PlaceUnit("SkeletonS", new Vector2(2, 0));
+            //factorymanager.PlaceUnit("SkeletonB", new Vector2(4, 2));
+            //factorymanager.PlaceUnit("Orc", new Vector2(2,3));
+            //factorymanager.PlaceUnit("Troll", new Vector2(6,6));
             factorymanager.PlaceUnit("Goblin", new Vector2(6,4));
-            factorymanager.PlaceUnit("Lich", new Vector2(0,4));
+            //factorymanager.PlaceUnit("Lich", new Vector2(0,4));
             factorymanager.PlaceUnit("Ghost", new Vector2(4, 6));
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 아군 원거리 공격 AI, 인식 거리에 적이 있을 경우 적을 추적하여 공격, 없을 경우 마왕 주위로 돌아옴.
+/// 적군 원거리 공격 AI, 인식 거리에 적이 있을 경우 적을 추적하여 공격
 /// </summary>
 public class EnemyMissileAI : AI
 {
