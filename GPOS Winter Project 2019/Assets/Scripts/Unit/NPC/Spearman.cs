@@ -5,11 +5,11 @@ using UnityEngine;
 public class Spearman : NPC, IMeleeAttack
 {
     private const string unitname = "Spearman";
-    private const uint SpearmanNotch = 1;
-    private const uint SpearmanExp = 1;
-    private const uint SpearmanHealth = 20;
-    private const uint SpearmanAttack = 20;
-    private const uint SpearmanDefense = 0;
+    private const int SpearmanNotch = 1;
+    private const int SpearmanExp = 1;
+    private const int SpearmanHealth = 20;
+    private const int SpearmanAttack = 20;
+    private const int SpearmanDefense = 0;
     private const float SpearmanMeleeRange = 2.0f;
     private const float SpearmanSpeed = 3.5f;
     private const Race SpearmanRace = Race.Soldier;
@@ -20,7 +20,7 @@ public class Spearman : NPC, IMeleeAttack
     {
         get { return Team.Enemy; }
     }
-    public override uint Notch
+    public override int Notch
     {
         get { return SpearmanNotch; }
     }
@@ -28,11 +28,11 @@ public class Spearman : NPC, IMeleeAttack
     {
         get { return 0; }
     }
-    public override uint NPCMaxHealth
+    public override int NPCMaxHealth
     {
         get { return SpearmanHealth; }
     }
-    public override uint NPCdefense
+    public override int NPCdefense
     {
         get { return SpearmanDefense; }
     }
@@ -49,7 +49,7 @@ public class Spearman : NPC, IMeleeAttack
         get { return unitname; }
     }
 
-    public override uint Exp
+    public override int Exp
     {
         get { return SpearmanExp; }
     }

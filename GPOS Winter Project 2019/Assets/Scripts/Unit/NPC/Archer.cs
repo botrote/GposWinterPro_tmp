@@ -5,11 +5,11 @@ using UnityEngine;
 public class Archer : NPC , IMissileAttack
 {
     private const string unitname = "Archer";
-    private const uint ArcherNotch = 1;
-    private const uint ArcherExp = 1;
-    private const uint ArcherHealth = 20;
-    private const uint ArcherAttack = 10;
-    private const uint ArcherDefense = 0;
+    private const int ArcherNotch = 1;
+    private const int ArcherExp = 1;
+    private const int ArcherHealth = 20;
+    private const int ArcherAttack = 10;
+    private const int ArcherDefense = 0;
     private const float ArcherMissileRange = 5.0f;
     private const float ArcherSpeed = 4.0f;
     private const Race ArcherRace = Race.Soldier;
@@ -20,15 +20,15 @@ public class Archer : NPC , IMissileAttack
     {
         get { return Team.Enemy; }
     }
-    public override uint Notch
+    public override int Notch
     {
         get { return ArcherNotch; }
     }
-    public override uint NPCMaxHealth
+    public override int NPCMaxHealth
     {
         get { return ArcherHealth; }
     }
-    public override uint NPCdefense
+    public override int NPCdefense
     {
         get { return ArcherDefense; }
     }
@@ -49,7 +49,7 @@ public class Archer : NPC , IMissileAttack
         get { return 0; }
     }
 
-    public override uint Exp
+    public override int Exp
     {
         get { return 0; }
     }
@@ -60,7 +60,7 @@ public class Archer : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= ArcherMissileRange)
         {
             if (ArcherMissileCool > MissileCool) return;
-            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Arrow", this, this.position, Target.position, (int)ArcherAttack, 10f, 1f);
+            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Arrow", this, this.position, Target.position, ArcherAttack, 10f, 1f);
             MissileCool = 0;
         }
     }

@@ -6,17 +6,18 @@ public class Player : Unit
 {
     private const string unitname = "Player";
     private const float playerSpeed = 5.0f;
+    private int Exp;
     public override Team TeamTag
     {
         get { return Team.Friendly; }
     }
-    public override uint MaxHealth
+    public override int MaxHealth
     {
-        get { return (uint)(100 + Manager.GetComponent<WaveManager>().getWave * 300); }
+        get { return (100 + Manager.GetComponent<WaveManager>().getWave * 300); }
     }
-    public override uint defense
+    public override int defense
     {
-        get { return (uint)(1 + Manager.GetComponent<WaveManager>().getWave * 8); }
+        get { return (1 + Manager.GetComponent<WaveManager>().getWave * 8); }
     }
     public override float speed
     {
@@ -32,19 +33,22 @@ public class Player : Unit
     }
 
     protected GameObject Manager;
-    protected ISkill[] skill;
+    protected Deck[] deck;
+    protected int chosenDeck;
     public IPerk[] perk;
 
     // Start is called before the first frame update
     protected void Awake()
     {
-        skill = new ISkill[3];
+        Exp = 40;
+        deck = new Deck[6];
         perk = new IPerk[15];
-        skill[0] = new EarthQuake();
-        skill[1] = new Fireball();
-        skill[2] = new HealSkill();
+        deck[0] = new Deck("SkeletonB", 2);
+        deck[1] = new Deck("SkeletonS", 2);
+        chosenDeck = 0;
         Manager = GameObject.Find("Manager");
         Manager.GetComponent<InputManager>().RightClickInput += new InputManager.CoordInputEventHandler(Move);
+        Manager.GetComponent<InputManager>().LeftClickInput += new InputManager.CoordInputEventHandler(UseDeck);
         Manager.GetComponent<InputManager>().PressKey += new InputManager.InputEventHandler(UseSkill);
         base.Awake();
     }
@@ -59,22 +63,61 @@ public class Player : Unit
         base.Update();
     }
 
+    public void addExp(int _exp)
+    {
+        Exp += _exp;
+    }
+
+    public bool subtractExp(int _exp)
+    {
+        if (Exp < _exp) return false;
+        else
+        {
+            Exp -= _exp;
+            return true;
+        }
+    }
+
+    public int getExp()
+    {
+        return Exp;
+    }
+
     protected void Move(Vector2 pos)
     {
         Dest = pos;
     }
+    protected void UseDeck(Vector2 pos)
+    {
+        if (subtractExp(deck[chosenDeck].getcost()))
+        {
+            deck[chosenDeck].useDeck(pos);
+        }
+        else
+        {
+            Debug.Log("Unsufficient Exp! : " + Exp);
+        }
+        
+    }
+
     protected void UseSkill(KeyCode key)
     {
+        if(key <= KeyCode.Alpha6 && key >= KeyCode.Alpha1)
+        {
+            if (deck[key - KeyCode.Alpha1] != null)
+            {
+                Debug.Log(key - KeyCode.Alpha1);
+                chosenDeck = key - KeyCode.Alpha1;
+            }
+            return;
+        }
         switch (key)
         {
             case KeyCode.Q:
-                skill[0].UseSkill();
                 break;
             case KeyCode.W:
-                skill[1].UseSkill();
                 break;
             case KeyCode.E:
-                skill[2].UseSkill();
                 break;
             default:
                 break;

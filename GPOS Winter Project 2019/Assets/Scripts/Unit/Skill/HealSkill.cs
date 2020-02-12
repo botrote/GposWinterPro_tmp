@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealSkill : ISkill
 {
-    private const uint heal = 20;
+    private const int heal = 20;
 
     public void UseSkill()
     {

@@ -5,10 +5,10 @@ using UnityEngine;
 public class SkeletonB : NPC , IMissileAttack
 {
     private const string unitname = "SkeletonB";
-    private const uint SkeletonBNotch = 1;
-    private const uint SkeletonBHealth = 25;
-    private const uint SkeletonBAttack = 10;
-    private const uint SkeletonBDefense = 0;
+    private const int SkeletonBNotch = 1;
+    private const int SkeletonBHealth = 25;
+    private const int SkeletonBAttack = 10;
+    private const int SkeletonBDefense = 0;
     private const float SkeletonBMissileRange = 5.0f;
     private const float SkeletonBSpeed = 3.0f;
     private const Race SkeletonBRace = Race.Undead;
@@ -19,15 +19,15 @@ public class SkeletonB : NPC , IMissileAttack
     {
         get { return Team.Friendly; }
     }
-    public override uint Notch
+    public override int Notch
     {
         get { return SkeletonBNotch; }
     }
-    public override uint NPCMaxHealth
+    public override int NPCMaxHealth
     {
         get { return SkeletonBHealth; }
     }
-    public override uint NPCdefense
+    public override int NPCdefense
     {
         get { return SkeletonBDefense; }
     }
@@ -48,7 +48,7 @@ public class SkeletonB : NPC , IMissileAttack
         get { return 0; }
     }
 
-    public override uint Exp
+    public override int Exp
     {
         get { return 0; }
     }

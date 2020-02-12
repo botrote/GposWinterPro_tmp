@@ -5,7 +5,7 @@ using UnityEngine;
 public class EarthQuake : ISkill
 {
     private const float Radius = 10f;
-    private const uint damage = 20;
+    private const int damage = 20;
 
     public void UseSkill()
     {

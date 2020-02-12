@@ -25,7 +25,12 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse1) && RightClickInput != null)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && LeftClickInput != null)
+        {
+            Vector2 pos = cam.ScreenToWorldPoint(Input.mousePosition);
+            LeftClickInput(pos);
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse1) && RightClickInput != null)
         {
             Vector2 pos = cam.ScreenToWorldPoint(Input.mousePosition);
             RightClickInput(pos);
@@ -41,6 +46,31 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && PressKey != null)
         {
             PressKey(KeyCode.E);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha4);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha5);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha6);
         }
     }
     void PrintInput(Vector2 pos)

@@ -24,30 +24,30 @@ public abstract class NPC : Unit
     {
         get { return 1; }
     }
-    public override uint MaxHealth
+    public override int MaxHealth
     {
-        get { return (uint)((TeamTag == Team.Friendly ? friendlyHealthFactor : 1) * NPCMaxHealth); }
+        get { return (int)((TeamTag == Team.Friendly ? friendlyHealthFactor : 1) * NPCMaxHealth); }
     }
-    public override uint defense
+    public override int defense
     {
-        get { return (uint)((TeamTag == Team.Friendly ? friendlyDefenseFactor : 1) * NPCdefense); }
+        get { return (int)((TeamTag == Team.Friendly ? friendlyDefenseFactor : 1) * NPCdefense); }
     }
     public override float speed
     {
-        get { return (uint)((TeamTag == Team.Friendly ? friendlySpeedFactor : 1) * NPCspeed); }
+        get { return ((TeamTag == Team.Friendly ? friendlySpeedFactor : 1) * NPCspeed); }
     }
-    public abstract uint NPCMaxHealth { get; }
-    public abstract uint NPCdefense { get; }
+    public abstract int NPCMaxHealth { get; }
+    public abstract int NPCdefense { get; }
     public abstract float NPCspeed { get; }
     protected abstract float RateOfSpecialAttack { get; }
     /// <summary>
     /// 유닛의 놋치(적 유닛에게는 아무 값이나 넣어도 됨)
     /// </summary>
-    public abstract uint Notch { get; }
+    public abstract int Notch { get; }
     /// <summary>
     /// 유닛을 죽였을 때 얻는 경험치(아군 유닛은 0으로 할 것을 권장함)
     /// </summary>
-    public abstract uint Exp { get; }
+    public abstract int Exp { get; }
     /// <summary>
     /// 변수 초기화 함수
     /// </summary>
@@ -69,5 +69,15 @@ public abstract class NPC : Unit
     private void OnDestroy()
     {
         //(아군이면)플레이어 델리게이트 해제
+    }
+
+    protected override void Die()
+    {
+        if (this.TeamTag == Team.Enemy)
+        {   
+            GameObject.Find("Player").GetComponent<Player>().addExp(Exp);
+            Debug.Log(Exp + " added");
+        }
+        base.Die();
     }
 }

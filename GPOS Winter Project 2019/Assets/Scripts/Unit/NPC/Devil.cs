@@ -5,10 +5,10 @@ using UnityEngine;
 public class Devil : NPC , IMissileAttack
 {
     private const string unitname = "Devil";
-    private const uint DevilNotch = 1;
-    private const uint DevilHealth = 80;
-    private const uint DevilAttack = 0;
-    private const uint DevilDefense = 0;
+    private const int DevilNotch = 1;
+    private const int DevilHealth = 80;
+    private const int DevilAttack = 0;
+    private const int DevilDefense = 0;
     private const float DevilMissileRange = 1.5f;
     private const float DevilSpeed = 4.0f;
     private const Race DevilRace = Race.None;
@@ -19,15 +19,15 @@ public class Devil : NPC , IMissileAttack
     {
         get { return Team.Friendly; }
     }
-    public override uint Notch
+    public override int Notch
     {
         get { return DevilNotch; }
     }
-    public override uint NPCMaxHealth
+    public override int NPCMaxHealth
     {
         get { return DevilHealth; }
     }
-    public override uint NPCdefense
+    public override int NPCdefense
     {
         get { return DevilDefense; }
     }
@@ -48,7 +48,7 @@ public class Devil : NPC , IMissileAttack
         get { return 0; }
     }
 
-    public override uint Exp
+    public override int Exp
     {
         get { return 0; }
     }
@@ -59,7 +59,7 @@ public class Devil : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= DevilMissileRange)
         {
             if (DevilMissileCool > MissileCool) return;
-            Target.Damage((uint)(DevilAttack * friendlyAttackFactor));
+            Target.Damage((int)(DevilAttack * friendlyAttackFactor));
             MissileCool = 0;
         }
     }

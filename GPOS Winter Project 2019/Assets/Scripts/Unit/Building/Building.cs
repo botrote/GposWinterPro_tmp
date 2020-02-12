@@ -7,11 +7,11 @@ public class Building : Unit
     protected UnitFactoryManager factorymanager;
     protected Coroutine SpawnCoroutine;
     protected bool isInitialized;
-    public override uint MaxHealth
+    public override int MaxHealth
     {
         get { return MaxSpawn; }
     }
-    public override uint defense
+    public override int defense
     {
         get { return 1; }
     }
@@ -30,7 +30,7 @@ public class Building : Unit
     {
         get{ return "Building"; }
     }
-    public uint MaxSpawn { get; protected set; }
+    public int MaxSpawn { get; protected set; }
     public string Product { get; protected set; }
     public float SpawnDelay { get; protected set; }
 
@@ -44,7 +44,7 @@ public class Building : Unit
     {
     }
 
-    public void Initialize(string _Product, uint _MaxSpawn, float _SpawnDelay)
+    public void Initialize(string _Product, int _MaxSpawn, float _SpawnDelay)
     {
         if (isInitialized) return;
         Product = _Product;
@@ -56,7 +56,7 @@ public class Building : Unit
         SpawnCoroutine = StartCoroutine(SpawnEnemy());
     }
 
-    public override void Damage(uint damage)
+    public override void Damage(int damage)
     {
         return;
     }

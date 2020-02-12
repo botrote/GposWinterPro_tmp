@@ -22,7 +22,7 @@ public class Arrow : MonoBehaviour
         {
             if (!collision.gameObject.tag.Equals(team.ToString()))
             {
-                collision.gameObject.GetComponent<Unit>().Damage((uint)damage);
+                collision.gameObject.GetComponent<Unit>().Damage(damage);
                 Destroy(gameObject);
             }
         }

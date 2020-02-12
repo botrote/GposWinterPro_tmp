@@ -34,7 +34,7 @@ public class FireBall : MonoBehaviour
             if (Targets[i].gameObject.GetComponent<Unit>() == null) continue;
             else
             {
-                if (Targets[i].gameObject.GetComponent<Unit>().TeamTag != team) Targets[i].gameObject.GetComponent<Unit>().Damage((uint)damage);
+                if (Targets[i].gameObject.GetComponent<Unit>().TeamTag != team) Targets[i].gameObject.GetComponent<Unit>().Damage(damage);
             }
         }
     }

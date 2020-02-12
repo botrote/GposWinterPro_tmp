@@ -5,10 +5,10 @@ using UnityEngine;
 public class Troll : NPC , IMeleeAttack
 {
     private const string unitname = "Troll";
-    private const uint TrollNotch = 2;
-    private const uint TrollHealth = 20;
-    private const uint TrollAttack = 10;
-    private const uint TrollDefense = 0;
+    private const int TrollNotch = 2;
+    private const int TrollHealth = 20;
+    private const int TrollAttack = 10;
+    private const int TrollDefense = 0;
     private const float TrollMeleeRange = 1.0f;
     private const float TrollSpeed = 5.0f;
     private const Race TrollRace = Race.None;
@@ -20,15 +20,15 @@ public class Troll : NPC , IMeleeAttack
     {
         get { return Team.Friendly; }
     }
-    public override uint Notch
+    public override int Notch
     {
         get { return TrollNotch; }
     }
-    public override uint NPCMaxHealth
+    public override int NPCMaxHealth
     {
         get { return TrollHealth; }
     }
-    public override uint NPCdefense
+    public override int NPCdefense
     {
         get { return TrollDefense; }
     }
@@ -49,7 +49,7 @@ public class Troll : NPC , IMeleeAttack
         get { return 0; }
     }
 
-    public override uint Exp
+    public override int Exp
     {
         get { return 0; }
     }
@@ -60,7 +60,7 @@ public class Troll : NPC , IMeleeAttack
         if (Vector2.Distance(Target.position, this.position) <= TrollMeleeRange)
         {
             if (TrollMeleeCool > MeleeCool) return;
-            Target.Damage((uint)(TrollAttack * friendlyAttackFactor));
+            Target.Damage((int)(TrollAttack * friendlyAttackFactor));
             MeleeCool = 0;
             if(Random.Range(0f,1.0f)<=0.2f) Target.Buffs.Add(new Stun());
         }
