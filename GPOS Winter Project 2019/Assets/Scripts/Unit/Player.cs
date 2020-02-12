@@ -73,6 +73,7 @@ public class Player : Unit
         Manager.GetComponent<InputManager>().RightClickInput += new InputManager.CoordInputEventHandler(Move);
         Manager.GetComponent<InputManager>().LeftClickInput += new InputManager.CoordInputEventHandler(UseDeck);
         Manager.GetComponent<InputManager>().PressKey += new InputManager.InputEventHandler(UseSkill);
+        Manager.GetComponent<InputManager>().WheelInput += new InputManager.WheelEventHandler(UseSkill_Wheel);
         base.Awake();
     }
     protected void Start()
@@ -145,5 +146,26 @@ public class Player : Unit
             default:
                 break;
         }
+    }
+
+    protected void UseSkill_Wheel(bool isUP)
+    {
+        if(isUP)
+        {
+            chosenDeck++;
+            if(chosenDeck > deck.Length - 1)
+                chosenDeck = 0;
+        }
+        else
+        {
+            chosenDeck--;
+            if(chosenDeck < 0)
+                chosenDeck = deck.Length - 1;
+        }
+    }
+
+    public int GetSelectedUnitIdx()
+    {
+        return chosenDeck;
     }
 }

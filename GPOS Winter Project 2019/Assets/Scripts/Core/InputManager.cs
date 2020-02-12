@@ -6,9 +6,11 @@ public class InputManager : MonoBehaviour
 {
     public delegate void CoordInputEventHandler(Vector2 pos);
     public delegate void InputEventHandler(KeyCode key);
+    public delegate void WheelEventHandler(bool isPositive);
     public event InputEventHandler PressKey;
     public event CoordInputEventHandler LeftClickInput;
     public event CoordInputEventHandler RightClickInput;
+    public event WheelEventHandler WheelInput;
     Camera cam;
     // Start is called before the first frame update
     void Start()
@@ -83,6 +85,16 @@ public class InputManager : MonoBehaviour
         {
             PressKey(KeyCode.Alpha9);
         }
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            WheelInput(true);
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            WheelInput(false);
+        }
+
+
     }
     void PrintInput(Vector2 pos)
     {
