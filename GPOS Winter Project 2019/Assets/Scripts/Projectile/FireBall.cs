@@ -29,13 +29,11 @@ public class FireBall : MonoBehaviour
     protected void OnDestroy()
     {
         Collider2D[] Targets = Physics2D.OverlapCircleAll(this.gameObject.GetComponent<Transform>().position, DamageRadius);
-        Debug.Log("Targets length: " + Targets.Length);
         for (int i = 0; i < Targets.Length; i++)
         {
             if (Targets[i].gameObject.GetComponent<Unit>() == null) continue;
             else
             {
-                Debug.Log(i.ToString() + " : " + Targets[i].gameObject.ToString());
                 if (Targets[i].gameObject.GetComponent<Unit>().TeamTag != team) Targets[i].gameObject.GetComponent<Unit>().Damage((uint)damage);
             }
         }
