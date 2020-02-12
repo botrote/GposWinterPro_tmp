@@ -9,7 +9,7 @@ public class Soldier : NPC, IMeleeAttack
     private const uint soldierExp = 1;
     private const uint soldierHealth = 30;
     private const uint soldierAttack = 10;
-    private const uint soldierDefense = 1;
+    private const uint soldierDefense = 0;
     private const float soldierMeleeRange = 1.0f;
     private const float soldierSpeed = 4.0f;
     private const Race soldierRace = Race.Soldier;

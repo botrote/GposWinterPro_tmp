@@ -34,7 +34,7 @@ public class FriendlyMissileAI : AI
         {
             if (Target == null)
             {
-                if (Vector2.Distance(player.position, body.position) >= MaxDist) curAction = Action.Rally;
+                if (Vector2.Distance(player.position, body.position) >= (MaxDist-1.0f)) curAction = Action.Rally;
                 else curAction = Action.Idle; 
             }
             else
@@ -51,7 +51,7 @@ public class FriendlyMissileAI : AI
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Rally:
-                    body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 1.0f);
+                    body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 2.0f);
                     Target = FindTarget();
                     yield return new WaitForSeconds(0.1f);
                     break;

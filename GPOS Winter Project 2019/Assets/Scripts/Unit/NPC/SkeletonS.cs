@@ -8,7 +8,7 @@ public class SkeletonS : NPC , IMeleeAttack
     private const uint SkeletonSNotch = 1;
     private const uint SkeletonSHealth = 30;
     private const uint SkeletonSAttack = 10;
-    private const uint SkeletonSDefense = 1;
+    private const uint SkeletonSDefense = 0;
     private const float SkeletonSMeleeRange = 1.0f;
     private const float SkeletonSSpeed = 5.0f;
     private const Race SkeletonSRace = Race.Undead;

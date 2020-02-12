@@ -7,7 +7,7 @@ public class Ghost : NPC , IHealer
     private const string unitname = "Ghost";
     private const uint GhostNotch = 2;
     private const uint GhostHealth = 15;
-    private const uint GhostDefense = 1;
+    private const uint GhostDefense = 0;
     private const uint GhostHeal = 10;
     private const float GhostHealRange = 5.0f;
     private const float GhostSpeed = 3.0f;

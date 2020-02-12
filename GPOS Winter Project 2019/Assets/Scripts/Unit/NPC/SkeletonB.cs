@@ -8,7 +8,7 @@ public class SkeletonB : NPC , IMissileAttack
     private const uint SkeletonBNotch = 1;
     private const uint SkeletonBHealth = 25;
     private const uint SkeletonBAttack = 10;
-    private const uint SkeletonBDefense = 1;
+    private const uint SkeletonBDefense = 0;
     private const float SkeletonBMissileRange = 5.0f;
     private const float SkeletonBSpeed = 3.0f;
     private const Race SkeletonBRace = Race.Undead;
@@ -59,7 +59,7 @@ public class SkeletonB : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= SkeletonBMissileRange)
         {
             if (SkeletonBMissileCool > MissileCool) return;
-            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Arrow", this, this.position, Target.position, (int)SkeletonBAttack, 10f, 1f);
+            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Arrow", this, this.position, Target.position, (int)(SkeletonBAttack* friendlyAttackFactor), 10f, 1f);
             MissileCool = 0;
         }
     }

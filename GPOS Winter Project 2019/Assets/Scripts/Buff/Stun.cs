@@ -6,7 +6,7 @@ public class Stun : IBuff
 {
     public const float Duration = 1.0f;
     protected float remainTime;
-    Stun()
+    public Stun()
     {
         remainTime = Duration;
     }
