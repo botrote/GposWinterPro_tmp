@@ -68,13 +68,13 @@ public class Player : Unit
         switch (key)
         {
             case KeyCode.Q:
-                skill[0].UseSkill(this);
+                skill[0].UseSkill();
                 break;
             case KeyCode.W:
-                skill[1].UseSkill(this);
+                skill[1].UseSkill();
                 break;
             case KeyCode.E:
-                skill[2].UseSkill(this);
+                skill[2].UseSkill();
                 break;
             default:
                 break;

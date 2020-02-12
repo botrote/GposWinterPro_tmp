@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
     private uint wave;
-    private FactoryManager factorymanager;
+    private UnitFactoryManager factorymanager;
     private Coroutine WaveCoroutine;
     private bool WaveWaiting;
     public uint getWave
@@ -21,7 +21,7 @@ public class WaveManager : MonoBehaviour
 
     void Awake()
     {
-        factorymanager = GameObject.Find("UnitFactory").GetComponent<FactoryManager>();
+        factorymanager = GameObject.Find("UnitFactory").GetComponent<UnitFactoryManager>();
     }
 
     private void Start()
