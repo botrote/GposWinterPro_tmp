@@ -34,17 +34,40 @@ public class Player : Unit
 
     protected GameObject Manager;
     protected Deck[] deck;
+    protected bool[] deckunlocked;
     protected int chosenDeck;
-    public IPerk[] perk;
 
     // Start is called before the first frame update
     protected void Awake()
     {
         Exp = 40;
-        deck = new Deck[6];
-        perk = new IPerk[15];
-        deck[0] = new Deck("SkeletonB", 2);
-        deck[1] = new Deck("SkeletonS", 2);
+        deck = new Deck[9];
+        deckunlocked = new bool[9];
+        for(int i = 0; i < deck.Length; i++)
+        {
+            if (i < 2) deckunlocked[i] = true;
+            else deckunlocked[i] = false;
+        }
+        string deckname;
+        int decknotch;
+        NPC.getNameAndCost<SkeletonB>(out decknotch, out deckname);
+        deck[0] = new Deck(deckname, decknotch);
+        NPC.getNameAndCost<SkeletonS>(out decknotch, out deckname);
+        deck[1] = new Deck(deckname, decknotch);
+        NPC.getNameAndCost<Orc>(out decknotch, out deckname);
+        deck[2] = new Deck(deckname, decknotch);
+        NPC.getNameAndCost<Ghost>(out decknotch, out deckname);
+        deck[3] = new Deck(deckname, decknotch);
+        NPC.getNameAndCost<Lich>(out decknotch, out deckname);
+        deck[4] = new Deck(deckname, decknotch);
+        NPC.getNameAndCost<Troll>(out decknotch, out deckname);
+        deck[5] = new Deck(deckname, decknotch);
+        NPC.getNameAndCost<Goblin>(out decknotch, out deckname);
+        deck[6] = new Deck(deckname, decknotch);
+        NPC.getNameAndCost<Devil>(out decknotch, out deckname);
+        deck[7] = new Deck(deckname, decknotch);
+        NPC.getNameAndCost<Dragon>(out decknotch, out deckname);
+        deck[8] = new Deck(deckname, decknotch);
         chosenDeck = 0;
         Manager = GameObject.Find("Manager");
         Manager.GetComponent<InputManager>().RightClickInput += new InputManager.CoordInputEventHandler(Move);
@@ -102,7 +125,7 @@ public class Player : Unit
 
     protected void UseSkill(KeyCode key)
     {
-        if(key <= KeyCode.Alpha6 && key >= KeyCode.Alpha1)
+        if(key <= KeyCode.Alpha9 && key >= KeyCode.Alpha1)
         {
             if (deck[key - KeyCode.Alpha1] != null)
             {

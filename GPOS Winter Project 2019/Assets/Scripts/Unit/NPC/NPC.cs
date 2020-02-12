@@ -80,4 +80,15 @@ public abstract class NPC : Unit
         }
         base.Die();
     }
+
+    public static void getNameAndCost<T>(out int notch, out string name) where T : NPC
+    {
+        GameObject instance = new GameObject();
+        instance.AddComponent<SpriteRenderer>();
+        instance.AddComponent<T>();
+        notch = instance.GetComponent<T>().Notch;
+        name = instance.GetComponent<T>().Unitname;
+        Destroy(instance);
+        return;
+    }
 }

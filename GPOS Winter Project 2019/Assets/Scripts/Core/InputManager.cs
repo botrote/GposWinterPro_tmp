@@ -67,10 +67,21 @@ public class InputManager : MonoBehaviour
         {
             PressKey(KeyCode.Alpha5);
         }
-
-        if (Input.GetKeyDown(KeyCode.Alpha5) && PressKey != null)
+        if (Input.GetKeyDown(KeyCode.Alpha6) && PressKey != null)
         {
             PressKey(KeyCode.Alpha6);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha7);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha8);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha9);
         }
     }
     void PrintInput(Vector2 pos)
