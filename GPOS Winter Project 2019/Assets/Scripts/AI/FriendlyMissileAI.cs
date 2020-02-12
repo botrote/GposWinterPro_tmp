@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public class FriendlyMissileAI : AI
 {
-    protected Unit Target;
     public enum Action { Idle, Rally, Pursue, Engage }
     protected Action curAction;
     protected Player player;
@@ -34,12 +33,12 @@ public class FriendlyMissileAI : AI
         {
             if (Target == null)
             {
-                if (Vector2.Distance(player.position, body.position) >= (MaxDist-1.0f)) curAction = Action.Rally;
+                if (Vector2.Distance(player.position, body.position) > (MaxDist-1.0f)) curAction = Action.Rally;
                 else curAction = Action.Idle; 
             }
             else
             {
-                if (Vector2.Distance(Target.position, body.position) >= ((IMissileAttack)body).getMissileRange()) curAction = Action.Pursue;
+                if (Vector2.Distance(Target.position, body.position) > ((IMissileAttack)body).getMissileRange()) curAction = Action.Pursue;
                 else curAction = Action.Engage;
             }
             //if (player.curBehaviour == Unit.Behaviour.Moving) body.Dest = body.position + (player.Dest - player.position);
@@ -47,16 +46,16 @@ public class FriendlyMissileAI : AI
             {
                 default:
                 case Action.Idle:
-                    Target = FindTarget();
+                    Target = FindTarget("Enemy");
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Rally:
                     body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 2.0f);
-                    Target = FindTarget();
+                    Target = FindTarget("Enemy");
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Pursue:
-                    body.Dest = Target.position + (body.position - Target.position).normalized * ((IMissileAttack)body).getMissileRange();
+                    body.Dest = Target.position + (body.position - Target.position).normalized * ((IMissileAttack)body).getMissileRange()*0.8f;
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Engage:
@@ -65,24 +64,6 @@ public class FriendlyMissileAI : AI
                     break;
             }
         }
-    }
-    protected Unit FindTarget()
-    {
-        GameObject[] possibletargets = GameObject.FindGameObjectsWithTag("Enemy");
-        if (possibletargets.Length == 0) return null;
-        Unit curTarget = possibletargets[0].GetComponent<Unit>();
-        float distanceCurTarget = Vector2.Distance(possibletargets[0].GetComponent<Unit>().position, body.position);
-        for (int i = 1; i < possibletargets.Length; i++)
-        {
-            if (Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, player.position) < MaxBattleDist
-                && distanceCurTarget > Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, body.position))
-            {
-                curTarget = possibletargets[i].GetComponent<Unit>();
-                distanceCurTarget = Vector2.Distance(curTarget.position, body.position);
-            }
-        }
-        if (Vector2.Distance(curTarget.position, player.position) >= MaxBattleDist) return null;
-        return curTarget;
     }
 }
 

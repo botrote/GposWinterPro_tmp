@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class EnemyMeleeAI : AI
 {
-    protected Unit Target;
+    
     public enum Action { Idle, Pursue, Engage }
     protected Action curAction;
     protected Player player;
@@ -42,10 +42,11 @@ public class EnemyMeleeAI : AI
             {
                 default:
                 case Action.Idle:
-                    Target = FindTarget();
+                    Target = FindTarget("Friendly");
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Pursue:
+                    Target = FindTarget("Friendly");
                     body.Dest = Target.position;
                     yield return new WaitForSeconds(0.5f);
                     break;
@@ -55,21 +56,5 @@ public class EnemyMeleeAI : AI
                     break;
             }
         }
-    }
-    protected Unit FindTarget()
-    {
-        GameObject [] possibletargets = GameObject.FindGameObjectsWithTag("Friendly");
-        if(possibletargets.Length == 0) return null;
-        Unit curTarget = possibletargets[0].GetComponent<Unit>();
-        float distanceCurTarget = Vector2.Distance(possibletargets[0].GetComponent<Unit>().position, body.position); 
-        for (int i = 1; i < possibletargets.Length; i++)
-        {
-            if(distanceCurTarget > Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, body.position))
-            {
-                curTarget = possibletargets[i].GetComponent<Unit>();
-                distanceCurTarget = Vector2.Distance(curTarget.position, body.position);
-            }
-        }
-        return curTarget;
     }
 }

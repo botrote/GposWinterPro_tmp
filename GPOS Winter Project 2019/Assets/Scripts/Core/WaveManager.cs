@@ -28,12 +28,7 @@ public class WaveManager : MonoBehaviour
     {
         if (factorymanager.isFactoryLoaded)
         {
-            //factorymanager.PlaceUnit("SkeletonS", new Vector2(2, 0));
-            //factorymanager.PlaceUnit("SkeletonB", new Vector2(4, 2));
-            //factorymanager.PlaceUnit("Orc", new Vector2(2,3));
-            //factorymanager.PlaceUnit("Troll", new Vector2(6,6));
-            //factorymanager.PlaceUnit("Goblin", new Vector2(6,4));
-            factorymanager.PlaceUnit("Lich", new Vector2(0,4));
+            factorymanager.PlaceUnit("Dragon", new Vector2(0,4));
             factorymanager.PlaceUnit("Ghost", new Vector2(4, 6));
         }
     }

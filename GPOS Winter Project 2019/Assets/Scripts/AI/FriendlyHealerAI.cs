@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public class FriendlyHealerAI : AI
 {
-    protected Unit Target;
     public enum Action { Idle, Rally, Pursue, Heal }
     protected Action curAction;
     protected Player player;
@@ -32,14 +31,14 @@ public class FriendlyHealerAI : AI
         yield return new WaitForSeconds(Random.Range(0f, 0.5f));
         while (true)
         {
-            if (Target == null)
+            if (Target == null || Target.curHealth==Target.MaxHealth)
             {
-                if (Vector2.Distance(player.position, body.position) >= (MaxDist-2.0f)) curAction = Action.Rally;
+                if (Vector2.Distance(player.position, body.position) > (MaxDist-2.0f)) curAction = Action.Rally;
                 else curAction = Action.Idle; 
             }
             else
             {
-                if (Vector2.Distance(Target.position, body.position) >= ((IHealer)body).getHealRange()) curAction = Action.Pursue;
+                if (Vector2.Distance(Target.position, body.position) > ((IHealer)body).getHealRange()) curAction = Action.Pursue;
                 else curAction = Action.Heal;
             }
             //if (player.curBehaviour == Unit.Behaviour.Moving) body.Dest = body.position + (player.Dest - player.position);
@@ -47,12 +46,12 @@ public class FriendlyHealerAI : AI
             {
                 default:
                 case Action.Idle:
-                    Target = FindTarget();
+                    Target = FindTarget("Friendly");
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Rally:
                     body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 3.0f);
-                    Target = FindTarget();
+                    Target = FindTarget("Friendly");
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Pursue:
@@ -60,34 +59,11 @@ public class FriendlyHealerAI : AI
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Heal:
-                    if (Target.curHealth>=Target.MaxHealth) Target = FindTarget();
+                    if (Target.curHealth>=Target.MaxHealth) Target = FindTarget("Friendly");
                     else ((IHealer)body).Heal(Target);
                     yield return new WaitForSeconds(0.1f);
                     break;
             }
         }
-    }
-    protected Unit FindTarget()
-    {
-        GameObject[] possibletargets = GameObject.FindGameObjectsWithTag("Friendly");
-        if (possibletargets.Length == 0) return null;
-        Unit curTarget = possibletargets[0].GetComponent<Unit>();
-        float hpCurTarget = (float)curTarget.curHealth/curTarget.MaxHealth;
-        if (curTarget == body) curTarget = possibletargets[1].GetComponent<Unit>();
-        for (int i = 1; i < possibletargets.Length; i++)
-        {
-            if (possibletargets[i].GetComponent<Unit>() != body)
-            {
-                if (Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, player.position) < MaxBattleDist
-                && hpCurTarget > (float)(possibletargets[i].GetComponent<Unit>().curHealth)/(possibletargets[i].GetComponent<Unit>().MaxHealth))
-                {
-                    curTarget = possibletargets[i].GetComponent<Unit>();
-                    hpCurTarget = (float)(possibletargets[i].GetComponent<Unit>().curHealth)/(possibletargets[i].GetComponent<Unit>().MaxHealth);
-                }
-            }
-        }
-        if (Vector2.Distance(curTarget.position, player.position) >= MaxBattleDist) return null;
-        else if(curTarget.curHealth>=curTarget.MaxHealth) return null;
-        else return curTarget;
     }
 }

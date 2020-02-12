@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 7478375497057617708}
   - component: {fileID: 1055352431898205428}
   - component: {fileID: 7440134062087050329}
-  - component: {fileID: 8958084075384612724}
-  - component: {fileID: 5478540319429329548}
+  - component: {fileID: 4472136028607623260}
+  - component: {fileID: 3331431600368511079}
   m_Layer: 0
-  m_Name: Explosive
+  m_Name: Blast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e6a608a87ded88941af05967466b8d25, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fb92603ecdf39a049aa58c440bb53413, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,19 +105,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8958084075384612724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8111311611707005082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa386ae8e8cf7ed499154db17bc0aca7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!58 &5478540319429329548
+--- !u!58 &4472136028607623260
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,6 +118,18 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04, y: -0.0425}
+  m_Offset: {x: 0, y: 0.58}
   serializedVersion: 2
-  m_Radius: 0.128
+  m_Radius: 0.23
+--- !u!114 &3331431600368511079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8111311611707005082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12249c3d919d914a8301c6e40249979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
