@@ -5,10 +5,10 @@ using UnityEngine;
 public class Ghost : NPC , IHealer
 {
     private const string unitname = "Ghost";
-    private const uint GhostNotch = 2;
-    private const uint GhostHealth = 15;
-    private const uint GhostDefense = 0;
-    private const uint GhostHeal = 10;
+    private const int GhostNotch = 2;
+    private const int GhostHealth = 15;
+    private const int GhostDefense = 0;
+    private const int GhostHeal = 10;
     private const float GhostHealRange = 5.0f;
     private const float GhostSpeed = 3.0f;
     private const Race GhostRace = Race.Undead;
@@ -19,15 +19,15 @@ public class Ghost : NPC , IHealer
     {
         get { return Team.Friendly; }
     }
-    public override uint Notch
+    public override int Notch
     {
         get { return GhostNotch; }
     }
-    public override uint NPCMaxHealth
+    public override int NPCMaxHealth
     {
         get { return GhostHealth; }
     }
-    public override uint NPCdefense
+    public override int NPCdefense
     {
         get { return GhostDefense; }
     }
@@ -48,7 +48,7 @@ public class Ghost : NPC , IHealer
         get { return 0; }
     }
 
-    public override uint Exp
+    public override int Exp
     {
         get { return 0; }
     }

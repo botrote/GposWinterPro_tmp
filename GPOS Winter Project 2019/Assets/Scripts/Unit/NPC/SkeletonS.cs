@@ -5,10 +5,10 @@ using UnityEngine;
 public class SkeletonS : NPC , IMeleeAttack
 {
     private const string unitname = "SkeletonS";
-    private const uint SkeletonSNotch = 1;
-    private const uint SkeletonSHealth = 30;
-    private const uint SkeletonSAttack = 10;
-    private const uint SkeletonSDefense = 0;
+    private const int SkeletonSNotch = 1;
+    private const int SkeletonSHealth = 30;
+    private const int SkeletonSAttack = 10;
+    private const int SkeletonSDefense = 0;
     private const float SkeletonSMeleeRange = 1.0f;
     private const float SkeletonSSpeed = 5.0f;
     private const Race SkeletonSRace = Race.Undead;
@@ -19,15 +19,15 @@ public class SkeletonS : NPC , IMeleeAttack
     {
         get { return Team.Friendly; }
     }
-    public override uint Notch
+    public override int Notch
     {
         get { return SkeletonSNotch; }
     }
-    public override uint NPCMaxHealth
+    public override int NPCMaxHealth
     {
         get { return SkeletonSHealth; }
     }
-    public override uint NPCdefense
+    public override int NPCdefense
     {
         get { return SkeletonSDefense; }
     }
@@ -48,7 +48,7 @@ public class SkeletonS : NPC , IMeleeAttack
         get { return 0; }
     }
 
-    public override uint Exp
+    public override int Exp
     {
         get { return 0; }
     }
@@ -59,7 +59,7 @@ public class SkeletonS : NPC , IMeleeAttack
         if (Vector2.Distance(Target.position, this.position) <= SkeletonSMeleeRange)
         {
             if (SkeletonSMeleeCool > MeleeCool) return;
-            Target.Damage((uint)(SkeletonSAttack * friendlyAttackFactor));
+            Target.Damage((int)(SkeletonSAttack * friendlyAttackFactor));
             MeleeCool = 0;
         }
     }

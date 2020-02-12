@@ -5,11 +5,11 @@ using UnityEngine;
 public class Dragon : NPC , IMissileAttack
 {
     private const string unitname = "Dragon";
-    private const uint DragonNotch = 0;
-    private const uint DragonHealth = 200;
-    private const uint DragonAttack = 60;
-    private const uint DragonSpecialAttack = 30;
-    private const uint DragonDefense = 10;
+    private const int DragonNotch = 0;
+    private const int DragonHealth = 200;
+    private const int DragonAttack = 60;
+    private const int DragonSpecialAttack = 30;
+    private const int DragonDefense = 10;
     private const float DragonMissileRange = 5.0f;
     private const float DragonSpeed = 2.0f;
     private const Race DragonRace = Race.None;
@@ -20,15 +20,15 @@ public class Dragon : NPC , IMissileAttack
     {
         get { return Team.Friendly; }
     }
-    public override uint Notch
+    public override int Notch
     {
         get { return DragonNotch; }
     }
-    public override uint NPCMaxHealth
+    public override int NPCMaxHealth
     {
         get { return DragonHealth; }
     }
-    public override uint NPCdefense
+    public override int NPCdefense
     {
         get { return DragonDefense; }
     }
@@ -49,7 +49,7 @@ public class Dragon : NPC , IMissileAttack
         get { return 0; }
     }
 
-    public override uint Exp
+    public override int Exp
     {
         get { return 0; }
     }

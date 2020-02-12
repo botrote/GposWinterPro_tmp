@@ -5,10 +5,10 @@ using UnityEngine;
 public class Lich : NPC , IMissileAttack
 {
     private const string unitname = "Lich";
-    private const uint LichNotch = 4;
-    private const uint LichHealth = 30;
-    private const uint LichAttack = 15;
-    private const uint LichDefense = 0;
+    private const int LichNotch = 4;
+    private const int LichHealth = 30;
+    private const int LichAttack = 15;
+    private const int LichDefense = 0;
     private const float LichMissileRange = 5.0f;
     private const float LichDamageRadius = 1.0f;
     private const float LichSpeed = 5.0f;
@@ -20,15 +20,15 @@ public class Lich : NPC , IMissileAttack
     {
         get { return Team.Friendly; }
     }
-    public override uint Notch
+    public override int Notch
     {
         get { return LichNotch; }
     }
-    public override uint NPCMaxHealth
+    public override int NPCMaxHealth
     {
         get { return LichHealth; }
     }
-    public override uint NPCdefense
+    public override int NPCdefense
     {
         get { return LichDefense; }
     }
@@ -49,7 +49,7 @@ public class Lich : NPC , IMissileAttack
         get { return 0; }
     }
 
-    public override uint Exp
+    public override int Exp
     {
         get { return 0; }
     }

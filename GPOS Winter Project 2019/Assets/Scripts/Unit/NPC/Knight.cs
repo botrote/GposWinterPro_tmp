@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spearman : NPC, IMeleeAttack
+public class Knight : NPC, IMeleeAttack
 {
-    private const string unitname = "Spearman";
-    private const int SpearmanNotch = 1;
-    private const int SpearmanExp = 1;
-    private const int SpearmanHealth = 20;
-    private const int SpearmanAttack = 20;
-    private const int SpearmanDefense = 0;
-    private const float SpearmanMeleeRange = 2.0f;
-    private const float SpearmanSpeed = 3.5f;
-    private const Race SpearmanRace = Race.Soldier;
-    private const float SpearmanMeleeCool = 2.5f;
+    private const string unitname = "Knight";
+    private const int KnightNotch = 1;
+    private const int KnightExp = 1;
+    private const int KnightHealth = 30;
+    private const int KnightAttack = 10;
+    private const int KnightDefense = 0;
+    private const float KnightMeleeRange = 1.0f;
+    private const float KnightSpeed = 4.0f;
+    private const Race KnightRace = Race.Soldier;
+    private const float KnightMeleeCool = 1.2f;
     private float MeleeCool;
 
     public override Team TeamTag
@@ -22,7 +22,7 @@ public class Spearman : NPC, IMeleeAttack
     }
     public override int Notch
     {
-        get { return SpearmanNotch; }
+        get { return KnightNotch; }
     }
     protected override float RateOfSpecialAttack
     {
@@ -30,19 +30,19 @@ public class Spearman : NPC, IMeleeAttack
     }
     public override int NPCMaxHealth
     {
-        get { return SpearmanHealth; }
+        get { return KnightHealth; }
     }
     public override int NPCdefense
     {
-        get { return SpearmanDefense; }
+        get { return KnightDefense; }
     }
     public override float NPCspeed
     {
-        get { return SpearmanSpeed; }
+        get { return KnightSpeed; }
     }
     public override Race race
     {
-        get { return SpearmanRace; }
+        get { return KnightRace; }
     }
     public override string Unitname
     {
@@ -51,16 +51,16 @@ public class Spearman : NPC, IMeleeAttack
 
     public override int Exp
     {
-        get { return SpearmanExp; }
+        get { return KnightExp; }
     }
 
     public void MeleeAttack(Unit Target)
     {
         if (isStunned) return;
-        if ( Vector2.Distance(Target.position, this.position) <= SpearmanMeleeRange)
+        if ( Vector2.Distance(Target.position, this.position) <= KnightMeleeRange)
         {
-            if (SpearmanMeleeCool > MeleeCool) return;
-            Target.Damage(SpearmanAttack);
+            if (KnightMeleeCool > MeleeCool) return;
+            Target.Damage(KnightAttack);
             MeleeCool = 0;
         }
     }
@@ -80,7 +80,7 @@ public class Spearman : NPC, IMeleeAttack
     void Update()
     {
         base.Update();
-        if(MeleeCool <= SpearmanMeleeCool)
+        if(MeleeCool <= KnightMeleeCool)
         {
             MeleeCool += Time.deltaTime;
         }
@@ -93,6 +93,6 @@ public class Spearman : NPC, IMeleeAttack
 
     public float getMeleeRange()
     {
-        return SpearmanMeleeRange;
+        return KnightMeleeRange;
     }
 }

@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Archer : NPC , IMissileAttack
+public class HorseManB : NPC , IMissileAttack
 {
-    private const string unitname = "Archer";
-    private const int ArcherNotch = 1;
-    private const int ArcherExp = 1;
-    private const int ArcherHealth = 20;
-    private const int ArcherAttack = 10;
-    private const int ArcherDefense = 0;
-    private const float ArcherMissileRange = 5.0f;
-    private const float ArcherSpeed = 4.0f;
-    private const Race ArcherRace = Race.Soldier;
-    private const float ArcherMissileCool = 2.0f;
+    private const string unitname = "HorseManB";
+    private const int HorseManBNotch = 1;
+    private const int HorseManBExp = 1;
+    private const int HorseManBHealth = 20;
+    private const int HorseManBAttack = 10;
+    private const int HorseManBDefense = 0;
+    private const float HorseManBMissileRange = 5.0f;
+    private const float HorseManBSpeed = 4.0f;
+    private const Race HorseManBRace = Race.Soldier;
+    private const float HorseManBMissileCool = 2.0f;
     private float MissileCool;
 
     public override Team TeamTag
@@ -22,23 +22,23 @@ public class Archer : NPC , IMissileAttack
     }
     public override int Notch
     {
-        get { return ArcherNotch; }
+        get { return HorseManBNotch; }
     }
     public override int NPCMaxHealth
     {
-        get { return ArcherHealth; }
+        get { return HorseManBHealth; }
     }
     public override int NPCdefense
     {
-        get { return ArcherDefense; }
+        get { return HorseManBDefense; }
     }
     public override float NPCspeed
     {
-        get { return ArcherSpeed; }
+        get { return HorseManBSpeed; }
     }
     public override Race race
     {
-        get { return ArcherRace; }
+        get { return HorseManBRace; }
     }
     public override string Unitname
     {
@@ -57,10 +57,10 @@ public class Archer : NPC , IMissileAttack
     public void Shoot(Unit Target)
     {
         if (isStunned) return;
-        if (Vector2.Distance(Target.position, this.position) <= ArcherMissileRange)
+        if (Vector2.Distance(Target.position, this.position) <= HorseManBMissileRange)
         {
-            if (ArcherMissileCool > MissileCool) return;
-            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Arrow", this, this.position, Target.position, (int)ArcherAttack, 10f, 1f);
+            if (HorseManBMissileCool > MissileCool) return;
+            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Arrow", this, this.position, Target.position, (int)HorseManBAttack, 10f, 1f);
             MissileCool = 0;
         }
     }
@@ -84,7 +84,7 @@ public class Archer : NPC , IMissileAttack
     void Update()
     {
         base.Update();
-        if (MissileCool <= ArcherMissileCool)
+        if (MissileCool <= HorseManBMissileCool)
         {
             MissileCool += Time.deltaTime;
         }
@@ -97,6 +97,6 @@ public class Archer : NPC , IMissileAttack
 
     public float getMissileRange()
     {
-        return ArcherMissileRange;
+        return HorseManBMissileRange;
     }
 }

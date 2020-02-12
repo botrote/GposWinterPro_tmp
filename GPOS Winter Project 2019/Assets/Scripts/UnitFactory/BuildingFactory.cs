@@ -24,7 +24,7 @@ public class BuildingFactory : UnitFactory
             Debug.Log(parameter[i]);
         }
         GameObject Instance = GameObject.Instantiate(template);
-        Instance.GetComponent<Building>().Initialize((string)parameter[0], (uint)parameter[1], (float)parameter[2]);
+        Instance.GetComponent<Building>().Initialize((string)parameter[0], (int)parameter[1], (float)parameter[2]);
         return Instance;
     }
 }

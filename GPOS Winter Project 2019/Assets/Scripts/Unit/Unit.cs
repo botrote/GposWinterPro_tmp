@@ -38,15 +38,15 @@ public abstract class Unit : MonoBehaviour
     /// <summary>
     /// 최대 체력
     /// </summary>
-    public abstract uint MaxHealth { get; }
+    public abstract int MaxHealth { get; }
     /// <summary>
     /// 현재 체력
     /// </summary>
-    public uint curHealth { get; protected set; }
+    public int curHealth { get; protected set; }
     /// <summary>
     /// 방어도
     /// </summary>
-    public abstract uint defense { get; }
+    public abstract int defense { get; }
     /// <summary>
     /// 속도
     /// </summary>
@@ -147,7 +147,7 @@ public abstract class Unit : MonoBehaviour
     /// 유닛이 데미지를 입음, 결과적으로 사망하면 Die() 호출
     /// </summary>
     /// <param name="damage">데미지 값</param>
-    public virtual void Damage(uint damage)
+    public virtual void Damage(int damage)
     {
         float defFactor = 1;
         foreach(IBuff buff in Buffs)
@@ -166,14 +166,14 @@ public abstract class Unit : MonoBehaviour
         }
         else
         {
-            curHealth -= (uint)(damage * (1f - ((float)(defense) * defFactor) / 100));
+            curHealth -= (int)(damage * (1f - ((float)(defense) * defFactor) / 100));
         }
     }
     /// <summary>
     /// 유닛의 체력 증가, 최대 체력을 넘지 않도록 조절
     /// </summary>
     /// <param name="damage"></param>
-    public void Heal(uint amount)
+    public void Heal(int amount)
     {
         Debug.Log(this + "Healed!");
         if(MaxHealth <= curHealth + amount)
@@ -211,12 +211,12 @@ public abstract class Unit : MonoBehaviour
         }
         if (hpchange > 0)
         {
-            Heal((uint)hpchange);
+            Heal((int)hpchange);
         }
         else if(hpchange < 0)
         {
             hpchange = 0 - hpchange;
-            Damage((uint)hpchange);
+            Damage((int)hpchange);
         }
         yield return new WaitForSeconds(1f);
     }

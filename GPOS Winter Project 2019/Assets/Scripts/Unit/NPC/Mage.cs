@@ -2,43 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Archer : NPC , IMissileAttack
+public class Mage : NPC , IMissileAttack
 {
-    private const string unitname = "Archer";
-    private const int ArcherNotch = 1;
-    private const int ArcherExp = 1;
-    private const int ArcherHealth = 20;
-    private const int ArcherAttack = 10;
-    private const int ArcherDefense = 0;
-    private const float ArcherMissileRange = 5.0f;
-    private const float ArcherSpeed = 4.0f;
-    private const Race ArcherRace = Race.Soldier;
-    private const float ArcherMissileCool = 2.0f;
+    private const string unitname = "Mage";
+    private const int MageNotch = 2;
+    private const int MageHealth = 20;
+    private const int MageAttack = 20;
+    private const int MageDefense = 0;
+    private const float MageMissileRange = 3.5f;
+    private const float MageDamageRadius = 1.5f;
+    private const float MageSpeed = 3.0f;
+    private const Race MageRace = Race.None;
+    private const float MageMissileCool = 2.0f;
     private float MissileCool;
 
     public override Team TeamTag
     {
-        get { return Team.Enemy; }
+        get { return Team.Friendly; }
     }
     public override int Notch
     {
-        get { return ArcherNotch; }
+        get { return MageNotch; }
     }
     public override int NPCMaxHealth
     {
-        get { return ArcherHealth; }
+        get { return MageHealth; }
     }
     public override int NPCdefense
     {
-        get { return ArcherDefense; }
+        get { return MageDefense; }
     }
     public override float NPCspeed
     {
-        get { return ArcherSpeed; }
+        get { return MageSpeed; }
     }
     public override Race race
     {
-        get { return ArcherRace; }
+        get { return MageRace; }
     }
     public override string Unitname
     {
@@ -57,10 +57,10 @@ public class Archer : NPC , IMissileAttack
     public void Shoot(Unit Target)
     {
         if (isStunned) return;
-        if (Vector2.Distance(Target.position, this.position) <= ArcherMissileRange)
+        if (Vector2.Distance(Target.position, this.position) <= MageMissileRange)
         {
-            if (ArcherMissileCool > MissileCool) return;
-            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Arrow", this, this.position, Target.position, (int)ArcherAttack, 10f, 1f);
+            if (MageMissileCool > MissileCool) return;
+            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Explosive", this, this.position, Target.position, (int)(MageAttack*friendlyAttackFactor), 10f, 1f, MageDamageRadius);
             MissileCool = 0;
         }
     }
@@ -84,7 +84,7 @@ public class Archer : NPC , IMissileAttack
     void Update()
     {
         base.Update();
-        if (MissileCool <= ArcherMissileCool)
+        if (MissileCool <= MageMissileCool)
         {
             MissileCool += Time.deltaTime;
         }
@@ -97,6 +97,6 @@ public class Archer : NPC , IMissileAttack
 
     public float getMissileRange()
     {
-        return ArcherMissileRange;
+        return MageMissileRange;
     }
 }
