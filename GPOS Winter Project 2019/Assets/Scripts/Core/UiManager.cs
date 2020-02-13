@@ -9,8 +9,10 @@ public class UiManager : MonoBehaviour
     private Text text_EXP;
     private Text text_HP;
     private RectTransform select_Arrow;
-    private int arrowIdx;
+    private GameObject deckImageObj;
+    public GameObject[] Deck_Images;
     private Player player;
+    private Player.DeckInfo[] deckInfo;
     // Start is called before the first frame update
     void Awake()
     {
@@ -18,9 +20,15 @@ public class UiManager : MonoBehaviour
         text_EXP = gameObject.transform.Find("EXP_Text").gameObject.GetComponent<Text>();
         text_HP = gameObject.transform.Find("HP_Text").gameObject.GetComponent<Text>();
         select_Arrow = gameObject.transform.Find("Select_Arrow").gameObject.GetComponent<RectTransform>();
-        arrowIdx = 1;
         //select_Arrow.anchoredPosition = new Vector3(-320, -80, 0);
         player = GameObject.Find("Player").gameObject.GetComponent<Player>();
+        deckImageObj = gameObject.transform.Find("Deck_Images").gameObject;
+        Deck_Images = new GameObject[9];
+        for(int idx = 0; idx < Deck_Images.Length; idx++)
+        {
+            Deck_Images[idx] = deckImageObj.transform.GetChild(idx).gameObject;
+        }
+        ShowDeck();
         //Manager.GetComponent<InputManager>().PressKey += new InputManager.InputEventHandler(Move_Arrow_Key);
         //Manager.GetComponent<InputManager>().WheelInput += new InputManager.WheelEventHandler(Move_Arrow_Wheel);
     }
@@ -31,6 +39,30 @@ public class UiManager : MonoBehaviour
         text_EXP.text = "EXP : " + player.getExp();
         text_HP.text = "HP : " + player.curHealth + " / " + player.MaxHealth;
         select_Arrow.anchoredPosition = new Vector3(-320 + (player.GetSelectedUnitIdx()*80), -80, 0);
+        ShowDeck();
+    }
+
+    void ShowDeck()
+    {
+        deckInfo = player.ShowDeckInfo();
+        Text curText;
+        Image curLockImage;
+        for(int idx = 0; idx < Deck_Images.Length; idx++)
+        {
+            curText = Deck_Images[idx].transform.Find("Cost").gameObject.GetComponent<Text>();
+            curLockImage = Deck_Images[idx].transform.Find("Lock").gameObject.GetComponent<Image>();
+            if(deckInfo[idx].isUnlocked == true)
+            {
+                curText.text = deckInfo[idx].cost.ToString()+ " exp";
+                curLockImage.enabled = false;
+            }
+            else
+            {
+                curText.text = "Unlock : \n" + deckInfo[idx].unlockCost + " exp";
+                curLockImage.enabled = true;
+            }
+        }
+
     }
 
 /*

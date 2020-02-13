@@ -68,6 +68,7 @@ public class Ghost : NPC , IHealer
     {
         HealCool = 0;
         //skill = new Skill();
+        unlock_cost = 15;
     }
 
     void Awake()

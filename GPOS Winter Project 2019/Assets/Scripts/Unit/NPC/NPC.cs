@@ -44,6 +44,11 @@ public abstract class NPC : Unit
     /// 유닛의 놋치(적 유닛에게는 아무 값이나 넣어도 됨)
     /// </summary>
     public abstract int Notch { get; }
+
+    /// <summary>
+    /// 언락 비용(적은 임시로 int.maxvalue 사용)
+    /// </summary>
+    protected int unlock_cost{ get; set; }
     /// <summary>
     /// 유닛을 죽였을 때 얻는 경험치(아군 유닛은 0으로 할 것을 권장함)
     /// </summary>
@@ -92,13 +97,14 @@ public abstract class NPC : Unit
         }
     }
 
-    public static void getNameAndCost<T>(out int notch, out string name) where T : NPC
+    public static void getNameAndCost<T>(out int notch, out string name, out int unlockCost) where T : NPC
     {
         GameObject instance = new GameObject();
         instance.AddComponent<SpriteRenderer>();
         instance.AddComponent<T>();
         notch = instance.GetComponent<T>().Notch;
         name = instance.GetComponent<T>().Unitname;
+        unlockCost = instance.GetComponent<T>().unlock_cost;
         Destroy(instance);
         return;
     }
