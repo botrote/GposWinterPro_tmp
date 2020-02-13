@@ -34,7 +34,7 @@ public abstract class NPC : Unit
     }
     public override float speed
     {
-        get { return (int)((TeamTag == Team.Friendly ? friendlySpeedFactor : 1) * NPCspeed); }
+        get { return ((TeamTag == Team.Friendly ? friendlySpeedFactor : 1) * NPCspeed); }
     }
     public abstract int NPCMaxHealth { get; }
     public abstract int NPCdefense { get; }
@@ -69,5 +69,37 @@ public abstract class NPC : Unit
     private void OnDestroy()
     {
         //(아군이면)플레이어 델리게이트 해제
+    }
+
+    protected override void Die()
+    {
+        if (this.TeamTag == Team.Enemy)
+        {   
+            GameObject.Find("Player").GetComponent<Player>().addExp(Exp);
+            Debug.Log(Exp + " added");
+        }
+        base.Die();
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<Unit>() != null)
+        {
+            if (collision.gameObject.GetComponent<Unit>().TeamTag == this.TeamTag)
+            {
+                unitRigidbody2D.AddForce((this.position - (Vector2)collision.transform.position).normalized * this.unitRigidbody2D.mass * 3 * ((Vector2)collision.transform.position - this.position).sqrMagnitude);
+            }
+        }
+    }
+
+    public static void getNameAndCost<T>(out int notch, out string name) where T : NPC
+    {
+        GameObject instance = new GameObject();
+        instance.AddComponent<SpriteRenderer>();
+        instance.AddComponent<T>();
+        notch = instance.GetComponent<T>().Notch;
+        name = instance.GetComponent<T>().Unitname;
+        Destroy(instance);
+        return;
     }
 }

@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 1878285545877007509}
   - component: {fileID: 3553951926410880249}
   - component: {fileID: 4940165181144810121}
-  - component: {fileID: 462483239396987718}
+  - component: {fileID: 7173348015736796496}
+  - component: {fileID: 5767826013721421419}
   m_Layer: 0
   m_Name: Dragon
   m_TagString: Untagged
@@ -121,7 +122,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.25
 --- !u!114 &4940165181144810121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2863c25052cdb4bb15d03411c4f0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &462483239396987718
+--- !u!114 &7173348015736796496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,6 +144,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1878285545877007514}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ba31b66c484e543b9bc8ec555cc527, type: 3}
+  m_Script: {fileID: 11500000, guid: 6daa1388789f0514aafb938fa2f98b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &5767826013721421419
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878285545877007514}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.75

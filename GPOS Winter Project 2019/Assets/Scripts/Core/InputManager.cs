@@ -5,10 +5,12 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     public delegate void CoordInputEventHandler(Vector2 pos);
-    public delegate void InputEventHandler();
-    public event InputEventHandler PressQ;
+    public delegate void InputEventHandler(KeyCode key);
+    public delegate void WheelEventHandler(bool isPositive);
+    public event InputEventHandler PressKey;
     public event CoordInputEventHandler LeftClickInput;
     public event CoordInputEventHandler RightClickInput;
+    public event WheelEventHandler WheelInput;
     Camera cam;
     // Start is called before the first frame update
     void Start()
@@ -17,18 +19,82 @@ public class InputManager : MonoBehaviour
         RightClickInput += new CoordInputEventHandler(PrintInput);
     }
 
+    public Vector2 getMousePosition()
+    {
+        return cam.ScreenToWorldPoint(Input.mousePosition);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse1) && RightClickInput != null)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && LeftClickInput != null)
+        {
+            Vector2 pos = cam.ScreenToWorldPoint(Input.mousePosition);
+            LeftClickInput(pos);
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse1) && RightClickInput != null)
         {
             Vector2 pos = cam.ScreenToWorldPoint(Input.mousePosition);
             RightClickInput(pos);
         }
-        if (Input.GetKeyDown(KeyCode.Q) && PressQ != null)
+        if (Input.GetKeyDown(KeyCode.Q) && PressKey != null)
         {
-            PressQ();
+            PressKey(KeyCode.Q);
         }
+        if (Input.GetKeyDown(KeyCode.W) && PressKey != null)
+        {
+            PressKey(KeyCode.W);
+        }
+        if (Input.GetKeyDown(KeyCode.E) && PressKey != null)
+        {
+            PressKey(KeyCode.E);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha4);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha5);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha6);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha7);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha8);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9) && PressKey != null)
+        {
+            PressKey(KeyCode.Alpha9);
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            WheelInput(true);
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            WheelInput(false);
+        }
+
+
     }
     void PrintInput(Vector2 pos)
     {
