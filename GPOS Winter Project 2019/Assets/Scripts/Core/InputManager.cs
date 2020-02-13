@@ -85,11 +85,11 @@ public class InputManager : MonoBehaviour
         {
             PressKey(KeyCode.Alpha9);
         }
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             WheelInput(true);
         }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             WheelInput(false);
         }
