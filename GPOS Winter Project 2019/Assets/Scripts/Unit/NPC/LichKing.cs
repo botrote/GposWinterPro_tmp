@@ -74,6 +74,7 @@ public class LichKing : NPC , IMissileAttack
     {
         MissileCool = 0;
         //skill = new Skill();
+        unlock_cost = 200;
     }
 
     void Awake()

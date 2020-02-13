@@ -68,6 +68,7 @@ public class Zombie : NPC , IMeleeAttack
     {
         MeleeCool = 0;
         //skill = new Skill();
+        unlock_cost = 0;
     }
 
     void Awake()

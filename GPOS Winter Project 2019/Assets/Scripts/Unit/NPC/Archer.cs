@@ -72,6 +72,7 @@ public class Archer : NPC , IMissileAttack
     protected override void Init()
     {
         MissileCool = 0;
+        unlock_cost = int.MaxValue;
         //skill = new Skill();
     }
 

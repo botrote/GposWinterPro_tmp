@@ -73,6 +73,7 @@ public class Lich : NPC , IMissileAttack
     {
         MissileCool = 0;
         //skill = new Skill();
+        unlock_cost = 100;
     }
 
     void Awake()

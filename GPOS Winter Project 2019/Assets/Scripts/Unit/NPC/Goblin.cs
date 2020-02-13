@@ -73,6 +73,7 @@ public class Goblin : NPC , IMissileAttack
     {
         MissileCool = 0;
         //skill = new Skill();
+        unlock_cost = 70;
     }
 
     void Awake()
