@@ -5,11 +5,11 @@ using UnityEngine;
 public class Ghost : NPC , IHealer
 {
     private const string unitname = "Ghost";
-    private const int GhostNotch = 2;
+    private const int GhostNotch = 5;
     private const int GhostHealth = 15;
     private const int GhostDefense = 0;
     private const int GhostHeal = 10;
-    private const float GhostHealRange = 5.0f;
+    private const float GhostHealRange = 2.0f;
     private const float GhostSpeed = 3.0f;
     private const Race GhostRace = Race.Undead;
     private const float GhostHealCool = 1.0f;
