@@ -73,11 +73,12 @@ public class HorseManB : NPC , IMissileAttack
     {
         MissileCool = 0;
         //skill = new Skill();
+        unlock_cost = int.MaxValue;
     }
 
     void Awake()
     {
-        base.Awake();
+        base.Awake();   
     }
 
     //Update is called once per frame

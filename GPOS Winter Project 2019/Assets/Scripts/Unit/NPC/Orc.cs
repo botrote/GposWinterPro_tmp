@@ -69,6 +69,7 @@ public class Orc : NPC , IMeleeAttack
     {
         MeleeCool = 0;
         //skill = new Skill();
+        unlock_cost = 30;
     }
 
     void Awake()

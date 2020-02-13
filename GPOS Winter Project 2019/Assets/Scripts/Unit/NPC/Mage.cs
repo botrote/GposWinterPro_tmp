@@ -73,6 +73,7 @@ public class Mage : NPC , IMissileAttack
     {
         MissileCool = 0;
         //skill = new Skill();
+        unlock_cost = int.MaxValue;
     }
 
     void Awake()

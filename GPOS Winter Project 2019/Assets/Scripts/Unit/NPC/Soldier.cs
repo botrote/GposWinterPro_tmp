@@ -69,6 +69,7 @@ public class Soldier : NPC, IMeleeAttack
     {
         MeleeCool = 0;
         //skill = new Skill();
+        unlock_cost = int.MaxValue;
     }
 
     void Awake()

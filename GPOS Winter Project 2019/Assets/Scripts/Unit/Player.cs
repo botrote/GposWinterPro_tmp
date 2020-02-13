@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Unit
-{
+{   
+    
     private const string unitname = "Player";
     private const float playerSpeed = 5.0f;
     private int Exp;
@@ -31,44 +32,53 @@ public class Player : Unit
     {
         get { return unitname; }
     }
+    
+    public struct DeckInfo {public int cost; public bool isUnlocked; public int unlockCost; }
 
     protected GameObject Manager;
     protected Deck[] deck;
-    protected bool[] deckunlocked;
+    //protected bool[] deckUnlocked;
+    //protected int[] unlockCost;
+    protected DeckInfo[] deckInfo;
     protected int chosenDeck;
 
     // Start is called before the first frame update
     protected void Awake()
     {
-        Exp = 40;
+        Exp = 4000;
         deck = new Deck[9];
-        deckunlocked = new bool[9];
-        for(int i = 0; i < deck.Length; i++)
-        {
-            if (i < 2) deckunlocked[i] = true;
-            else deckunlocked[i] = false;
-        }
+        deckInfo = new DeckInfo[9];
+        //eckUnlocked = new bool[9];
+        //unlockCost = new int[9];
         string deckname;
         int decknotch;
-        NPC.getNameAndCost<SkeletonB>(out decknotch, out deckname);
+        NPC.getNameAndCost<SkeletonB>(out decknotch, out deckname, out deckInfo[0].unlockCost);
         deck[0] = new Deck(deckname, decknotch);
-        NPC.getNameAndCost<SkeletonS>(out decknotch, out deckname);
+        NPC.getNameAndCost<SkeletonS>(out decknotch, out deckname, out deckInfo[1].unlockCost);
         deck[1] = new Deck(deckname, decknotch);
-        NPC.getNameAndCost<Orc>(out decknotch, out deckname);
+        NPC.getNameAndCost<Orc>(out decknotch, out deckname, out deckInfo[2].unlockCost);
         deck[2] = new Deck(deckname, decknotch);
-        NPC.getNameAndCost<Ghost>(out decknotch, out deckname);
+        NPC.getNameAndCost<Ghost>(out decknotch, out deckname, out deckInfo[3].unlockCost);
         deck[3] = new Deck(deckname, decknotch);
-        NPC.getNameAndCost<Lich>(out decknotch, out deckname);
+        NPC.getNameAndCost<Lich>(out decknotch, out deckname, out deckInfo[4].unlockCost);
         deck[4] = new Deck(deckname, decknotch);
-        NPC.getNameAndCost<Troll>(out decknotch, out deckname);
+        NPC.getNameAndCost<Troll>(out decknotch, out deckname, out deckInfo[5].unlockCost);
         deck[5] = new Deck(deckname, decknotch);
-        NPC.getNameAndCost<Goblin>(out decknotch, out deckname);
+        NPC.getNameAndCost<Goblin>(out decknotch, out deckname, out deckInfo[6].unlockCost);
         deck[6] = new Deck(deckname, decknotch);
-        NPC.getNameAndCost<Devil>(out decknotch, out deckname);
+        NPC.getNameAndCost<Devil>(out decknotch, out deckname, out deckInfo[7].unlockCost);
         deck[7] = new Deck(deckname, decknotch);
-        NPC.getNameAndCost<Dragon>(out decknotch, out deckname);
+        NPC.getNameAndCost<Dragon>(out decknotch, out deckname, out deckInfo[8].unlockCost);
         deck[8] = new Deck(deckname, decknotch);
         chosenDeck = 0;
+
+        for(int i = 0; i < deck.Length; i++)
+        {
+            if (i < 2) deckInfo[i].isUnlocked = true;
+            else deckInfo[i].isUnlocked = false;
+            deckInfo[i].cost = deck[i].getcost();
+        }
+        
         Manager = GameObject.Find("Manager");
         Manager.GetComponent<InputManager>().RightClickInput += new InputManager.CoordInputEventHandler(Move);
         Manager.GetComponent<InputManager>().LeftClickInput += new InputManager.CoordInputEventHandler(UseDeck);
@@ -113,13 +123,27 @@ public class Player : Unit
     }
     protected void UseDeck(Vector2 pos)
     {
-        if (subtractExp(deck[chosenDeck].getcost()))
+        if(deckInfo[chosenDeck].isUnlocked == true)
         {
-            deck[chosenDeck].useDeck(pos);
+            if (subtractExp(deck[chosenDeck].getcost()))
+            {
+                deck[chosenDeck].useDeck(pos);
+            }
+            else
+            {
+                Debug.Log("Unsufficient Exp! : " + Exp);
+            }
         }
         else
         {
-            Debug.Log("Unsufficient Exp! : " + Exp);
+            if (subtractExp(deckInfo[chosenDeck].unlockCost))
+            {
+                deckInfo[chosenDeck].isUnlocked = true;
+            }
+            else
+            {
+                Debug.Log("Unsufficient Exp! : " + Exp);
+            }
         }
         
     }
@@ -167,5 +191,10 @@ public class Player : Unit
     public int GetSelectedUnitIdx()
     {
         return chosenDeck;
+    }
+
+    public DeckInfo[] ShowDeckInfo()
+    {
+        return deckInfo;
     }
 }
