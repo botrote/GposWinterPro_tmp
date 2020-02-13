@@ -72,9 +72,8 @@ public class FriendlyHealerAI : AI
         Unit CurTarget=null;
         for(int i=0; i<Targets.Length; i++)
         {
-            Debug.Log(Targets[i].tag);
             if(Targets[i]==null) break;
-            else if(!Targets[i].tag.Equals("Friendly")) continue;
+            else if(!Targets[i].tag.Equals("Friendly")||Targets[i].gameObject.GetComponent<Unit>() is Flag) continue;
             else if(CurTarget==null||CurTarget==body) CurTarget=Targets[i].gameObject.GetComponent<Unit>();
             else if((float)(CurTarget.curHealth)/CurTarget.MaxHealth > (float)(Targets[i].gameObject.GetComponent<Unit>().curHealth)/Targets[i].gameObject.GetComponent<Unit>().MaxHealth)
             {
