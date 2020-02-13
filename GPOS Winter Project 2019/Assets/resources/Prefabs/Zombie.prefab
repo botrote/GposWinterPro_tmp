@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4457411879327172784}
   - component: {fileID: 9205695470225315558}
   - component: {fileID: 3553951926410880249}
+  - component: {fileID: 6639739327118271100}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -145,4 +146,20 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.25
+--- !u!58 &6639739327118271100
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878285545877007514}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.75

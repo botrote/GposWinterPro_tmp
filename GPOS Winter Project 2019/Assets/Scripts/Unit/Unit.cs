@@ -55,8 +55,8 @@ public abstract class Unit : MonoBehaviour
     /// 종족값
     /// </summary>
     public abstract Race race { get; }
-    private Rigidbody2D unitRigidbody2D;
-    private Transform unitTransform;
+    protected Rigidbody2D unitRigidbody2D;
+    protected Transform unitTransform;
     private Coroutine damagedCoroutine;
     private Coroutine HPBuffCoroutine;
     Color original;
@@ -119,7 +119,8 @@ public abstract class Unit : MonoBehaviour
         {
             default:
             case Behaviour.Idle:
-                unitRigidbody2D.velocity = Vector2.zero;
+                unitRigidbody2D.velocity = unitRigidbody2D.velocity * 0.9f;
+                if (unitRigidbody2D.velocity.magnitude <= 0.1) unitRigidbody2D.velocity = Vector2.zero;
                 break;
             case Behaviour.Moving:
                 {
@@ -143,6 +144,7 @@ public abstract class Unit : MonoBehaviour
                 break;
         }
     }
+
     /// <summary>
     /// 유닛이 데미지를 입음, 결과적으로 사망하면 Die() 호출
     /// </summary>
