@@ -39,7 +39,7 @@ public class EnemySniperAI : AI
                 default:
                 case Action.Pursue:
                     Target = FindTarget("Friendly", 10f);
-                    if(Target==null) body.Dest = player.position + (body.position - player.position).normalized * ((IMissileAttack)body).getMissileRange()*0.8f;
+                    if(Target==null) body.Dest = player.position;
                     else
                     {
                         body.Dest = body.position;
@@ -48,6 +48,7 @@ public class EnemySniperAI : AI
                     yield return null;
                     break;
                 case Action.Snipe:
+                    body.Dest = body.position;
                     ((IMissileAttack)body).Shoot(player);
                     yield return null;
                     break;

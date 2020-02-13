@@ -42,7 +42,8 @@ public class EnemyMeleeAI : AI
             {
                 default:
                 case Action.Idle:
-                    Target = player;
+                    Target = FindTarget("Friendly");
+                    if(Target==null) body.Dest = player.position;
                     yield return null;
                     break;
                 case Action.Pursue:
@@ -51,6 +52,7 @@ public class EnemyMeleeAI : AI
                     yield return null;
                     break;
                 case Action.Engage:
+                    body.Dest = body.position;
                     ((IMeleeAttack)body).MeleeAttack(Target);
                     yield return null;
                     break;

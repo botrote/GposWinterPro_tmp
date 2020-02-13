@@ -55,10 +55,11 @@ public class FriendlyHealerAI : AI
                     yield return null;
                     break;
                 case Action.Pursue:
-                    body.Dest = Target.position + (body.position - Target.position).normalized * ((IHealer)body).getHealRange();
+                    body.Dest = Target.position;
                     yield return null;
                     break;
                 case Action.Heal:
+                    body.Dest = body.position;
                     ((IHealer)body).Heal(Target);
                     yield return null;
                     break;
@@ -74,7 +75,7 @@ public class FriendlyHealerAI : AI
             if(Targets[i]==null) break;
             else if(Targets[i].tag.Equals("Enemy")) continue;
             else if(CurTarget==null||CurTarget==body) CurTarget=Targets[i].gameObject.GetComponent<Unit>();
-            else if((float)CurTarget.curHealth/CurTarget.MaxHealth > (float)(Targets[i].gameObject.GetComponent<Unit>().curHealth)/Targets[i].gameObject.GetComponent<Unit>().MaxHealth)
+            else if((float)(CurTarget.curHealth)/CurTarget.MaxHealth > (float)(Targets[i].gameObject.GetComponent<Unit>().curHealth)/Targets[i].gameObject.GetComponent<Unit>().MaxHealth)
             {
                 CurTarget=Targets[i].gameObject.GetComponent<Unit>();
             }    

@@ -55,8 +55,7 @@ public class EnemyChargeAI : AI
                         }
                         else
                         {
-                            Target=player;
-                            curAction=Action.Pursue;
+                            body.Dest = player.position;
                         }
                     }
                     yield return null;

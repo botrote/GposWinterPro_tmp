@@ -59,6 +59,7 @@ public class FriendlyMeleeAI : AI
                     yield return null;
                     break;
                 case Action.Engage:
+                    body.Dest = body.position;
                     ((IMeleeAttack)body).MeleeAttack(Target);
                     yield return null;
                     break;

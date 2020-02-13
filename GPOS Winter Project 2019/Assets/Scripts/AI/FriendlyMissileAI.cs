@@ -55,10 +55,11 @@ public class FriendlyMissileAI : AI
                     yield return null;
                     break;
                 case Action.Pursue:
-                    body.Dest = Target.position + (body.position - Target.position).normalized * ((IMissileAttack)body).getMissileRange()*0.8f;
+                    body.Dest = Target.position;
                     yield return null;
                     break;
                 case Action.Engage:
+                    body.Dest = body.position;
                     ((IMissileAttack)body).Shoot(Target);
                     yield return null;
                     break;
