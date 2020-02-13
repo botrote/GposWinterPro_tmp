@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public class EnemyMissileAI : AI
 {
-    protected Unit Target;
     public enum Action { Idle, Pursue, Engage }
     protected Action curAction;
     protected Player player;
@@ -38,7 +37,7 @@ public class EnemyMissileAI : AI
             }
             else
             {
-                if (Vector2.Distance(Target.position, body.position) >= ((IMissileAttack)body).getMissileRange()) curAction = Action.Pursue;
+                if (Vector2.Distance(Target.position, body.position)> ((IMissileAttack)body).getMissileRange()) curAction = Action.Pursue;
                 else curAction = Action.Engage;
             }
             
@@ -46,11 +45,12 @@ public class EnemyMissileAI : AI
             {
                 default:
                 case Action.Idle:
-                    Target = FindTarget();
+                    Target = FindTarget("Friendly");
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Pursue:
-                    body.Dest = Target.position + (body.position - Target.position).normalized * ((IMissileAttack)body).getMissileRange();
+                    Target = FindTarget("Friendly");
+                    body.Dest = Target.position + (body.position - Target.position).normalized * ((IMissileAttack)body).getMissileRange()*0.8f;
                     yield return new WaitForSeconds(0.1f);
                     break;
                 case Action.Engage:
@@ -59,23 +59,5 @@ public class EnemyMissileAI : AI
                     break;
             }
         }
-    }
-    protected Unit FindTarget()
-    {
-        GameObject[] possibletargets = GameObject.FindGameObjectsWithTag("Friendly");
-        if (possibletargets.Length == 0) return null;
-        Unit curTarget = possibletargets[0].GetComponent<Unit>();
-        float distanceCurTarget = Vector2.Distance(possibletargets[0].GetComponent<Unit>().position, body.position);
-        for (int i = 1; i < possibletargets.Length; i++)
-        {
-            if (Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, player.position) < MaxBattleDist
-                && distanceCurTarget > Vector2.Distance(possibletargets[i].GetComponent<Unit>().position, body.position))
-            {
-                curTarget = possibletargets[i].GetComponent<Unit>();
-                distanceCurTarget = Vector2.Distance(curTarget.position, body.position);
-            }
-        }
-        if (Vector2.Distance(curTarget.position, player.position) >= MaxBattleDist) return null;
-        return curTarget;
     }
 }

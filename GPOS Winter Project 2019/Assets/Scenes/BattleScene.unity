@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 490382336}
   - component: {fileID: 490382338}
   - component: {fileID: 490382339}
+  - component: {fileID: 490382340}
+  - component: {fileID: 490382341}
   m_Layer: 0
   m_Name: ProjectileFactory
   m_TagString: Untagged
@@ -201,6 +203,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67e3aeb338e8a6d41a81520f4835963a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &490382340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490382334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4891b807fb647414189afea8794d2d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &490382341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490382334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad98fd5fadc550740b555575e64c4cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &519420028
@@ -380,6 +406,7 @@ GameObject:
   - component: {fileID: 1789164892}
   - component: {fileID: 1789164891}
   - component: {fileID: 1789164890}
+  - component: {fileID: 1789164885}
   m_Layer: 0
   m_Name: UnitFactory
   m_TagString: Untagged
@@ -507,6 +534,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 379e97874a59b6e4ab11f1e5fe50227e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1789164885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789164874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd43d08b925861640a746be3a666f6a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1789164886

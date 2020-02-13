@@ -25,14 +25,12 @@ public class DeathBall : MonoBehaviour
             if (!collision.gameObject.tag.Equals(team.ToString()))
             {
                 Collider2D[] Targets = Physics2D.OverlapCircleAll(collision.gameObject.GetComponent<Unit>().position, DamageRadius);
-                Debug.Log("Targets length: " + Targets.Length);
                 for(int i=0; i<Targets.Length; i++)
                 {
                     if(Targets[i].gameObject.GetComponent<Unit>()==null) continue;
                     else
                     {
-                        Debug.Log(i.ToString() + " : " + Targets[i].gameObject.ToString());
-                        if(Targets[i].gameObject.GetComponent<Unit>().TeamTag != team) Targets[i].gameObject.GetComponent<Unit>().Damage((uint)damage);
+                        if(Targets[i].gameObject.GetComponent<Unit>().TeamTag != team) Targets[i].gameObject.GetComponent<Unit>().Damage((int)damage);
                     }        
                 }
             }

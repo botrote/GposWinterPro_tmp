@@ -5,10 +5,10 @@ using UnityEngine;
 public class Orc : NPC , IMeleeAttack
 {
     private const string unitname = "Orc";
-    private const uint OrcNotch = 2;
-    private const uint OrcHealth = 60;
-    private const uint OrcAttack = 7;
-    private const uint OrcDefense = 10;
+    private const int OrcNotch = 2;
+    private const int OrcHealth = 60;
+    private const int OrcAttack = 7;
+    private const int OrcDefense = 10;
     private const float OrcMeleeRange = 1.0f;
     private const float OrcSpeed = 1.2f;
     private const Race OrcRace = Race.None;
@@ -19,15 +19,15 @@ public class Orc : NPC , IMeleeAttack
     {
         get { return Team.Friendly; }
     }
-    public override uint Notch
+    public override int Notch
     {
         get { return OrcNotch; }
     }
-    public override uint NPCMaxHealth
+    public override int NPCMaxHealth
     {
         get { return OrcHealth; }
     }
-    public override uint NPCdefense
+    public override int NPCdefense
     {
         get { return OrcDefense; }
     }
@@ -48,7 +48,7 @@ public class Orc : NPC , IMeleeAttack
         get { return 0; }
     }
 
-    public override uint Exp
+    public override int Exp
     {
         get { return 0; }
     }
@@ -59,7 +59,7 @@ public class Orc : NPC , IMeleeAttack
         if (Vector2.Distance(Target.position, this.position) <= OrcMeleeRange)
         {
             if (OrcMeleeCool > MeleeCool) return;
-            Target.Damage((uint)(OrcAttack * friendlyAttackFactor));
+            Target.Damage((int)(OrcAttack * friendlyAttackFactor));
             MeleeCool = 0;
             if(Random.Range(0f,1.0f)<=0.2f) Target.Buffs.Add(new Stun());
         }

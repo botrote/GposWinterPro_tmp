@@ -5,10 +5,10 @@ using UnityEngine;
 public class LichKing : NPC , IMissileAttack
 {
     private const string unitname = "LichKing";
-    private const uint LichKingNotch = 4;
-    private const uint LichKingHealth = 30;
-    private const uint LichKingAttack = 15;
-    private const uint LichKingDefense = 0;
+    private const int LichKingNotch = 4;
+    private const int LichKingHealth = 30;
+    private const int LichKingAttack = 15;
+    private const int LichKingDefense = 0;
     private const float LichKingMissileRange = 5.0f;
     private const float LichKingDamageRadius = 1.0f;
     private const float LichKingSpeed = 5.0f;
@@ -20,15 +20,15 @@ public class LichKing : NPC , IMissileAttack
     {
         get { return Team.Friendly; }
     }
-    public override uint Notch
+    public override int Notch
     {
         get { return LichKingNotch; }
     }
-    public override uint NPCMaxHealth
+    public override int NPCMaxHealth
     {
         get { return LichKingHealth; }
     }
-    public override uint NPCdefense
+    public override int NPCdefense
     {
         get { return LichKingDefense; }
     }
@@ -49,7 +49,7 @@ public class LichKing : NPC , IMissileAttack
         get { return 0; }
     }
 
-    public override uint Exp
+    public override int Exp
     {
         get { return 0; }
     }
@@ -65,7 +65,7 @@ public class LichKing : NPC , IMissileAttack
                 Collider2D[] Targets = Physics2D.OverlapCircleAll(Target.position, LichKingDamageRadius);
                 for(int i=0; i<Targets.Length; i++)
                 {
-                    if(Targets[i].gameObject.GetComponent<Unit>().TeamTag.Equals("Enemy")) Targets[i].gameObject.GetComponent<Unit>().Damage((uint)(LichKingAttack * friendlyAttackFactor));
+                    if(Targets[i].gameObject.GetComponent<Unit>().TeamTag.Equals("Enemy")) Targets[i].gameObject.GetComponent<Unit>().Damage((int)(LichKingAttack * friendlyAttackFactor));
                 }
                 MissileCool = 0;
             }

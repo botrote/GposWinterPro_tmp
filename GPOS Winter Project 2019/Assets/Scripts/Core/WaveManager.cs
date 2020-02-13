@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    private uint wave;
+    private int wave;
     private UnitFactoryManager factorymanager;
     private Coroutine WaveCoroutine;
     private bool WaveWaiting;
-    public uint getWave
+    public int getWave
     {
         get { return wave; }
     }
@@ -28,12 +28,7 @@ public class WaveManager : MonoBehaviour
     {
         if (factorymanager.isFactoryLoaded)
         {
-            //factorymanager.PlaceUnit("SkeletonS", new Vector2(2, 0));
-            //factorymanager.PlaceUnit("SkeletonB", new Vector2(4, 2));
-            //factorymanager.PlaceUnit("Orc", new Vector2(2,3));
-            //factorymanager.PlaceUnit("Troll", new Vector2(6,6));
-            //factorymanager.PlaceUnit("Goblin", new Vector2(6,4));
-            factorymanager.PlaceUnit("Lich", new Vector2(0,4));
+            factorymanager.PlaceUnit("Dragon", new Vector2(0,4));
             factorymanager.PlaceUnit("Ghost", new Vector2(4, 6));
         }
     }
@@ -61,8 +56,8 @@ public class WaveManager : MonoBehaviour
 
     private void Spawnwave()
     {
-        factorymanager.PlaceUnit("Building", new Vector2(10, 0), "Soldier", (uint)1, 5f);
-        factorymanager.PlaceUnit("Building", new Vector2(-10, 4), "Spearman", (uint)1, 5f);
-        factorymanager.PlaceUnit("Building", new Vector2(-10, -4), "Archer", (uint)1, 5f);
+        factorymanager.PlaceUnit("Building", new Vector2(10, 0), "Soldier", (int)1, 5f);
+        factorymanager.PlaceUnit("Building", new Vector2(-10, 4), "HorseManL", (int)1, 5f);
+        factorymanager.PlaceUnit("Building", new Vector2(-10, -4), "Archer", (int)1, 5f);
     }
 }
