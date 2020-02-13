@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 490382341}
   - component: {fileID: 490382342}
   - component: {fileID: 490382343}
+  - component: {fileID: 490382344}
   m_Layer: 0
   m_Name: ProjectileFactory
   m_TagString: Untagged
@@ -253,6 +254,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f9a0d200d81bd145bd416b7bb2f0920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &490382344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490382334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1241c43512e0f574686d3aa0d99e83d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &519420028

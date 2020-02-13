@@ -31,7 +31,7 @@ public class FriendlyHealerAI : AI
         yield return null;
         while (true)
         {
-            if (Target == null || Target.curHealth==Target.MaxHealth)
+            if (Target == null)
             {
                 if (Vector2.Distance(player.position, body.position) > (MaxDist-2.0f)) curAction = Action.Rally;
                 else curAction = Action.Idle; 
@@ -46,12 +46,12 @@ public class FriendlyHealerAI : AI
             {
                 default:
                 case Action.Idle:
-                    Target = FindTarget("Friendly");
+                    Target = FindTarget();
                     yield return null;
                     break;
                 case Action.Rally:
                     body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 3.0f);
-                    Target = FindTarget("Friendly");
+                    Target = FindTarget();
                     yield return null;
                     break;
                 case Action.Pursue:
@@ -59,11 +59,27 @@ public class FriendlyHealerAI : AI
                     yield return null;
                     break;
                 case Action.Heal:
-                    if (Target.curHealth>=Target.MaxHealth) Target = FindTarget("Friendly");
-                    else ((IHealer)body).Heal(Target);
+                    ((IHealer)body).Heal(Target);
                     yield return null;
                     break;
             }
         }
+    }
+    protected Unit FindTarget()
+    {
+        Collider2D[] Targets = Physics2D.OverlapCircleAll(body.position, 7.0f);
+        Unit CurTarget=null;
+        for(int i=0; i<Targets.Length; i++)
+        {
+            if(Targets[i]==null) break;
+            else if(Targets[i].tag.Equals("Enemy")) continue;
+            else if(CurTarget==null||CurTarget==body) CurTarget=Targets[i].gameObject.GetComponent<Unit>();
+            else if((float)CurTarget.curHealth/CurTarget.MaxHealth > (float)(Targets[i].gameObject.GetComponent<Unit>().curHealth)/Targets[i].gameObject.GetComponent<Unit>().MaxHealth)
+            {
+                CurTarget=Targets[i].gameObject.GetComponent<Unit>();
+            }    
+        }
+        if(CurTarget==body||CurTarget.curHealth==CurTarget.MaxHealth) return null;
+        return CurTarget;
     }
 }
