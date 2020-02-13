@@ -53,6 +53,11 @@ public class EnemyChargeAI : AI
                             ((HorseManL)body).charge=true;
                             curAction = Action.Charge;
                         }
+                        else
+                        {
+                            Target=player;
+                            curAction=Action.Pursue;
+                        }
                     }
                     yield return null;
                     break;

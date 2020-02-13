@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 적군 근접 공격 AI
+/// 적군 저격 AI
 /// </summary>
-public class EnemyMeleeAI : AI
+public class EnemySniperAI : AI
 {
-    
-    public enum Action { Idle, Pursue, Engage }
+    public enum Action { Pursue, Snipe }
     protected Action curAction;
     protected Player player;
     protected IEnumerator FSMCoroutine;
-
+    
     private void Awake()
     {
         body = gameObject.GetComponent<Unit>();
-        Target = null;
         player = GameObject.Find("Player").GetComponent<Player>();
+        Target = null;
         FSMCoroutine = FSM();
         StartCoroutine(FSMCoroutine);
     }
@@ -32,26 +31,24 @@ public class EnemyMeleeAI : AI
         yield return null;
         while (true)
         {
-            if (Target == null) curAction = Action.Idle;
-            else
-            {
-                if (Vector2.Distance(Target.position, body.position) >= ((IMeleeAttack)body).getMeleeRange()) curAction = Action.Pursue;
-                else curAction=Action.Engage;
-            }
+            if (Vector2.Distance(player.position, body.position)> ((IMissileAttack)body).getMissileRange()) curAction = Action.Pursue;
+            else curAction = Action.Snipe;
+            
             switch (curAction)
             {
                 default:
-                case Action.Idle:
-                    Target = player;
-                    yield return null;
-                    break;
                 case Action.Pursue:
-                    Target = FindTarget("Friendly");
-                    if(Target!=null) body.Dest = Target.position;
+                    Target = FindTarget("Friendly", 10f);
+                    if(Target==null) body.Dest = player.position + (body.position - player.position).normalized * ((IMissileAttack)body).getMissileRange()*0.8f;
+                    else
+                    {
+                        body.Dest = body.position;
+                        ((IMissileAttack)body).Shoot(Target);
+                    }
                     yield return null;
                     break;
-                case Action.Engage:
-                    ((IMeleeAttack)body).MeleeAttack(Target);
+                case Action.Snipe:
+                    ((IMissileAttack)body).Shoot(player);
                     yield return null;
                     break;
             }

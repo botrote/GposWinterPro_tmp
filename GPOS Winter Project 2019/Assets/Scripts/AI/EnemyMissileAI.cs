@@ -45,12 +45,12 @@ public class EnemyMissileAI : AI
             {
                 default:
                 case Action.Idle:
-                    Target = FindTarget("Friendly");
+                    Target = player;
                     yield return null;
                     break;
                 case Action.Pursue:
                     Target = FindTarget("Friendly");
-                    body.Dest = Target.position + (body.position - Target.position).normalized * ((IMissileAttack)body).getMissileRange()*0.8f;
+                    if(Target!=null) body.Dest = Target.position + (body.position - Target.position).normalized * ((IMissileAttack)body).getMissileRange()*0.8f;
                     yield return null;
                     break;
                 case Action.Engage:

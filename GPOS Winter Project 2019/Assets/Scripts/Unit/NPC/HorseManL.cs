@@ -7,7 +7,7 @@ public class HorseManL : NPC, IMeleeAttack
     private const string unitname = "HorseManL";
     private const int HorseManLNotch = 1;
     private const int HorseManLExp = 1;
-    private const int HorseManLHealth = 1000;
+    private const int HorseManLHealth = 100;
     private const int HorseManLAttack = 10;
     private const int HorseManLChargeAttack = 50;
     private const int HorseManLDefense = 10;
