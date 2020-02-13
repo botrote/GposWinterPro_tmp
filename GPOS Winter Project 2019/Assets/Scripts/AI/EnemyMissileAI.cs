@@ -28,7 +28,7 @@ public class EnemyMissileAI : AI
     public IEnumerator FSM()
     {
         Debug.Log(body.ToString() + "has consciousness");
-        yield return new WaitForSeconds(Random.Range(0f, 0.5f));
+        yield return null;
         while (true)
         {
             if (Target == null)
@@ -46,16 +46,16 @@ public class EnemyMissileAI : AI
                 default:
                 case Action.Idle:
                     Target = FindTarget("Friendly");
-                    yield return new WaitForSeconds(0.1f);
+                    yield return null;
                     break;
                 case Action.Pursue:
                     Target = FindTarget("Friendly");
                     body.Dest = Target.position + (body.position - Target.position).normalized * ((IMissileAttack)body).getMissileRange()*0.8f;
-                    yield return new WaitForSeconds(0.1f);
+                    yield return null;
                     break;
                 case Action.Engage:
                     ((IMissileAttack)body).Shoot(Target);
-                    yield return new WaitForSeconds(0.1f);
+                    yield return null;
                     break;
             }
         }

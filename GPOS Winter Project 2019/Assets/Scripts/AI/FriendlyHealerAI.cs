@@ -28,7 +28,7 @@ public class FriendlyHealerAI : AI
     public IEnumerator FSM()
     {
         Debug.Log(body.ToString() + "has consciousness");
-        yield return new WaitForSeconds(Random.Range(0f, 0.5f));
+        yield return null;
         while (true)
         {
             if (Target == null || Target.curHealth==Target.MaxHealth)
@@ -47,21 +47,21 @@ public class FriendlyHealerAI : AI
                 default:
                 case Action.Idle:
                     Target = FindTarget("Friendly");
-                    yield return new WaitForSeconds(0.1f);
+                    yield return null;
                     break;
                 case Action.Rally:
                     body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 3.0f);
                     Target = FindTarget("Friendly");
-                    yield return new WaitForSeconds(0.1f);
+                    yield return null;
                     break;
                 case Action.Pursue:
                     body.Dest = Target.position + (body.position - Target.position).normalized * ((IHealer)body).getHealRange();
-                    yield return new WaitForSeconds(0.1f);
+                    yield return null;
                     break;
                 case Action.Heal:
                     if (Target.curHealth>=Target.MaxHealth) Target = FindTarget("Friendly");
                     else ((IHealer)body).Heal(Target);
-                    yield return new WaitForSeconds(0.1f);
+                    yield return null;
                     break;
             }
         }
