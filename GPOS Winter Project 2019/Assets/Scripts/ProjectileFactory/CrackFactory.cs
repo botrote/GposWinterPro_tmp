@@ -19,7 +19,7 @@ public class CrackFactory : ProjectileFactory
     public override GameObject MakeProjectile(int damage, float duration, Unit.Team team, params object[] parameter)
     {
         GameObject Instance = GameObject.Instantiate(template);
-        Instance.GetComponent<Crack>().Init(team, damage, duration, (float)parameter[0]);
+        Instance.GetComponent<Magic>().Init(team, damage, duration, (float)parameter[0]);
         return Instance;
     }
 }

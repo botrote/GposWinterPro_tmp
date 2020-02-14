@@ -6,14 +6,15 @@ public class Mage : NPC , IMissileAttack
 {
     private const string unitname = "Mage";
     private const int MageNotch = 2;
+    private const int ArcherExp = 5;
     private const int MageHealth = 30;
-    private const int MageAttack = 8;
+    private const int MageAttack = 15;
     private const int MageDefense = 0;
     private const float MageMissileRange = 5f;
     private const float MageDamageRadius = 1f;
     private const float MageSpeed = 4.0f;
     private const Race MageRace = Race.None;
-    private const float MageMissileCool = 0.6f;
+    private const float MageMissileCool = 1f;
     private float MissileCool;
 
     public override Team TeamTag

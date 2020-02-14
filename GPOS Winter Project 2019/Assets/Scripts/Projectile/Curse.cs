@@ -8,40 +8,41 @@ public class Curse : MonoBehaviour
     int damage;
     float duration;
     float DamageRadius;
+    Flag origin;
 
-    public void Init(Unit.Team _team, int _damage, float _duration, float _DamageRadius)
+    public void Init(Unit.Team _team, int _damage, float _duration, float _DamageRadius, Flag _Flag)
     {
         team = _team;
         damage = _damage;
         duration = _duration;
         DamageRadius = _DamageRadius;
-        StartCoroutine(LifeTime(duration));
+        origin = _Flag;
+        StartCoroutine(Effect());
     }
-
-    protected void OnTriggerEnter2D(Collider2D collision)
+    protected IEnumerator Effect()
     {
-        if (collision.gameObject.tag.Equals("Enemy") || collision.gameObject.tag.Equals("Friendly"))
+        yield return new WaitForFixedUpdate();
+        while(origin!=null)
         {
-            if (!collision.gameObject.tag.Equals(team.ToString()))
+            Collider2D[] Targets = Physics2D.OverlapCircleAll(gameObject.transform.position, DamageRadius);
+            Debug.Log("Targets length: " + Targets.Length);
+            for(int i=0; i<Targets.Length; i++)
             {
-                Collider2D[] Targets = Physics2D.OverlapCircleAll(collision.gameObject.GetComponent<Unit>().position, DamageRadius);
-                for(int i=0; i<Targets.Length; i++)
+                if(Targets[i].gameObject.GetComponent<Unit>()==null) continue;
+                else
                 {
-                    if(Targets[i].gameObject.GetComponent<Unit>()==null) continue;
-                    else
+                    Debug.Log(i.ToString() + " : " + Targets[i].gameObject.ToString());
+                    if ( Targets[i].gameObject.GetComponent<Unit>().tag.Equals("Enemy") || Targets[i].gameObject.GetComponent<Unit>().tag.Equals("Friendly"))
                     {
-                        if (Targets[i].gameObject.GetComponent<Unit>().TeamTag != team) Targets[i].gameObject.GetComponent<Unit>().Addbuff(new Terror());
-                    }        
-                }
+                        if(Targets[i].gameObject.GetComponent<Unit>().TeamTag != team) Targets[i].gameObject.GetComponent<Unit>().Addbuff(new Terror());
+                    }           
+                }        
             }
+            yield return null;
         }
-    }
-
-    protected IEnumerator LifeTime(float duration)
-    {
-        yield return new WaitForSeconds(duration);
         Destroy(gameObject);
     }
+    
     protected void OnDestroy()
     {
     }
