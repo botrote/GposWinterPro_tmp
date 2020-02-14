@@ -70,7 +70,6 @@ public class Troll : NPC , IMeleeAttack
     {
         MeleeCool = 0;
         //skill = new Skill();
-        unlock_cost = 50;
     }
 
     void Awake()

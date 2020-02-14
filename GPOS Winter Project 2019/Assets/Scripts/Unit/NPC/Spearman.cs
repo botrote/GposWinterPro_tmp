@@ -69,7 +69,6 @@ public class Spearman : NPC, IMeleeAttack
     {
         MeleeCool = 0;
         //skill = new Skill();
-        unlock_cost = int.MaxValue;
     }
 
     void Awake()

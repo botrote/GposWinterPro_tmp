@@ -5,16 +5,17 @@ using UnityEngine;
 public class LichKing : NPC , IMissileAttack
 {
     private const string unitname = "LichKing";
-    private const int LichKingNotch = 4;
-    private const int LichKingHealth = 30;
-    private const int LichKingAttack = 15;
-    private const int LichKingDefense = 0;
-    private const float LichKingMissileRange = 5.0f;
-    private const float LichKingDamageRadius = 1.0f;
+    private const int LichKingNotch = 0;
+    private const int LichKingHealth = 100;
+    private const int LichKingAttack = 20;
+    private const int LichKingDefense = 5;
+    private const float LichKingMissileRange = 7.0f;
     private const float LichKingSpeed = 5.0f;
     private const Race LichKingRace = Race.Undead;
-    private const float LichKingMissileCool = 1.2f;
+    private const float LichKingMissileCool = 1.0f;
+    private const float LichKingSummonCool = 3.0f;
     private float MissileCool;
+    private float SummonCool;
 
     public override Team TeamTag
     {
@@ -60,15 +61,8 @@ public class LichKing : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= LichKingMissileRange)
         {
             if (LichKingMissileCool > MissileCool) return;
-            else
-            {
-                Collider2D[] Targets = Physics2D.OverlapCircleAll(Target.position, LichKingDamageRadius);
-                for(int i=0; i<Targets.Length; i++)
-                {
-                    if(Targets[i].gameObject.GetComponent<Unit>().TeamTag.Equals("Enemy")) Targets[i].gameObject.GetComponent<Unit>().Damage((int)(LichKingAttack * friendlyAttackFactor));
-                }
-                MissileCool = 0;
-            }
+            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Death", this, this.position, Target.position, (int)(LichKingAttack*friendlyAttackFactor), 10f, 1f);
+            MissileCool = 0;
         }
     }
     public void Shoot(Vector2 pos)
@@ -80,7 +74,6 @@ public class LichKing : NPC , IMissileAttack
     {
         MissileCool = 0;
         //skill = new Skill();
-        unlock_cost = 200;
     }
 
     void Awake()
@@ -95,6 +88,15 @@ public class LichKing : NPC , IMissileAttack
         if (MissileCool <= LichKingMissileCool)
         {
             MissileCool += Time.deltaTime;
+        }
+        if (SummonCool <= LichKingSummonCool)
+        {
+            SummonCool += Time.deltaTime;
+            if (SummonCool>=LichKingSummonCool)
+            {
+                GameObject.Find("UnitFactory").GetComponent<UnitFactoryManager>().PlaceUnit("Zombie", new Vector2(Random.Range(-2f,2f), Random.Range(-2f,2f))+this.position);
+                SummonCool = 0;
+            }
         }
     }
 

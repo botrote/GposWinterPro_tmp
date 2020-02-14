@@ -6,19 +6,19 @@ public class Mage : NPC , IMissileAttack
 {
     private const string unitname = "Mage";
     private const int MageNotch = 2;
-    private const int MageHealth = 20;
-    private const int MageAttack = 20;
+    private const int MageHealth = 30;
+    private const int MageAttack = 8;
     private const int MageDefense = 0;
-    private const float MageMissileRange = 3.5f;
-    private const float MageDamageRadius = 1.5f;
-    private const float MageSpeed = 3.0f;
+    private const float MageMissileRange = 5f;
+    private const float MageDamageRadius = 1f;
+    private const float MageSpeed = 4.0f;
     private const Race MageRace = Race.None;
-    private const float MageMissileCool = 2.0f;
+    private const float MageMissileCool = 0.6f;
     private float MissileCool;
 
     public override Team TeamTag
     {
-        get { return Team.Friendly; }
+        get { return Team.Enemy; }
     }
     public override int Notch
     {
@@ -60,7 +60,7 @@ public class Mage : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= MageMissileRange)
         {
             if (MageMissileCool > MissileCool) return;
-            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Explosive", this, this.position, Target.position, (int)(MageAttack*friendlyAttackFactor), 10f, 1f, MageDamageRadius);
+            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Flame", this, this.position, Target.position, (int)(MageAttack), 10f, 1f, MageDamageRadius);
             MissileCool = 0;
         }
     }
@@ -73,7 +73,6 @@ public class Mage : NPC , IMissileAttack
     {
         MissileCool = 0;
         //skill = new Skill();
-        unlock_cost = int.MaxValue;
     }
 
     void Awake()

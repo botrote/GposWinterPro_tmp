@@ -29,7 +29,7 @@ public class EnemyMeleeAI : AI
     public IEnumerator FSM()
     {
         Debug.Log(body.ToString() + "has consciousness");
-        yield return new WaitForSeconds(Random.Range(0f, 0.5f));
+        yield return null;
         while (true)
         {
             if (Target == null) curAction = Action.Idle;
@@ -43,16 +43,18 @@ public class EnemyMeleeAI : AI
                 default:
                 case Action.Idle:
                     Target = FindTarget("Friendly");
-                    yield return new WaitForSeconds(0.1f);
+                    if(Target==null) body.Dest = player.position;
+                    yield return null;
                     break;
                 case Action.Pursue:
                     Target = FindTarget("Friendly");
-                    body.Dest = Target.position;
-                    yield return new WaitForSeconds(0.5f);
+                    if(Target!=null) body.Dest = Target.position;
+                    yield return null;
                     break;
                 case Action.Engage:
+                    body.Dest = body.position;
                     ((IMeleeAttack)body).MeleeAttack(Target);
-                    yield return new WaitForSeconds(0.1f);
+                    yield return null;
                     break;
             }
         }

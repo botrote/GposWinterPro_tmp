@@ -7,13 +7,13 @@ public class Knight : NPC, IMeleeAttack
     private const string unitname = "Knight";
     private const int KnightNotch = 1;
     private const int KnightExp = 1;
-    private const int KnightHealth = 30;
-    private const int KnightAttack = 10;
-    private const int KnightDefense = 0;
-    private const float KnightMeleeRange = 1.0f;
-    private const float KnightSpeed = 4.0f;
+    private const int KnightHealth = 60;
+    private const int KnightAttack = 25;
+    private const int KnightDefense = 50;
+    private const float KnightMeleeRange = 1.5f;
+    private const float KnightSpeed = 5.0f;
     private const Race KnightRace = Race.Soldier;
-    private const float KnightMeleeCool = 1.2f;
+    private const float KnightMeleeCool = 2f;
     private float MeleeCool;
 
     public override Team TeamTag
@@ -69,7 +69,6 @@ public class Knight : NPC, IMeleeAttack
     {
         MeleeCool = 0;
         //skill = new Skill();
-        unlock_cost = int.MaxValue;
     }
 
     void Awake()

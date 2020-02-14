@@ -73,13 +73,11 @@ public class HorseManL : NPC, IMeleeAttack
     {
         MeleeCool = 0;
         //skill = new Skill();
-        unlock_cost = int.MaxValue;
     }
 
     void Awake()
     {
         base.Awake();
-        
     }
 
     // Update is called once per frame

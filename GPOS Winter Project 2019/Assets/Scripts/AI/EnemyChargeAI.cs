@@ -30,10 +30,14 @@ public class EnemyChargeAI : AI
     public IEnumerator FSM()
     {
         Debug.Log(body.ToString() + "has consciousness");
-        yield return new WaitForSeconds(Random.Range(0f, 0.5f));
+        yield return null;
         while (true)
         {
-            if (Target == null) curAction = Action.Idle;
+            if (Target == null)
+            {
+                ((HorseManL)body).charge=false;
+                curAction = Action.Idle;
+            }
             else if (Vector2.Distance(Target.position, body.position) <= ((IMeleeAttack)body).getMeleeRange()) curAction=Action.Engage;
             switch (curAction)
             {
@@ -49,44 +53,55 @@ public class EnemyChargeAI : AI
                             ((HorseManL)body).charge=true;
                             curAction = Action.Charge;
                         }
+                        else
+                        {
+                            body.Dest = player.position;
+                        }
                     }
-                    yield return new WaitForSeconds(0.1f);
+                    yield return null;
                     break;
                 case Action.Pursue:
                     Target = FindTarget("Friendly");
-                    body.Dest = Target.position;
-                    yield return new WaitForSeconds(0.5f);
+                    if(Target!=null) body.Dest = Target.position;
+                    yield return null;
                     break;
                 case Action.Charge:
-                    body.Dest = Target.position;
-                    yield return new WaitForSeconds(0.5f);
+                    if(Target!=null) body.Dest = Target.position;
+                    yield return null;
                     break;
                 case Action.Engage:
                     ((IMeleeAttack)body).MeleeAttack(Target);
                     if(((HorseManL)body).charge)
                     {
                         ((HorseManL)body).charge=false;
-                        for(int i=0; i<25; i++)
+                        for(float timer=0f; timer <3f; timer += Time.deltaTime)
                         {
                             Target = FindTarget("Friendly");
-                            if (Vector2.Distance(Target.position, body.position) <= ((IMeleeAttack)body).getMeleeRange()) ((IMeleeAttack)body).MeleeAttack(Target);
-                            else body.Dest = Target.position;
-                            yield return new WaitForSeconds(0.1f);
-                        }
-                        Target = FindTarget("Friendly");
-                        if(Target!=null)
-                        {
-                            for(int i=0; i<50; i++)
+                            if(Target!=null)
                             {
-                                body.Dest = Target.position - (body.position - Target.position).normalized*(0.1f*body.speed);
-                                yield return new WaitForSeconds(0.1f);
-                            }
-                            Target = FindTarget("Friendly");
+                                if (Vector2.Distance(Target.position, body.position) <= ((IMeleeAttack)body).getMeleeRange())
+                                {
+                                    body.Dest=body.position;
+                                    ((IMeleeAttack)body).MeleeAttack(Target);
+                                } 
+                                else body.Dest = Target.position;
+                            } 
+                            yield return null;
                         }
+                        body.Dest = body.position - (player.position - body.position).normalized*body.speed*5;
+                        for(float timer=0f; timer <5f; timer += Time.deltaTime)
+                        {   
+                            yield return null;
+                        }
+                        Target = null;
                     }
-                    yield return new WaitForSeconds(0.1f);
+                    yield return null;
                     break;
             }
         }
+    }
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Unit>().tag.Equals("Friendly")) Target=collision.gameObject.GetComponent<Unit>();
     }
 }

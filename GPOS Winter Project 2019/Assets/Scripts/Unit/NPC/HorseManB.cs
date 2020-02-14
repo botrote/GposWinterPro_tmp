@@ -7,13 +7,13 @@ public class HorseManB : NPC , IMissileAttack
     private const string unitname = "HorseManB";
     private const int HorseManBNotch = 1;
     private const int HorseManBExp = 1;
-    private const int HorseManBHealth = 20;
-    private const int HorseManBAttack = 10;
-    private const int HorseManBDefense = 0;
-    private const float HorseManBMissileRange = 5.0f;
-    private const float HorseManBSpeed = 4.0f;
+    private const int HorseManBHealth = 30;
+    private const int HorseManBAttack = 12;
+    private const int HorseManBDefense = 10;
+    private const float HorseManBMissileRange = 6.0f;
+    private const float HorseManBSpeed = 7.0f;
     private const Race HorseManBRace = Race.Soldier;
-    private const float HorseManBMissileCool = 2.0f;
+    private const float HorseManBMissileCool = 0.8f;
     private float MissileCool;
 
     public override Team TeamTag
@@ -73,12 +73,11 @@ public class HorseManB : NPC , IMissileAttack
     {
         MissileCool = 0;
         //skill = new Skill();
-        unlock_cost = int.MaxValue;
     }
 
     void Awake()
     {
-        base.Awake();   
+        base.Awake();
     }
 
     //Update is called once per frame

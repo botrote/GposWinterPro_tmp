@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 적군 원거리 공격 AI, 인식 거리에 적이 있을 경우 적을 추적하여 공격
+/// 적군 저격 AI
 /// </summary>
-public class EnemyMissileAI : AI
+public class EnemySniperAI : AI
 {
-    public enum Action { Idle, Pursue, Engage }
+    public enum Action { Pursue, Snipe }
     protected Action curAction;
     protected Player player;
     protected IEnumerator FSMCoroutine;
@@ -15,8 +15,8 @@ public class EnemyMissileAI : AI
     private void Awake()
     {
         body = gameObject.GetComponent<Unit>();
-        Target = null;
         player = GameObject.Find("Player").GetComponent<Player>();
+        Target = null;
         FSMCoroutine = FSM();
         StartCoroutine(FSMCoroutine);
     }
@@ -31,32 +31,25 @@ public class EnemyMissileAI : AI
         yield return null;
         while (true)
         {
-            if (Target == null)
-            {
-                curAction = Action.Idle; 
-            }
-            else
-            {
-                if (Vector2.Distance(Target.position, body.position)> ((IMissileAttack)body).getMissileRange()) curAction = Action.Pursue;
-                else curAction = Action.Engage;
-            }
+            if (Vector2.Distance(player.position, body.position)> ((IMissileAttack)body).getMissileRange()) curAction = Action.Pursue;
+            else curAction = Action.Snipe;
             
             switch (curAction)
             {
                 default:
-                case Action.Idle:
-                    Target = FindTarget("Friendly");
-                    if(Target==null) body.Dest = player.position;
-                    yield return null;
-                    break;
                 case Action.Pursue:
-                    Target = FindTarget("Friendly");
-                    if(Target!=null) body.Dest = Target.position;
+                    Target = FindTarget("Friendly", 10f);
+                    if(Target==null) body.Dest = player.position;
+                    else
+                    {
+                        body.Dest = body.position;
+                        ((IMissileAttack)body).Shoot(Target);
+                    }
                     yield return null;
                     break;
-                case Action.Engage:
+                case Action.Snipe:
                     body.Dest = body.position;
-                    ((IMissileAttack)body).Shoot(Target);
+                    ((IMissileAttack)body).Shoot(player);
                     yield return null;
                     break;
             }

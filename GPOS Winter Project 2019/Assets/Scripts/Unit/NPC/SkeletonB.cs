@@ -72,7 +72,6 @@ public class SkeletonB : NPC , IMissileAttack
     {
         MissileCool = 0;
         //skill = new Skill();
-        unlock_cost = 0;
     }
 
     void Awake()

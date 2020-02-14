@@ -60,7 +60,7 @@ public class Goblin : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= GoblinMissileRange)
         {
             if (GoblinMissileCool > MissileCool) return;
-            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Explosive", this, this.position, Target.position, GoblinAttack, 10f, 1f, GoblinDamageRadius);
+            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Explosive", this, this.position, Target.position, (int)(GoblinAttack*friendlyAttackFactor), 10f, 1f, GoblinDamageRadius);
             MissileCool = 0;
         }
     }
@@ -73,7 +73,6 @@ public class Goblin : NPC , IMissileAttack
     {
         MissileCool = 0;
         //skill = new Skill();
-        unlock_cost = 70;
     }
 
     void Awake()

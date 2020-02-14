@@ -28,10 +28,10 @@ public class FriendlyHealerAI : AI
     public IEnumerator FSM()
     {
         Debug.Log(body.ToString() + "has consciousness");
-        yield return new WaitForSeconds(Random.Range(0f, 0.5f));
+        yield return null;
         while (true)
         {
-            if (Target == null || Target.curHealth==Target.MaxHealth)
+            if (Target == null)
             {
                 if (Vector2.Distance(player.position, body.position) > (MaxDist-2.0f)) curAction = Action.Rally;
                 else curAction = Action.Idle; 
@@ -46,24 +46,41 @@ public class FriendlyHealerAI : AI
             {
                 default:
                 case Action.Idle:
-                    Target = FindTarget("Friendly");
-                    yield return new WaitForSeconds(0.1f);
+                    Target = FindTarget();
+                    yield return null;
                     break;
                 case Action.Rally:
                     body.Dest = player.position + (body.position - player.position).normalized * (MaxDist - 3.0f);
-                    Target = FindTarget("Friendly");
-                    yield return new WaitForSeconds(0.1f);
+                    Target = FindTarget();
+                    yield return null;
                     break;
                 case Action.Pursue:
-                    body.Dest = Target.position + (body.position - Target.position).normalized * ((IHealer)body).getHealRange();
-                    yield return new WaitForSeconds(0.1f);
+                    body.Dest = Target.position;
+                    yield return null;
                     break;
                 case Action.Heal:
-                    if (Target.curHealth>=Target.MaxHealth) Target = FindTarget("Friendly");
-                    else ((IHealer)body).Heal(Target);
-                    yield return new WaitForSeconds(0.1f);
+                    body.Dest = body.position;
+                    ((IHealer)body).Heal(Target);
+                    yield return null;
                     break;
             }
         }
+    }
+    protected Unit FindTarget()
+    {
+        Collider2D[] Targets = Physics2D.OverlapCircleAll(body.position, 7.0f);
+        Unit CurTarget=null;
+        for(int i=0; i<Targets.Length; i++)
+        {
+            if(Targets[i]==null) break;
+            else if(!Targets[i].tag.Equals("Friendly")||Targets[i].gameObject.GetComponent<Unit>() is Flag) continue;
+            else if(CurTarget==null||CurTarget==body) CurTarget=Targets[i].gameObject.GetComponent<Unit>();
+            else if((float)(CurTarget.curHealth)/CurTarget.MaxHealth > (float)(Targets[i].gameObject.GetComponent<Unit>().curHealth)/Targets[i].gameObject.GetComponent<Unit>().MaxHealth)
+            {
+                CurTarget=Targets[i].gameObject.GetComponent<Unit>();
+            }    
+        }
+        if(CurTarget==body||CurTarget.curHealth==CurTarget.MaxHealth) return null;
+        return CurTarget;
     }
 }
