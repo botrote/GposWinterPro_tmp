@@ -51,7 +51,13 @@ public class UiManager : MonoBehaviour
         {
             curText = Deck_Images[idx].transform.Find("Cost").gameObject.GetComponent<Text>();
             curLockImage = Deck_Images[idx].transform.Find("Lock").gameObject.GetComponent<Image>();
-            if(deckInfo[idx].isUnlocked == true)
+            
+            if(deckInfo[idx].leftCool > 0)
+            {
+                curText.text = ((int)deckInfo[idx].leftCool).ToString();
+                curLockImage.enabled = true;        
+            }
+            else if(deckInfo[idx].isUnlocked == true)
             {
                 curText.text = deckInfo[idx].cost.ToString()+ " exp";
                 curLockImage.enabled = false;
