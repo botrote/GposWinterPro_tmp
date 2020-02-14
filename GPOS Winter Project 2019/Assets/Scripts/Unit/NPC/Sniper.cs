@@ -6,14 +6,14 @@ public class Sniper : NPC , IMissileAttack
 {
     private const string unitname = "Sniper";
     private const int SniperNotch = 1;
-    private const int SniperExp = 1;
+    private const int SniperExp = 5;
     private const int SniperHealth = 30;
     private const int SniperAttack = 25;
     private const int SniperDefense = 0;
     private const float SniperMissileRange = 10.0f;
     private const float SniperSpeed = 2.0f;
     private const Race SniperRace = Race.Soldier;
-    private const float SniperMissileCool = 2.0f;
+    private const float SniperMissileCool = 8.0f;
     private float MissileCool;
 
     public override Team TeamTag
