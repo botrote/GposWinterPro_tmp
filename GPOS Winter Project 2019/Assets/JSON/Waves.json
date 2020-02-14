@@ -1256,9 +1256,191 @@
         {
           "squads": [
             {
+              "Portal_Number": 0,
+              "unitName": "Soldier",
+              "unitNumber": 10
+            },
+            {
+              "Portal_Number": 0,
+              "unitName": "Spearman",
+              "unitNumber": 5
+            },
+            {
+              "Portal_Number": 0,
+              "unitName": "Archer",
+              "unitNumber": 5
+            },
+            {
+              "Portal_Number": 2,
+              "unitName": "Soldier",
+              "unitNumber": 10
+            },
+            {
+              "Portal_Number": 2,
+              "unitName": "Spearman",
+              "unitNumber": 5
+            },
+            {
+              "Portal_Number": 2,
+              "unitName": "Archer",
+              "unitNumber": 5
+            },
+            {
+              "Portal_Number": 5,
+              "unitName": "Soldier",
+              "unitNumber": 10
+            },
+            {
+              "Portal_Number": 5,
+              "unitName": "Spearman",
+              "unitNumber": 5
+            },
+            {
+              "Portal_Number": 5,
+              "unitName": "Archer",
+              "unitNumber": 5
+            },
+            {
+              "Portal_Number": 7,
+              "unitName": "Soldier",
+              "unitNumber": 10
+            },
+            {
+              "Portal_Number": 7,
+              "unitName": "Spearman",
+              "unitNumber": 5
+            },
+            {
+              "Portal_Number": 7,
+              "unitName": "Archer",
+              "unitNumber": 5
+            },
+            {
+              "Portal_Number": 3,
+              "unitName": "Arms",
+              "unitNumber": 1
+            },
+            {
+              "Portal_Number": 3,
+              "unitName": "HorseManL",
+              "unitNumber": 1
+            },
+            {
+              "Portal_Number": 3,
+              "unitName": "HorseManB",
+              "unitNumber": 1
+            },
+            {
+              "Portal_Number": 4,
+              "unitName": "Arms",
+              "unitNumber": 1
+            },
+            {
+              "Portal_Number": 4,
+              "unitName": "HorseManL",
+              "unitNumber": 1
+            },
+            {
+              "Portal_Number": 4,
+              "unitName": "HorseManB",
+              "unitNumber": 1
+            },
+
+
+            {
+              "Portal_Number": 1,
+              "unitName": "Knight",
+              "unitNumber": 10
+            },
+            {
+              "Portal_Number": 1,
+              "unitName": "Arms",
+              "unitNumber": 4
+            },
+            {
+              "Portal_Number": 1,
+              "unitName": "Spearman",
+              "unitNumber": 10
+            },
+            {
+              "Portal_Number": 1,
+              "unitName": "Cleric",
+              "unitNumber": 3
+            },
+            {
+              "Portal_Number": 1,
+              "unitName": "Archer",
+              "unitNumber": 10
+            }
+          ]
+        },
+        {
+          "squads": [
+            {
+              "Portal_Number": 1,
+              "unitName": "SniperBoss",
+              "unitNumber": 1
+            }
+          ]
+        },
+        {
+          "squads": [
+            {
+              "Portal_Number": 1,
+              "unitName": "HorsemanBoss",
+              "unitNumber": 1
+            },
+            {
+              "Portal_Number": 0,
+              "unitName": "HorseManL",
+              "unitNumber": 2
+            },
+            {
+              "Portal_Number": 0,
+              "unitName": "HorseManB",
+              "unitNumber": 1
+            },
+            {
               "Portal_Number": 2,
               "unitName": "HorseManL",
               "unitNumber": 2
+            },
+            {
+              "Portal_Number": 2,
+              "unitName": "HorseManB",
+              "unitNumber": 1
+            }
+          ]
+        },
+        {
+          "squads": []
+        },
+        {
+          "squads": [
+            {
+              "Portal_Number": 0,
+              "unitName": "HorseManL",
+              "unitNumber": 3
+            },
+            {
+              "Portal_Number": 2,
+              "unitName": "Knight",
+              "unitNumber": 2
+            },
+            {
+              "Portal_Number": 2,
+              "unitName": "Cleric",
+              "unitNumber": 1
+            },
+            {
+              "Portal_Number": 2,
+              "unitName": "HorseManL",
+              "unitNumber": 3
+            },
+            {
+              "Portal_Number": 6,
+              "unitName": "HorseManB",
+              "unitNumber": 3
             }
           ]
         }
