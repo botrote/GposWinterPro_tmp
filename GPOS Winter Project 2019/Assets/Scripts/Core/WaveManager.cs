@@ -28,9 +28,9 @@ public class WaveManager : MonoBehaviour
     {
         if (factorymanager.isFactoryLoaded)
         {
-            factorymanager.PlaceUnit("LichKing", new Vector2(2,4));
-            factorymanager.PlaceUnit("Ghost", new Vector2(0,4));
-            factorymanager.PlaceUnit("Ghost", new Vector2(4, 6));
+            //factorymanager.PlaceUnit("LichKing", new Vector2(2,4));
+            //factorymanager.PlaceUnit("Ghost", new Vector2(0,4));
+            //factorymanager.PlaceUnit("Ghost", new Vector2(4, 6));
         }
     }
 
