@@ -112,6 +112,7 @@ public class WaveManager : MonoBehaviour
             }
             yield return new WaitUntil(isClear);
         }
+        SceneLoader.LoadClearScene();
     }
 
     protected bool isClear()
