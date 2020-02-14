@@ -62,7 +62,7 @@ public class Troll : NPC , IMeleeAttack
             if (TrollMeleeCool > MeleeCool) return;
             Target.Damage((int)(TrollAttack * friendlyAttackFactor));
             MeleeCool = 0;
-            if(Random.Range(0f,1.0f)<=0.2f) Target.Buffs.Add(new Stun());
+            if(Random.Range(0f,1.0f)<=0.2f) Target.Addbuff(new Stun());
         }
     }
 

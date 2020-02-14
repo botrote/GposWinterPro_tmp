@@ -30,12 +30,11 @@ public class Curse : MonoBehaviour
                     if(Targets[i].gameObject.GetComponent<Unit>()==null) continue;
                     else
                     {
-                        if(Targets[i].gameObject.GetComponent<Unit>().TeamTag != team) Targets[i].gameObject.GetComponent<Unit>().Damage((int)damage);
+                        if (Targets[i].gameObject.GetComponent<Unit>().TeamTag != team) Targets[i].gameObject.GetComponent<Unit>().Addbuff(new Terror());
                     }        
                 }
             }
         }
-
     }
 
     protected IEnumerator LifeTime(float duration)

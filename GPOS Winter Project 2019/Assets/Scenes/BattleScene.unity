@@ -701,16 +701,17 @@ GameObject:
   m_Component:
   - component: {fileID: 490382335}
   - component: {fileID: 490382337}
-  - component: {fileID: 490382336}
-  - component: {fileID: 490382338}
-  - component: {fileID: 490382339}
-  - component: {fileID: 490382340}
-  - component: {fileID: 490382342}
   - component: {fileID: 490382341}
+  - component: {fileID: 490382342}
   - component: {fileID: 490382346}
   - component: {fileID: 490382345}
   - component: {fileID: 490382344}
   - component: {fileID: 490382343}
+  - component: {fileID: 490382339}
+  - component: {fileID: 490382338}
+  - component: {fileID: 490382340}
+  - component: {fileID: 490382347}
+  - component: {fileID: 490382336}
   m_Layer: 0
   m_Name: ProjectileFactory
   m_TagString: Untagged
@@ -862,6 +863,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 085fc98a20a1d5c4a91b60b5d85507dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &490382347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490382334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f06dc244f8b70c41b49de12de3798d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &519420028

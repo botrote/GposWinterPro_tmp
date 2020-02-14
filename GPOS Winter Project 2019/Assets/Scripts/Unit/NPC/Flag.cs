@@ -5,7 +5,7 @@ using UnityEngine;
 public class Flag : NPC
 {
     private const string unitname = "Flag";
-    private const int FlagNotch = 4;
+    private const int FlagNotch = 5;
     private const int FlagHealth = 30;
     private const int FlagAttack = 0;
     private const int FlagDefense = 0;
@@ -61,6 +61,7 @@ public class Flag : NPC
     {
         EffectCool = 0;
         SelfDmgCool = 0;
+        unlock_cost = 40;
         //skill = new Skill();
     }
 

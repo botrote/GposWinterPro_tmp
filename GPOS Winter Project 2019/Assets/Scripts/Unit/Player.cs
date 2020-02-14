@@ -46,8 +46,8 @@ public class Player : Unit
     protected void Awake()
     {
         Exp = 4000;
-        deck = new Deck[9];
-        deckInfo = new DeckInfo[9];
+        deck = new Deck[12];
+        deckInfo = new DeckInfo[12];
         //eckUnlocked = new bool[9];
         //unlockCost = new int[9];
         string deckname;
@@ -70,11 +70,19 @@ public class Player : Unit
         deck[7] = new Deck(deckname, decknotch);
         NPC.getNameAndCost<Dragon>(out decknotch, out deckname, out deckInfo[8].unlockCost);
         deck[8] = new Deck(deckname, decknotch);
+        ISkill.getCost<FireballSkill>(out decknotch, out deckInfo[9].unlockCost);
+        deck[9] = new Deck(new FireballSkill(), decknotch);
+        ISkill.getCost<CommandSkill>(out decknotch, out deckInfo[10].unlockCost);
+        deck[10] = new Deck(new CommandSkill(), decknotch);
+        NPC.getNameAndCost<Flag>(out decknotch, out deckname, out deckInfo[11].unlockCost);
+        deck[11] = new Deck(deckname, decknotch);
+
         chosenDeck = 0;
 
         for(int i = 0; i < deck.Length; i++)
         {
             if (i < 2) deckInfo[i].isUnlocked = true;
+            else if (i == 9) deckInfo[i].isUnlocked = true;
             else deckInfo[i].isUnlocked = false;
             deckInfo[i].cost = deck[i].getcost();
         }
@@ -154,7 +162,6 @@ public class Player : Unit
         {
             if (deck[key - KeyCode.Alpha1] != null)
             {
-                Debug.Log(key - KeyCode.Alpha1);
                 chosenDeck = key - KeyCode.Alpha1;
             }
             return;
@@ -162,10 +169,13 @@ public class Player : Unit
         switch (key)
         {
             case KeyCode.Q:
+                chosenDeck = 9;
                 break;
             case KeyCode.W:
+                chosenDeck = 10;
                 break;
             case KeyCode.E:
+                chosenDeck = 11;
                 break;
             default:
                 break;

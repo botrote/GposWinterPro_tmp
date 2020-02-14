@@ -74,8 +74,18 @@ public abstract class Unit : MonoBehaviour
     /// <returns></returns>
     public abstract string Unitname { get; }
 
-    public List<IBuff> Buffs;
+    protected List<IBuff> Buffs;
     
+    public bool Addbuff(IBuff buff)
+    {
+        for(int i=0; i<Buffs.Count;i++)
+        {
+            if (Buffs[i].getName().Equals(buff.getName())) return false;
+        }
+        Buffs.Add(buff);
+        return true;
+    }
+
     public bool isStunned
     {
         get
@@ -108,12 +118,17 @@ public abstract class Unit : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        foreach(IBuff buff in Buffs)
+        List<IBuff> toRemove = new List<IBuff>();
+        for (int i = 0; i < Buffs.Count; i++)
         {
-            if (!buff.Update(Time.deltaTime))
+            if (!Buffs[i].Update(Time.deltaTime))
             {
-                Buffs.Remove(buff);
+                toRemove.Add(Buffs[i]);
             }
+        }
+        for (int i = 0; i < toRemove.Count; i++)
+        {
+            Buffs.Remove(toRemove[i]);
         }
         switch (curBehaviour)
         {

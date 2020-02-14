@@ -19,10 +19,11 @@ public class Deck
         unit = _unit;
         cost = _cost;
     }
-    public Deck(ISkill _skill)
+    public Deck(ISkill _skill, int _cost)
     {
         isUnit = false;
         skill = _skill;
+        cost = _cost;
     }
     public void useDeck(Vector2 pos)
     {
@@ -32,7 +33,7 @@ public class Deck
         }
         else
         {
-
+            skill.UseSkill();
         }
     }
     public int getcost()
