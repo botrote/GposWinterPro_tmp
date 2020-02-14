@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Hero : NPC, IMeleeAttack
 {
+    protected UnitFactoryManager factoryManager;
     private const string unitname = "Hero";
     private const int HeroNotch = 1;
     private const int HeroExp = 0;
@@ -31,6 +32,9 @@ public class Hero : NPC, IMeleeAttack
     private const float HeroBeamCool = 5f;
     private const int BeamDamage = 40;
     private float BeamCool;
+
+    private const float HeroSummonCool = 15f;
+    private float SummonCool;
 
     public override Team TeamTag
     {
@@ -92,8 +96,14 @@ public class Hero : NPC, IMeleeAttack
         if (isStunned||Target==null) return;
         if (HeroChargeCool > ChargeCool) return;
         float theta;
-        theta=Random.Range(0, 2*Mathf.PI);
-        transform.position=Target.position+(new Vector2(Mathf.Cos(theta) ,Mathf.Sin(theta)))*2;
+        Vector2 dest;
+        do
+        {
+            theta=Random.Range(0, 2*Mathf.PI);
+            dest=Target.position+(new Vector2(Mathf.Cos(theta) ,Mathf.Sin(theta)));
+        }
+        while(GameObject.Find("MapManager").GetComponent<MapManager>().IsOutOfBoundary(dest));
+        transform.position=dest;
         ChargeCool=0;
     }
     public void TeleportAttack(Unit Target)
@@ -101,8 +111,14 @@ public class Hero : NPC, IMeleeAttack
         if (isStunned||Target==null) return;
         if (HeroTeleportCool > TeleportCool) return;
         float theta;
-        theta=Random.Range(0, 2*Mathf.PI);
-        transform.position=Target.position+(new Vector2(Mathf.Cos(theta) ,Mathf.Sin(theta)))*1;
+        Vector2 dest;
+        do
+        {
+            theta=Random.Range(0, 2*Mathf.PI);
+            dest=Target.position+(new Vector2(Mathf.Cos(theta) ,Mathf.Sin(theta)));
+        }
+        while(GameObject.Find("MapManager").GetComponent<MapManager>().IsOutOfBoundary(dest));
+        transform.position=dest;
 
         Collider2D[] Targets = Physics2D.OverlapCircleAll(Target.position, TeleportDamageRadius);
         for(int i=0; i<Targets.Length; i++)
@@ -136,6 +152,7 @@ public class Hero : NPC, IMeleeAttack
     void Awake()
     {
         base.Awake();
+        factoryManager = GameObject.Find("UnitFactory").GetComponent<UnitFactoryManager>();
     }
 
     // Update is called once per frame
@@ -162,6 +179,11 @@ public class Hero : NPC, IMeleeAttack
         {
             BeamCool += Time.deltaTime;
         }
+        if(SummonCool <= HeroSummonCool)
+        {
+            SummonCool += Time.deltaTime;
+        }
+        Summon();
     }
 
     private void OnDestroy()
@@ -172,5 +194,35 @@ public class Hero : NPC, IMeleeAttack
     public float getMeleeRange()
     {
         return HeroMeleeRange;
+    }
+
+    private void Summon()
+    {
+        if (HeroSummonCool > SummonCool) return;
+        int portal=Random.Range(0, 8);
+        switch(Random.Range(1, 6))
+        {
+            default:
+            case 1:
+            factoryManager.PlaceUnit("Building", GameObject.Find("MapManager").GetComponent<MapManager>().GetPortalPos()[portal], "Cleric", 5, 0.2f);
+            break;
+            case 2:
+            factoryManager.PlaceUnit("Building", GameObject.Find("MapManager").GetComponent<MapManager>().GetPortalPos()[portal], "HorseManL", 3, 0.2f);
+            factoryManager.PlaceUnit("Building", GameObject.Find("MapManager").GetComponent<MapManager>().GetPortalPos()[portal], "HorseManB", 3, 0.2f);
+            break;
+            case 3:
+            factoryManager.PlaceUnit("Building", GameObject.Find("MapManager").GetComponent<MapManager>().GetPortalPos()[portal], "Soldier", 20, 0.2f);
+            factoryManager.PlaceUnit("Building", GameObject.Find("MapManager").GetComponent<MapManager>().GetPortalPos()[portal], "Archer", 15, 0.2f);
+            factoryManager.PlaceUnit("Building", GameObject.Find("MapManager").GetComponent<MapManager>().GetPortalPos()[portal], "Cleric", 1, 0.2f);
+            break;
+            case 4:
+            factoryManager.PlaceUnit("Building", GameObject.Find("MapManager").GetComponent<MapManager>().GetPortalPos()[portal], "Knight", 5, 0.2f);
+            factoryManager.PlaceUnit("Building", GameObject.Find("MapManager").GetComponent<MapManager>().GetPortalPos()[portal], "Arms", 3, 0.2f);
+            break;
+            case 5:
+            factoryManager.PlaceUnit("Building", GameObject.Find("MapManager").GetComponent<MapManager>().GetPortalPos()[portal], "Sniper", 5, 0.2f);
+            break;
+        }
+        SummonCool=0;
     }
 }

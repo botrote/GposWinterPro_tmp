@@ -175,7 +175,13 @@ public class SniperBoss : NPC , IMissileAttack
     protected void Teleport()
     {
         float theta;
-        theta=Random.Range(0, 2*Mathf.PI);
-        transform.position=GameObject.Find("Player").GetComponent<Player>().position+(new Vector2(Mathf.Cos(theta) ,Mathf.Sin(theta)))*20;
+        Vector2 dest;
+        do
+        {
+            theta=Random.Range(0, 2*Mathf.PI);
+            dest=GameObject.Find("Player").GetComponent<Player>().position+(new Vector2(Mathf.Cos(theta) ,Mathf.Sin(theta)))*20;
+        }
+        while(GameObject.Find("MapManager").GetComponent<MapManager>().IsOutOfBoundary(dest));
+        transform.position=dest;
     }
 }
