@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DevilFactory : UnitFactory
+public class HeroFactory : UnitFactory
 {
-    protected const string product = "Devil";
+    protected const string product = "Hero";
     protected GameObject template;
     public override string Product
     {
@@ -14,7 +14,7 @@ public class DevilFactory : UnitFactory
     protected void Awake()
     {
         base.Awake();
-        template = Resources.Load("Prefabs/Devil") as GameObject;
+        template = Resources.Load("Prefabs/Hero") as GameObject;
     }
 
     public override GameObject MakeUnit(params object[] parameter)
