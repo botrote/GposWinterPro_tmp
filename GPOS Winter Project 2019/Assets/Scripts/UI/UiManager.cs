@@ -8,6 +8,7 @@ public class UiManager : MonoBehaviour
     private GameObject Manager;
     private Text text_EXP;
     private Text text_HP;
+    private int selectedDeck;
     private RectTransform select_Arrow;
     private GameObject deckImageObj;
     public GameObject[] Deck_Images;
@@ -23,7 +24,7 @@ public class UiManager : MonoBehaviour
         //select_Arrow.anchoredPosition = new Vector3(-320, -80, 0);
         player = GameObject.Find("Player").gameObject.GetComponent<Player>();
         deckImageObj = gameObject.transform.Find("Deck_Images").gameObject;
-        Deck_Images = new GameObject[9];
+        Deck_Images = new GameObject[12];
         for(int idx = 0; idx < Deck_Images.Length; idx++)
         {
             Deck_Images[idx] = deckImageObj.transform.GetChild(idx).gameObject;
@@ -38,7 +39,17 @@ public class UiManager : MonoBehaviour
     {
         text_EXP.text = "EXP : " + player.getExp();
         text_HP.text = "HP : " + player.curHealth + " / " + player.MaxHealth;
-        select_Arrow.anchoredPosition = new Vector3(-320 + (player.GetSelectedUnitIdx()*80), -80, 0);
+        selectedDeck = player.GetSelectedUnitIdx();
+        if(selectedDeck < 9)
+        {
+            select_Arrow.rotation = Quaternion.Euler(0,0,180);
+            select_Arrow.anchoredPosition = new Vector3(-320 + (selectedDeck*80), -80, 0);
+        }
+        else
+        {
+            select_Arrow.rotation = Quaternion.Euler(0,0,0);
+            select_Arrow.anchoredPosition = new Vector3(-320 + ((selectedDeck - 9)*80), -365, 0);
+        }
         ShowDeck();
     }
 
