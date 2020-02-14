@@ -19,7 +19,7 @@ public class DeathFactory : ProjectileFactory
     public override GameObject MakeProjectile(int damage, float duration, Unit.Team team, params object[] parameter)
     {
         GameObject Instance = GameObject.Instantiate(template);
-        Instance.GetComponent<Death>().Init(team, damage, duration);
+        Instance.GetComponent<Arrow>().Init(team, damage, duration);
         return Instance;
     }
 }

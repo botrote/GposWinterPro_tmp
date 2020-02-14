@@ -60,7 +60,7 @@ public class Lich : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= LichMissileRange)
         {
             if (LichMissileCool > MissileCool) return;
-            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("DeathBall", this, Target.position, Target.position, (int)(LichAttack*friendlyAttackFactor), 0f, 1f, LichDamageRadius);
+            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("DeathBall", this, Target.position, Target.position, (int)(LichAttack*friendlyAttackFactor), 0f, 0.5f, LichDamageRadius);
             MissileCool = 0;
         }
     }

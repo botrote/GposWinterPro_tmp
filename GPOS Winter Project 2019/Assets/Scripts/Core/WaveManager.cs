@@ -28,9 +28,7 @@ public class WaveManager : MonoBehaviour
     {
         if (factorymanager.isFactoryLoaded)
         {
-            factorymanager.PlaceUnit("LichKing", new Vector2(2,4));
-            factorymanager.PlaceUnit("Ghost", new Vector2(0,4));
-            factorymanager.PlaceUnit("Ghost", new Vector2(4, 6));
+            factorymanager.PlaceUnit("Flag", new Vector2(0,4));
         }
     }
 
@@ -58,7 +56,7 @@ public class WaveManager : MonoBehaviour
     private void Spawnwave()
     {
         factorymanager.PlaceUnit("Building", new Vector2(10, 0), "Mage", (int)1, 5f);
-        factorymanager.PlaceUnit("Building", new Vector2(-10, 4), "Archer", (int)1, 5f);
+        factorymanager.PlaceUnit("Building", new Vector2(-10, 4), "Sniper", (int)1, 5f);
         factorymanager.PlaceUnit("Building", new Vector2(-10, -4), "Arms", (int)1, 5f);
     }
 }

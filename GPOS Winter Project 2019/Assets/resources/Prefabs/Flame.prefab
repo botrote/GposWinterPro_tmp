@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1055352431898205428}
   - component: {fileID: 7440134062087050329}
   - component: {fileID: 4472136028607623260}
-  - component: {fileID: -262127565848930519}
+  - component: {fileID: 1164329764307423544}
   m_Layer: 0
   m_Name: Flame
   m_TagString: Untagged
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.58}
   serializedVersion: 2
   m_Radius: 0.23
---- !u!114 &-262127565848930519
+--- !u!114 &1164329764307423544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,6 +130,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8111311611707005082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53f1d6f3be99e1846a559ece8076324b, type: 3}
+  m_Script: {fileID: 11500000, guid: fa386ae8e8cf7ed499154db17bc0aca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

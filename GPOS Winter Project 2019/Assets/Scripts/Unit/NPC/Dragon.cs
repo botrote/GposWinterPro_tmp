@@ -5,7 +5,7 @@ using UnityEngine;
 public class Dragon : NPC , IMissileAttack
 {
     private const string unitname = "Dragon";
-    private const int DragonNotch = 0;
+    private const int DragonNotch = 40;
     private const int DragonHealth = 200;
     private const int DragonAttack = 60;
     private const int DragonSpecialAttack = 30;

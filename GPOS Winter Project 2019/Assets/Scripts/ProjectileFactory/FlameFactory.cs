@@ -19,7 +19,7 @@ public class FlameFactory : ProjectileFactory
     public override GameObject MakeProjectile(int damage, float duration, Unit.Team team, params object[] parameter)
     {
         GameObject Instance = GameObject.Instantiate(template);
-        Instance.GetComponent<Flame>().Init(team, damage, duration, (float)parameter[0]);
+        Instance.GetComponent<Explosive>().Init(team, damage, duration, (float)parameter[0]);
         return Instance;
     }
 }

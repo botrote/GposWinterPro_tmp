@@ -19,7 +19,7 @@ public class CurseFactory : ProjectileFactory
     public override GameObject MakeProjectile(int damage, float duration, Unit.Team team, params object[] parameter)
     {
         GameObject Instance = GameObject.Instantiate(template);
-        Instance.GetComponent<Curse>().Init(team, damage, duration, (float)parameter[0]);
+        Instance.GetComponent<Curse>().Init(team, damage, duration, (float)parameter[0], (Flag)parameter[1]);
         return Instance;
     }
 }

@@ -40,7 +40,7 @@ public class ProjectileFactoryManager : MonoBehaviour
             Vector2 dir = (target - pos).normalized;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
             product.GetComponent<Transform>().rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            product.GetComponent<Rigidbody2D>().velocity = (target - pos).normalized * speed;
+            if(product.GetComponent<Rigidbody2D>() != null) product.GetComponent<Rigidbody2D>().velocity = (target - pos).normalized * speed;
             return product;
         }
         else
