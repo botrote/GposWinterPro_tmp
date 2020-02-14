@@ -135,7 +135,18 @@ public class Player : Unit
         {
             if (subtractExp(deck[chosenDeck].getcost()))
             {
-                deck[chosenDeck].useDeck(pos);
+                int squadNum;
+                if(chosenDeck == 0)
+                    squadNum = 3;
+                else if (chosenDeck == 1)
+                    squadNum = 4;
+                else if (chosenDeck == 2)
+                    squadNum = 2;
+                else
+                    squadNum = 1;
+
+                for(int i = 0; i < squadNum; i++)
+                    deck[chosenDeck].useDeck(pos);
             }
             else
             {

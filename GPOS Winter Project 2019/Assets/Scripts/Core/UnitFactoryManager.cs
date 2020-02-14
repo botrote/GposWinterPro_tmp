@@ -43,7 +43,7 @@ public class UnitFactoryManager : MonoBehaviour
         if (factoryDict.TryGetValue(name, out factory))
         {
             GameObject product = factory.MakeUnit(parameter);
-            product.GetComponent<Transform>().position = pos;
+            product.GetComponent<Transform>().position = pos + new Vector2(Random.Range(-0.8f, +0.8f), Random.Range(-0.8f, +0.8f));
             return product;
         }
         else
