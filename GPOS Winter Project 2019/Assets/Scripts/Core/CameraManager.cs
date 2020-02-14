@@ -6,6 +6,7 @@ public class CameraManager : MonoBehaviour
 {
     protected Player player;
     protected Camera cam;
+    public Vector3 oriPos;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -27,5 +28,26 @@ public class CameraManager : MonoBehaviour
         float moveX = Mathf.Max(0, offset.x - cam.pixelWidth / 6) + Mathf.Min(0, offset.x + cam.pixelWidth / 6);
         float moveY = Mathf.Max(0, offset.y - cam.pixelHeight / 6) + Mathf.Min(0, offset.y + cam.pixelHeight / 6);
         gameObject.transform.Translate(cam.ScreenToWorldPoint(new Vector2(moveX, moveY) + new Vector2(cam.pixelWidth / 2, cam.pixelHeight / 2)) - gameObject.transform.position);
+        oriPos = gameObject.transform.position;
+        if(oriPos.y < -20)
+        {
+            oriPos = new Vector3(oriPos.x, -20, oriPos.z);
+            gameObject.transform.position = oriPos;
+        }
+        else if (oriPos.y > +20)
+        {
+            oriPos = new Vector3(oriPos.x, +20, oriPos.z);
+            gameObject.transform.position = oriPos;
+        }
+        if(oriPos.x < -64)
+        {
+            oriPos = new Vector3(-64, oriPos.y, oriPos.z);
+            gameObject.transform.position = oriPos;
+        }
+        else if(oriPos.x > -2)
+        {
+            oriPos = new Vector3(-2, oriPos.y, oriPos.z);
+            gameObject.transform.position = oriPos;
+        }
     }
 }
