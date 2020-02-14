@@ -86,11 +86,11 @@ public class Flag : NPC
         if ( SelfDmgCool<= FlagSelfDmgCool)
         {
             SelfDmgCool += Time.deltaTime;
-        }
-        if (SelfDmgCool>=FlagSelfDmgCool)
-        {
-            this.Damage(FlagSelfDmg);
-            SelfDmgCool = 0;
+            if (SelfDmgCool>=FlagSelfDmgCool)
+            {
+                this.Damage(FlagSelfDmg);
+                SelfDmgCool = 0;
+            }
         }
             
     }
