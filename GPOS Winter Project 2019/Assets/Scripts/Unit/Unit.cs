@@ -156,7 +156,7 @@ public abstract class Unit : MonoBehaviour
         {
             defFactor *= buff.getDefBuff();
         }
-        Debug.Log(gameObject.ToString() + "damaged, dmg : " + damage);
+        Debug.Log(gameObject.ToString() + "damaged, dmg : " + damage + " curHealth : " + curHealth);
         if (damagedCoroutine != null)
             StopCoroutine(damagedCoroutine);
         damagedCoroutine = StartCoroutine(paintRed());
