@@ -66,7 +66,7 @@ public class Player : Unit
         deck[5] = new Deck(deckname, decknotch);
         NPC.getNameAndCost<Goblin>(out decknotch, out deckname, out deckInfo[6].unlockCost);
         deck[6] = new Deck(deckname, decknotch);
-        NPC.getNameAndCost<Devil>(out decknotch, out deckname, out deckInfo[7].unlockCost);
+        NPC.getNameAndCost<LichKing>(out decknotch, out deckname, out deckInfo[7].unlockCost);
         deck[7] = new Deck(deckname, decknotch);
         NPC.getNameAndCost<Dragon>(out decknotch, out deckname, out deckInfo[8].unlockCost);
         deck[8] = new Deck(deckname, decknotch);

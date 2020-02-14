@@ -5,7 +5,7 @@ using UnityEngine;
 public class LichKing : NPC , IMissileAttack
 {
     private const string unitname = "LichKing";
-    private const int LichKingNotch = 0;
+    private const int LichKingNotch = 40;
     private const int LichKingHealth = 100;
     private const int LichKingAttack = 20;
     private const int LichKingDefense = 5;
