@@ -95,7 +95,9 @@ public class LichKing : NPC , IMissileAttack
             SummonCool += Time.deltaTime;
             if (SummonCool>=LichKingSummonCool)
             {
-                GameObject.Find("UnitFactory").GetComponent<UnitFactoryManager>().PlaceUnit("Zombie", new Vector2(Random.Range(-2f,2f), Random.Range(-2f,2f))+this.position);
+                float theta;
+                theta=Random.Range(0, 2*Mathf.PI);
+                GameObject.Find("UnitFactory").GetComponent<UnitFactoryManager>().PlaceUnit("Zombie", new Vector2(Mathf.Cos(theta) ,Mathf.Sin(theta))*1.5f+this.position);
                 SummonCool = 0;
             }
         }
