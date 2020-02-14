@@ -27,7 +27,7 @@ public class Terror : IBuff
 
     public string getName()
     {
-        return "Stun";
+        return "Terror";
     }
 
     public float getRemainingTime()
@@ -42,7 +42,7 @@ public class Terror : IBuff
 
     public bool isStun()
     {
-        return true;
+        return false;
     }
 
     public bool Update(float time)

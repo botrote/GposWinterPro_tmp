@@ -57,8 +57,8 @@ public class WaveManager : MonoBehaviour
 
     private void Spawnwave()
     {
-        factorymanager.PlaceUnit("Building", new Vector2(10, 0), "Mage", (int)1, 5f);
-        factorymanager.PlaceUnit("Building", new Vector2(-10, 4), "Archer", (int)1, 5f);
-        factorymanager.PlaceUnit("Building", new Vector2(-10, -4), "Arms", (int)1, 5f);
+        factorymanager.PlaceUnit("Building", new Vector2(10, 0), "Soldier", (int)1, 5f);
+        factorymanager.PlaceUnit("Building", new Vector2(-10, 4), "Soldier", (int)1, 5f);
+        factorymanager.PlaceUnit("Building", new Vector2(-10, -4), "Soldier", (int)1, 5f);
     }
 }

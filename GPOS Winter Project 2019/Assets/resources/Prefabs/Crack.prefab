@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1055352431898205428}
   - component: {fileID: 7440134062087050329}
   - component: {fileID: 7654459081929661476}
-  - component: {fileID: 4877008578996413411}
+  - component: {fileID: -667413407203599047}
   m_Layer: 0
   m_Name: Crack
   m_TagString: Untagged
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0.15, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &4877008578996413411
+--- !u!114 &-667413407203599047
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,6 +130,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8111311611707005082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbb97ae5b4406034b96729a9f8b0bfb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 98ca4c09a4e2a4a46847da7a7936b74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

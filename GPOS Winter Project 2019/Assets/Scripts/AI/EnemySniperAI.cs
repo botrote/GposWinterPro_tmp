@@ -38,7 +38,7 @@ public class EnemySniperAI : AI
             {
                 default:
                 case Action.Pursue:
-                    Target = FindTarget("Friendly", 10f);
+                    Target = FindTarget("Friendly", 5f);
                     if(Target==null) body.Dest = player.position;
                     else
                     {

@@ -11,13 +11,12 @@ public class Flag : NPC
     private const int FlagDefense = 0;
     private const int FlagSelfDmg = 2;
     private const float FlagMissileRange = 0f;
-    private const float FlagEffectRadius = 5f;
-    private const float FlagSpeed = 0f;
+    private const float FlagEffectRadius = 3f;
+    private const float FlagSpeed = 10f;
     private const Race FlagRace = Race.None;
-    private const float FlagEffectCool = 0.2f;
     private const float FlagSelfDmgCool = 1f;
-    private float EffectCool;
     private float SelfDmgCool;
+    private Vector2 origin;
 
     public override Team TeamTag
     {
@@ -59,7 +58,6 @@ public class Flag : NPC
 
     protected override void Init()
     {
-        EffectCool = 0;
         SelfDmgCool = 0;
         unlock_cost = 40;
         //skill = new Skill();
@@ -68,22 +66,13 @@ public class Flag : NPC
     void Awake()
     {
         base.Awake();
+        StartCoroutine(Terrorize());
     }
 
     //Update is called once per frame
     void Update()
     {
         base.Update();
-        if (EffectCool <= FlagEffectCool)
-        {
-            EffectCool += Time.deltaTime;
-        }
-        if (EffectCool>=FlagEffectCool)
-        {
-            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Curse", this, this.position, this.position, 0, 0f, 0.2f, FlagEffectRadius);
-            EffectCool = 0;
-        }
-
         if ( SelfDmgCool<= FlagSelfDmgCool)
         {
             SelfDmgCool += Time.deltaTime;
@@ -93,7 +82,14 @@ public class Flag : NPC
                 SelfDmgCool = 0;
             }
         }
-            
+        transform.position=origin;  
+    }
+
+    private IEnumerator Terrorize()
+    {
+        yield return new WaitForEndOfFrame();
+        origin=transform.position;
+        GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Curse", this, this.position, this.position, 0, 0f, 0, FlagEffectRadius, this);
     }
 
     private void OnDestroy()
