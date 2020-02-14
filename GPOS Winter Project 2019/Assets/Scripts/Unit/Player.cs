@@ -97,7 +97,7 @@ public class Player : Unit
     protected void Start()
     {
         base.Start();
-        
+        transform.position = GameObject.Find("MapManager").GetComponent<MapManager>().GetCenterPos();
     }
     // Update is called once per frame
     protected void Update()
