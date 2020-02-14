@@ -76,7 +76,7 @@ public abstract class NPC : Unit
         //(아군이면)플레이어 델리게이트 해제
     }
 
-    protected override void Die()
+    public override void Die()
     {
         if (this.TeamTag == Team.Enemy)
         {   

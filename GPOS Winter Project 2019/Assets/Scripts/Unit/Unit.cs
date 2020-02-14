@@ -205,7 +205,7 @@ public abstract class Unit : MonoBehaviour
     /// <summary>
     /// 유닛이 죽었을 때 발생하는 이벤트 등을 처리함(CampaignManager에 플래그를 세우는 등)
     /// </summary>
-    protected virtual void Die()
+    public virtual void Die()
     {
         Destroy(gameObject);
     }

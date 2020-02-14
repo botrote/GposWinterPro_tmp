@@ -14,7 +14,7 @@ public class Player : Unit
     }
     public override int MaxHealth
     {
-        get { return (100 + Manager.GetComponent<WaveManager>().getWave * 300); }
+        get { return (300 + Manager.GetComponent<WaveManager>().getWave * 40); }
     }
     public override int defense
     {
