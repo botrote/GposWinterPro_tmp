@@ -33,13 +33,14 @@ public class Player : Unit
         get { return unitname; }
     }
     
-    public struct DeckInfo {public int cost; public bool isUnlocked; public int unlockCost; }
+    public struct DeckInfo {public int cost; public bool isUnlocked; public int unlockCost; public float leftCool;}
 
     protected GameObject Manager;
     protected Deck[] deck;
     //protected bool[] deckUnlocked;
     //protected int[] unlockCost;
     protected DeckInfo[] deckInfo;
+    protected float[] coolTimeBook; //나중에 유닛 참조하도록 바꿔놔라 해찬아
     protected int chosenDeck;
 
     // Start is called before the first frame update
@@ -48,6 +49,7 @@ public class Player : Unit
         Exp = 4000;
         deck = new Deck[12];
         deckInfo = new DeckInfo[12];
+        coolTimeBook = new float[12] {3f, 3f, 5f, 7f, 10f, 1f, 4f, 25f, 25f, 6f, 3f, 12f};
         //eckUnlocked = new bool[9];
         //unlockCost = new int[9];
         string deckname;
@@ -85,6 +87,7 @@ public class Player : Unit
             else if (i == 9) deckInfo[i].isUnlocked = true;
             else deckInfo[i].isUnlocked = false;
             deckInfo[i].cost = deck[i].getcost();
+            deckInfo[i].leftCool = 0f;
         }
         
         Manager = GameObject.Find("Manager");
@@ -131,11 +134,25 @@ public class Player : Unit
     }
     protected void UseDeck(Vector2 pos)
     {
+        if(deckInfo[chosenDeck].leftCool > 0f)
+            return;
         if(deckInfo[chosenDeck].isUnlocked == true)
         {
             if (subtractExp(deck[chosenDeck].getcost()))
             {
-                deck[chosenDeck].useDeck(pos);
+                int squadNum;
+                if(chosenDeck == 0)
+                    squadNum = 3;
+                else if (chosenDeck == 1)
+                    squadNum = 4;
+                else if (chosenDeck == 2)
+                    squadNum = 2;
+                else
+                    squadNum = 1;
+
+                for(int i = 0; i < squadNum; i++)
+                    deck[chosenDeck].useDeck(pos);
+                StartCoroutine(CountCool(chosenDeck));
             }
             else
             {
@@ -154,6 +171,14 @@ public class Player : Unit
             }
         }
         
+    }
+
+    private IEnumerator CountCool(int _chosenDeck)
+    {
+        deckInfo[_chosenDeck].leftCool = coolTimeBook[_chosenDeck];
+        for(float i = coolTimeBook[_chosenDeck]; deckInfo[_chosenDeck].leftCool > 0; deckInfo[_chosenDeck].leftCool -= 0.1f)
+            yield return new WaitForSeconds(0.1f);
+        deckInfo[_chosenDeck].leftCool = 0;
     }
 
     protected void UseSkill(KeyCode key)
