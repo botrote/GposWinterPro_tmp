@@ -19,7 +19,9 @@ public class UiManager : MonoBehaviour
     {
         Manager = GameObject.Find("Manager");
         text_EXP = gameObject.transform.Find("EXP_Text").gameObject.GetComponent<Text>();
+        text_EXP.color = new Color(0,0,1);
         text_HP = gameObject.transform.Find("HP_Text").gameObject.GetComponent<Text>();
+        text_HP.color = new Color(1,0,0);
         select_Arrow = gameObject.transform.Find("Select_Arrow").gameObject.GetComponent<RectTransform>();
         //select_Arrow.anchoredPosition = new Vector3(-320, -80, 0);
         player = GameObject.Find("Player").gameObject.GetComponent<Player>();
@@ -61,6 +63,7 @@ public class UiManager : MonoBehaviour
         for(int idx = 0; idx < Deck_Images.Length; idx++)
         {
             curText = Deck_Images[idx].transform.Find("Cost").gameObject.GetComponent<Text>();
+            curText.color = new Color(0,0,1);
             curLockImage = Deck_Images[idx].transform.Find("Lock").gameObject.GetComponent<Image>();
             
             if(deckInfo[idx].leftCool > 0)
