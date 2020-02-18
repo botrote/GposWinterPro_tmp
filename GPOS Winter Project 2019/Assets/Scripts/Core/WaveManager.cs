@@ -96,10 +96,14 @@ public class WaveManager : MonoBehaviour
                 if (Friends[j].GetComponent<NPC>() != null)
                 {
                     payback += Friends[j].GetComponent<NPC>().Notch;
+                    Debug.Log(Friends[j]);
+                    Debug.Log(Friends[j].GetComponent<NPC>().Notch);
                     Friends[j].GetComponent<NPC>().Die();
                 }
             }
-            player.addExp(payback / 4);
+
+            if(wavenum != 0)            
+                player.addExp(payback / 4);
             player.Heal(player.MaxHealth);
 
             //다음 웨이브 시작까지 남은시간 카운트(기획 명세 필요)

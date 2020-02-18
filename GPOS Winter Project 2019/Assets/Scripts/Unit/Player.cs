@@ -46,7 +46,7 @@ public class Player : Unit
     // Start is called before the first frame update
     protected void Awake()
     {
-        Exp = 4000;
+        Exp = 60;
         deck = new Deck[12];
         deckInfo = new DeckInfo[12];
         coolTimeBook = new float[12] {3f, 3f, 5f, 7f, 10f, 1f, 4f, 25f, 25f, 6f, 3f, 12f};
@@ -110,6 +110,7 @@ public class Player : Unit
 
     public void addExp(int _exp)
     {
+        //Debug.Log(_exp + " exp : added ");
         Exp += _exp;
     }
 
