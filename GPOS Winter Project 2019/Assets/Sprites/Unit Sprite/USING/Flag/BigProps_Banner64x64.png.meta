@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: e925e8f3a3f41884e857432b2278cc12
+guid: bf3e09862cbdb54409f6b9c50fb9644b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5058507522122562897
-    second: 32x32Ghost_Appear_0
+      213: 7367329671021536726
+    second: BigProps_Banner64x64_0
   - first:
-      213: -4329921195155701151
-    second: 32x32Ghost_Appear_1
+      213: 100878705374412665
+    second: BigProps_Banner64x64_1
   - first:
-      213: -7995364487148326867
-    second: 32x32Ghost_Appear_2
+      213: 8435544532080628215
+    second: BigProps_Banner64x64_2
   - first:
-      213: -5212419501124997948
-    second: 32x32Ghost_Appear_3
+      213: 1574772215306660109
+    second: BigProps_Banner64x64_3
   - first:
-      213: -4831062592435069008
-    second: 32x32Ghost_Appear_4
+      213: 1973420807180726913
+    second: BigProps_Banner64x64_4
   - first:
-      213: -4087284220616894277
-    second: 32x32Ghost_Appear_5
+      213: -6136162274353217253
+    second: BigProps_Banner64x64_5
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -104,13 +104,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 32x32Ghost_Appear_0
+      name: BigProps_Banner64x64_0
       rect:
         serializedVersion: 2
-        x: 32
+        x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8ba1e7dabbe4b34b8219ddcddecdb35
-      internalID: -5058507522122562897
+      spriteID: 8b0e3ff40e1b530468d331cef5277ef8
+      internalID: 7367329671021536726
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 32x32Ghost_Appear_1
+      name: BigProps_Banner64x64_1
       rect:
         serializedVersion: 2
         x: 64
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,41 +139,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cf7eac7736dfcc44864418aba60f510
-      internalID: -4329921195155701151
+      spriteID: 07e1d42335e4c244398ed39849e2571d
+      internalID: 100878705374412665
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 32x32Ghost_Appear_2
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3012843243e645d4a91ffd09e79a9a4c
-      internalID: -7995364487148326867
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 32x32Ghost_Appear_3
+      name: BigProps_Banner64x64_2
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,41 +160,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e41146546f96334094141b04b657604
-      internalID: -5212419501124997948
+      spriteID: 17b470556efb86c429e8937d100d5b4c
+      internalID: 8435544532080628215
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 32x32Ghost_Appear_4
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ff9e93e343d42ca45841d52b8037a2c5
-      internalID: -4831062592435069008
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 32x32Ghost_Appear_5
+      name: BigProps_Banner64x64_3
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,8 +181,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e76999429428df046b83077e59ae47fa
-      internalID: -4087284220616894277
+      spriteID: f8e3c243ec8cc06469e025822fa212a6
+      internalID: 1574772215306660109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BigProps_Banner64x64_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 600a4daf0c711e14faf8f836aa15c47a
+      internalID: 1973420807180726913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BigProps_Banner64x64_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8be7fa6a89c3684f8ca12b3636ae144
+      internalID: -6136162274353217253
       vertices: []
       indices: 
       edges: []
