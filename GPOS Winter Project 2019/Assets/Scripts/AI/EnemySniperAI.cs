@@ -27,7 +27,7 @@ public class EnemySniperAI : AI
     }
     public IEnumerator FSM()
     {
-        Debug.Log(body.ToString() + "has consciousness");
+        //Debug.Log(body.ToString() + "has consciousness");
         yield return null;
         while (true)
         {

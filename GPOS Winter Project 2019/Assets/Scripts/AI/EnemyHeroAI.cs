@@ -29,7 +29,7 @@ public class EnemyHeroAI : AI
     }
     public IEnumerator FSM()
     {
-        Debug.Log(body.ToString() + "has consciousness");
+        //Debug.Log(body.ToString() + "has consciousness");
         yield return null;
         while (true)
         {
