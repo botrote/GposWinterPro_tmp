@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SkeletonWalkingHorizontal
+  m_Name: Soldier_Walking_Horizontal
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 0d9d4e9fcb52d0343ad8038630222251, type: 3}
+      value: {fileID: 21300000, guid: 1c6e6ebeefa13b04392a779d59da5ec8, type: 3}
     - time: 0.1
-      value: {fileID: 21300000, guid: 321b25f28dbe44f4aa141c5a1546926a, type: 3}
+      value: {fileID: 21300000, guid: c1493de24d5c08645a59d81978492f62, type: 3}
     - time: 0.2
-      value: {fileID: 21300000, guid: 0d9d4e9fcb52d0343ad8038630222251, type: 3}
+      value: {fileID: 21300000, guid: 43cfd949bdc808045aee3b06a7f8f66c, type: 3}
     - time: 0.3
-      value: {fileID: 21300000, guid: 321b25f28dbe44f4aa141c5a1546926a, type: 3}
+      value: {fileID: 21300000, guid: c1493de24d5c08645a59d81978492f62, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,10 +46,10 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 0d9d4e9fcb52d0343ad8038630222251, type: 3}
-    - {fileID: 21300000, guid: 321b25f28dbe44f4aa141c5a1546926a, type: 3}
-    - {fileID: 21300000, guid: 0d9d4e9fcb52d0343ad8038630222251, type: 3}
-    - {fileID: 21300000, guid: 321b25f28dbe44f4aa141c5a1546926a, type: 3}
+    - {fileID: 21300000, guid: 1c6e6ebeefa13b04392a779d59da5ec8, type: 3}
+    - {fileID: 21300000, guid: c1493de24d5c08645a59d81978492f62, type: 3}
+    - {fileID: 21300000, guid: 43cfd949bdc808045aee3b06a7f8f66c, type: 3}
+    - {fileID: 21300000, guid: c1493de24d5c08645a59d81978492f62, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
