@@ -19,10 +19,6 @@ public class BuildingFactory : UnitFactory
 
     public override GameObject MakeUnit(params object[] parameter)
     {
-        for(int i = 0; i < parameter.Length; i++)
-        {
-            Debug.Log(parameter[i]);
-        }
         GameObject Instance = GameObject.Instantiate(template);
         Instance.GetComponent<Building>().Initialize((string)parameter[0], (int)parameter[1], (float)parameter[2]);
         return Instance;

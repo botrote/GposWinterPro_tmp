@@ -6,12 +6,21 @@ using System.Text;
 
 public class WaveManager : MonoBehaviour
 {
+    public delegate void SpawnEventHandler(int portalnum, string Unitname);
+    public event SpawnEventHandler SpawnForecast;
+
     private int wavenum;
     private UnitFactoryManager factorymanager;
     private Coroutine WaveCoroutine;
     private bool WaveWaiting;
     private Player player;
     private WaveList wavelist;
+
+    public float Remainingtime
+    {
+        get;
+        protected set;
+    }
 
     public int getWave
     {
@@ -59,6 +68,8 @@ public class WaveManager : MonoBehaviour
 
     void Awake()
     {
+        Remainingtime = 0;
+        SpawnForecast += DebugLog;
         factorymanager = GameObject.Find("UnitFactory").GetComponent<UnitFactoryManager>();
         player = GameObject.Find("Player").GetComponent<Player>();
         wavelist = new WaveList();
@@ -68,6 +79,11 @@ public class WaveManager : MonoBehaviour
         fileStream.Close();
         string jsonData = Encoding.UTF8.GetString(data);
         wavelist = JsonUtility.FromJson<WaveList>(jsonData);
+    }
+
+    private void DebugLog(int num, string name)
+    {
+        Debug.Log(num + " " + name);
     }
 
     private void Start()
@@ -103,11 +119,15 @@ public class WaveManager : MonoBehaviour
             player.Heal(player.MaxHealth);
 
             //다음 웨이브 시작까지 남은시간 카운트(기획 명세 필요)
-            yield return new WaitForSeconds(20f);
+            yield return SetTimer(20f);
 
             for (int j = 0; j < wavelist.Waves[wavenum].subWaves.Count; j++)
             {
-                yield return new WaitForSeconds(10f);
+                foreach (Squad squad in wavelist.Waves[wavenum].subWaves[j].squads)
+                {
+                    SpawnForecast(squad.Portal_Number, squad.unitName);
+                }
+                yield return SetTimer(10f);
                 wavelist.Waves[wavenum].subWaves[j].summon();
             }
             yield return new WaitUntil(isClear);
@@ -118,5 +138,17 @@ public class WaveManager : MonoBehaviour
     protected bool isClear()
     {
         return GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && GameObject.FindGameObjectsWithTag("Building").Length == 0;
+    }
+
+    protected IEnumerator SetTimer(float time)
+    {
+        Debug.Log("Timer set");
+        Remainingtime = time;
+        while (Remainingtime > 0)
+        {
+            yield return null;
+            Remainingtime -= Time.deltaTime;
+        }
+        Debug.Log("Timer done");
     }
 }
