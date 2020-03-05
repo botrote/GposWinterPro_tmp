@@ -18,6 +18,11 @@ public class WaveManager : MonoBehaviour
         get { return wavenum; }
     }
 
+    public int getWaveNum()
+    {
+        return wavenum;
+    }
+
     [System.Serializable]
     public class Squad
     {
