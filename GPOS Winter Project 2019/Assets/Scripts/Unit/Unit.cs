@@ -205,7 +205,7 @@ public abstract class Unit : MonoBehaviour
         {
             defFactor *= buff.getDefBuff();
         }
-        Debug.Log(gameObject.ToString() + "damaged, dmg : " + damage + " curHealth : " + curHealth);
+        //Debug.Log(gameObject.ToString() + "damaged, dmg : " + damage + " curHealth : " + curHealth);
         if (damagedCoroutine != null)
             StopCoroutine(damagedCoroutine);
         damagedCoroutine = StartCoroutine(paintRed());
@@ -226,7 +226,7 @@ public abstract class Unit : MonoBehaviour
     /// <param name="damage"></param>
     public void Heal(int amount)
     {
-        Debug.Log(this + "Healed!");
+        //Debug.Log(this + "Healed!");
         if(MaxHealth <= curHealth + amount)
         {
             curHealth = MaxHealth;
