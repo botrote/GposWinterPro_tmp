@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Hero : NPC, IMeleeAttack
 {
+    private Animator hAnimator;
+    private SpriteRenderer hSpriteRenderer;
     protected UnitFactoryManager factoryManager;
     private const string unitname = "Hero";
     private const int HeroNotch = 1;
@@ -77,19 +79,25 @@ public class Hero : NPC, IMeleeAttack
     public void MeleeAttack(Unit Target)
     {
         if (isStunned||Target==null) return;
+        hAnimator.SetBool("IsAttacking", true);
         if ( Vector2.Distance(Target.position, this.position) <= HeroMeleeRange)
         {
             if (HeroMeleeCool > MeleeCool) return;
             Target.Damage(HeroAttack);
             MeleeCool = 0;
         }
+        hAnimator.SetBool("IsAttacking", false);
+        UpdateAnimationDirection(gameObject.transform.position, Target.gameObject.transform.position);
     }
     public void FistAttack(Unit Target)
     {
         if (isStunned||Target==null) return;
         if (HeroFistCool > FistCool) return;
+        hAnimator.SetBool("IsAttacking", true);
         GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Fist", this, this.position, Target.position, (int)(FistDamage), 10f, 0.5f);
         FistCool=0;
+        hAnimator.SetBool("IsAttacking", false);
+        UpdateAnimationDirection(gameObject.transform.position, Target.gameObject.transform.position);
     }
     public void ChargeAttack(Unit Target)
     {
@@ -105,6 +113,7 @@ public class Hero : NPC, IMeleeAttack
         while(GameObject.Find("MapManager").GetComponent<MapManager>().IsOutOfBoundary(dest));
         transform.position=dest;
         ChargeCool=0;
+        UpdateAnimationDirection(gameObject.transform.position, Target.gameObject.transform.position);
     }
     public void TeleportAttack(Unit Target)
     {
@@ -130,13 +139,17 @@ public class Hero : NPC, IMeleeAttack
             }
         }
         TeleportCool=0;
+        UpdateAnimationDirection(gameObject.transform.position, Target.gameObject.transform.position);
     }
     public void BeamAttack(Unit Target)
     {
         if (isStunned||Target==null||this.curHealth>this.MaxHealth/2) return;
         if (HeroBeamCool > BeamCool) return;
+        hAnimator.SetBool("IsAttacking", true);
         GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Beam", this, this.position, Target.position, (int)(BeamDamage), 16f, 10f);
         BeamCool=0;
+        hAnimator.SetBool("IsAttacking", false);
+        UpdateAnimationDirection(gameObject.transform.position, Target.gameObject.transform.position);
     }
     protected override void Init()
     {
@@ -153,6 +166,8 @@ public class Hero : NPC, IMeleeAttack
     {
         base.Awake();
         factoryManager = GameObject.Find("UnitFactory").GetComponent<UnitFactoryManager>();
+        hAnimator = gameObject.GetComponent<Animator>();
+        hSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -224,5 +239,25 @@ public class Hero : NPC, IMeleeAttack
             break;
         }
         SummonCool=0;
+    }
+
+    void UpdateAnimationDirection(Vector3 heroPos, Vector3 targetPos)
+    {
+        float xMoveValue = targetPos.x - heroPos.x;
+        float yMoveValue = targetPos.y - heroPos.y;
+        if(xMoveValue > 0)
+            hSpriteRenderer.flipX = false;
+        else
+            hSpriteRenderer.flipX = true;
+        if(Mathf.Abs(yMoveValue) > Mathf.Abs(xMoveValue))
+        {
+            hAnimator.SetBool("IsVertical", true);
+            if(yMoveValue <= 0)
+                hAnimator.SetBool("IsLookingFront", true);
+            else
+                hAnimator.SetBool("IsLookingFront", false);
+        }
+        else 
+            hAnimator.SetBool("IsVertical", false);
     }
 }
