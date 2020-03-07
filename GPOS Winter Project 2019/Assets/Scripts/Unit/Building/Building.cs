@@ -64,12 +64,10 @@ public class Building : Unit
     {
         while (curHealth>0)
         {
-            Debug.Log("Waiting");
             yield return new WaitForSeconds(SpawnDelay);
             Debug.Log("Spawning"+ Product);
             factorymanager.PlaceUnit(Product, this.position + new Vector2(2, 0));
             curHealth--;
-            Debug.Log(curHealth);
         }
         Die();
     }
