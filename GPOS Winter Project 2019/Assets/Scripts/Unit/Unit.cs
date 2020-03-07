@@ -74,6 +74,10 @@ public abstract class Unit : MonoBehaviour
     /// <returns></returns>
     public abstract string Unitname { get; }
 
+    private SpriteRenderer spriteRenderer;
+
+    private Animator animator;
+
     protected List<IBuff> Buffs;
     
     public bool Addbuff(IBuff buff)
@@ -104,6 +108,8 @@ public abstract class Unit : MonoBehaviour
         gameObject.tag = TeamTag.ToString();
         unitRigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         unitTransform = gameObject.GetComponent<Transform>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        animator = gameObject.GetComponent<Animator>();
         destpos = unitTransform.position;
         curBehaviour = Behaviour.Idle;
         curHealth = MaxHealth;
@@ -118,6 +124,11 @@ public abstract class Unit : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
+        if(animator != null)
+        {
+            animator.SetBool("IsMoving", false);
+        }
+
         List<IBuff> toRemove = new List<IBuff>();
         for (int i = 0; i < Buffs.Count; i++)
         {
@@ -143,12 +154,35 @@ public abstract class Unit : MonoBehaviour
                     Vector2 curpos = unitTransform.position;
                     if (Vector2.Distance(curpos, destpos) > 1.0f)
                     {
+                        float xMoveValue = destpos.x - curpos.x;
+                        float yMoveValue = destpos.y - curpos.y;
+                        if(xMoveValue > 0)
+                            spriteRenderer.flipX = false;
+                        else
+                            spriteRenderer.flipX = true;
+                        if(animator != null)
+                        {
+                            if(Mathf.Abs(yMoveValue) > Mathf.Abs(xMoveValue))
+                            {
+                                animator.SetBool("IsVertical", true);
+                                if(yMoveValue <= 0)
+                                    animator.SetBool("IsLookingFront", true);
+                                else
+                                    animator.SetBool("IsLookingFront", false);
+                            }
+                            else 
+                                animator.SetBool("IsVertical", false);
+                        }
+
+
                         float spdFactor = 1;
                         foreach(IBuff buff in Buffs)
                         {
                             spdFactor *= buff.getSpdBuff();
                         }
                         unitRigidbody2D.velocity = (destpos - curpos).normalized * speed * spdFactor;
+                        if(animator != null)
+                            animator.SetBool("IsMoving", true);
                     }
                     else
                     {
@@ -171,7 +205,7 @@ public abstract class Unit : MonoBehaviour
         {
             defFactor *= buff.getDefBuff();
         }
-        Debug.Log(gameObject.ToString() + "damaged, dmg : " + damage + " curHealth : " + curHealth);
+        //Debug.Log(gameObject.ToString() + "damaged, dmg : " + damage + " curHealth : " + curHealth);
         if (damagedCoroutine != null)
             StopCoroutine(damagedCoroutine);
         damagedCoroutine = StartCoroutine(paintRed());
@@ -192,7 +226,7 @@ public abstract class Unit : MonoBehaviour
     /// <param name="damage"></param>
     public void Heal(int amount)
     {
-        Debug.Log(this + "Healed!");
+        //Debug.Log(this + "Healed!");
         if(MaxHealth <= curHealth + amount)
         {
             curHealth = MaxHealth;

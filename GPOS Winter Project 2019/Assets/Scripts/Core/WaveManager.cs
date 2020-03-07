@@ -117,8 +117,6 @@ public class WaveManager : MonoBehaviour
                 if (Friends[j].GetComponent<NPC>() != null)
                 {
                     payback += Friends[j].GetComponent<NPC>().Notch;
-                    Debug.Log(Friends[j]);
-                    Debug.Log(Friends[j].GetComponent<NPC>().Notch);
                     Friends[j].GetComponent<NPC>().Die();
                 }
             }
