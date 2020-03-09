@@ -62,12 +62,12 @@ public class UiManager : MonoBehaviour
         if(selectedDeck < 9)
         {
             select_Arrow.rotation = Quaternion.Euler(0,0,0);
-            select_Arrow.anchoredPosition = new Vector3(-455 + (selectedDeck*80), -250, 0);
+            select_Arrow.anchoredPosition = new Vector3(203 + (selectedDeck*80), 40, 0);
         }
         else
         {
             select_Arrow.rotation = Quaternion.Euler(0,0,0);
-            select_Arrow.anchoredPosition = new Vector3(295 + ((selectedDeck - 9)*80), -250, 0);
+            select_Arrow.anchoredPosition = new Vector3(953 + ((selectedDeck - 9)*80), 40, 0);
         }
         ShowDeck();
     }
