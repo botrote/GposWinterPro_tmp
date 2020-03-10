@@ -14,6 +14,10 @@ public class MapManager : MonoBehaviour
         boundary = GameObject.Find("Boundary");
         randomFactor = Random.Range(-32, 32);
         boundary.transform.position = new Vector3(randomFactor, 0, 0);
+        boundary.transform.Find("BoundaryLeft").GetComponent<SpriteRenderer>().enabled = false;
+        boundary.transform.Find("BoundaryRight").GetComponent<SpriteRenderer>().enabled = false;
+        boundary.transform.Find("BoundaryUp").GetComponent<SpriteRenderer>().enabled = false;
+        boundary.transform.Find("BoundaryDown").GetComponent<SpriteRenderer>().enabled = false;
     }
     // Start is called before the first frame update
     void Start()
@@ -44,32 +48,32 @@ public class MapManager : MonoBehaviour
 
     public int GetMaximumY()
     {
-        return (int)GetCenterPos().y + 20;
+        return (int)GetCenterPos().y + 25;
     }
 
     public int GetMinimumY()
     {
-        return (int)GetCenterPos().y - 20;
+        return (int)GetCenterPos().y - 25;
     }
 
     public int GetCameraMaximumX()
     {
-        return GetMaximumX() - 10;
+        return GetMaximumX() - 9;
     }
 
     public int GetCameraMinimumX()
     {
-        return GetMinimumX() + 10;
+        return GetMinimumX() + 9;
     }
 
     public int GetCameraMaximumY()
     {
-        return GetMaximumY() - 1;
+        return GetMaximumY() - 5;
     }
 
     public int GetCameraMinimumY()
     {
-        return GetMinimumY() + 1;
+        return GetMinimumY() + 5;
     }
 
     public Vector2[] GetPortalPos()
