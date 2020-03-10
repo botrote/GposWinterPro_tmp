@@ -102,6 +102,6 @@ public class EnemyChargeAI : AI
     }
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Unit>().tag.Equals("Friendly")) Target=collision.gameObject.GetComponent<Unit>();
+        if (collision.gameObject.tag.Equals("Friendly")) Target=collision.gameObject.GetComponent<Unit>();
     }
 }
