@@ -26,7 +26,8 @@ public class forecastManager : MonoBehaviour
                 Vector2 PortalPos = (Vector2)cam.WorldToScreenPoint(GameObject.Find("MapManager").GetComponent<MapManager>().GetPortalPos()[i]);
                 PortalPos = PortalPos - new Vector2(cam.pixelWidth, cam.pixelHeight) / 2;
                 Debug.Log("#" + i + ", " + PortalPos);
-                if (PortalPos.y > cam.pixelHeight / 2 - 60 || PortalPos.y < -cam.pixelHeight / 2 + 60) PortalPos = PortalPos / Mathf.Abs(PortalPos.y) * (cam.pixelHeight / 2 - 60);
+                if (PortalPos.y > cam.pixelHeight / 2 - 60) PortalPos = PortalPos / Mathf.Abs(PortalPos.y) * (cam.pixelHeight / 2 - 60);
+                if(PortalPos.y < -cam.pixelHeight / 2 + 200) PortalPos = PortalPos / Mathf.Abs(PortalPos.y) * (cam.pixelHeight / 2 - 200);
                 if (PortalPos.x > cam.pixelWidth / 2 - 60 || PortalPos.x < -cam.pixelWidth / 2 + 60) PortalPos = PortalPos / Mathf.Abs(PortalPos.x) * (cam.pixelWidth / 2 - 60);
                 forecastDials[i].transform.position = PortalPos + new Vector2(cam.pixelWidth, cam.pixelHeight) / 2;
             }
