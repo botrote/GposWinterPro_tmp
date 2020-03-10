@@ -8,6 +8,7 @@ public class MapManager : MonoBehaviour
     private int randomFactor;
     public GameObject grassTilemap;
     public GameObject lavaTilemap;
+    public bool isLava { get; private set;}
 
     void Awake()
     {
@@ -18,17 +19,28 @@ public class MapManager : MonoBehaviour
         boundary.transform.Find("BoundaryRight").GetComponent<SpriteRenderer>().enabled = false;
         boundary.transform.Find("BoundaryUp").GetComponent<SpriteRenderer>().enabled = false;
         boundary.transform.Find("BoundaryDown").GetComponent<SpriteRenderer>().enabled = false;
+        LoadTilemap();
     }
-    // Start is called before the first frame update
-    void Start()
+    
+    void LoadTilemap()
     {
-        
-    }
+        GameObject loadedTilemapAsset;
+        GameObject loadedTilemap;
 
-    // Update is called once per frame
-    void Update()
-    {
+        if(UnityEngine.Random.Range(0, 100) > 50)
+            isLava = true;
+        else
+            isLava = false;
+
+        if(isLava)
+            loadedTilemapAsset = lavaTilemap;
+        else
+            loadedTilemapAsset = grassTilemap;
         
+        loadedTilemap = GameObject.Instantiate(loadedTilemapAsset);
+        loadedTilemap.transform.position = new Vector3(0, 0, 10);
+        loadedTilemap.transform.localScale = new Vector3(0.0625f, 0.0625f, 0.0625f);
+        loadedTilemap.transform.Find("Tilemap").gameObject.GetComponent<UnityEngine.Tilemaps.TilemapRenderer>().sortingOrder = -999;
     }
 
     public Vector2 GetCenterPos()
