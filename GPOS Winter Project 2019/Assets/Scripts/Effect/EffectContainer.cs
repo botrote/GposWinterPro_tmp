@@ -17,7 +17,7 @@ public class EffectContainer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Exit") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("Finished"))
             Destroy(gameObject);
     }
 

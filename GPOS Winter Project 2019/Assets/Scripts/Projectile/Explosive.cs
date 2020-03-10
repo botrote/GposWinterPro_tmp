@@ -35,6 +35,8 @@ public class Explosive : MonoBehaviour
                         if(Targets[i].gameObject.GetComponent<Unit>().TeamTag != team) Targets[i].gameObject.GetComponent<Unit>().Damage(damage);
                     }        
                 }
+                EffectManager effectManager = GameObject.Find("Manager").GetComponent<EffectManager>();
+                StartCoroutine(effectManager.BuildExplosiveEffect(gameObject.transform.position));
                 Destroy(gameObject);
             }
         }

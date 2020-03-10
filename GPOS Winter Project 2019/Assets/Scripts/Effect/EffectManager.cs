@@ -34,6 +34,15 @@ public class EffectManager : MonoBehaviour
         return effects[effects.Count - 1];
     }
 
+    private GameObject ProduceEffect(Vector3 pos, Vector3 rotation, int ID, bool isLoop, int layer)
+    {
+        GameObject effect;
+        effect = GameObject.Instantiate(effectContainer, pos, Quaternion.Euler(rotation));
+        effect.GetComponent<EffectContainer>().Init(ID, isLoop);
+        effect.GetComponent<SpriteRenderer>().sortingOrder = layer;
+        return effect;
+    }
+
     private IEnumerator WaitFrames(int n)
     {
         for(int i = 0; i < n; i++)
@@ -65,6 +74,12 @@ public class EffectManager : MonoBehaviour
         ProduceEffect(effects, pos, new Vector3(0,0,0), 56, true, Color.red, -2).transform.parent = parent;
         yield return StartCoroutine(WaitFrames(34));
         ProduceEffect(effects, pos, new Vector3(0,0,0), 56, true, Color.red, -2).transform.parent = parent;
+        yield return null;
+    }
+
+    public IEnumerator BuildExplosiveEffect(Vector3 pos)
+    {
+        ProduceEffect(pos, new Vector3(0,0,0), 0, false, 1);
         yield return null;
     }
 }
