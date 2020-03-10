@@ -50,14 +50,14 @@ public class UiManager : MonoBehaviour
         if(player.getExp()<=200)
         {
             EXP.transform.Find("EXP_Gauge").gameObject.GetComponent<Image>().color= new Color(1, 1, 0);
-            EXP.transform.Find("EXP_Gauge").gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(1002*((float)player.getExp()/200), 22);
+            EXP.transform.Find("EXP_Gauge").gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(996.9f*((float)player.getExp()/200), 24);
         }
         else
         {
             EXP.transform.Find("EXP_Gauge").gameObject.GetComponent<Image>().color= new Color(1, 180f/255, 0);
         }
         text_HP.text =  player.curHealth.ToString();
-        HP.transform.Find("HP_Gauge").gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(1020*((float)player.curHealth/player.MaxHealth), 23);
+        HP.transform.Find("HP_Gauge").gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(1011.8f*((float)player.curHealth/player.MaxHealth), 24);
         selectedDeck = player.GetSelectedUnitIdx();
         if(selectedDeck < 9)
         {
