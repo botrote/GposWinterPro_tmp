@@ -26,23 +26,6 @@ public class EffectManager : MonoBehaviour
         return effects[effects.Count - 1];
     }
 
-    private GameObject ProduceEffect(List<GameObject> effects, Vector3 pos, Vector3 rotation, int ID, bool isLoop, int layer)
-    {
-        effects.Add(GameObject.Instantiate(effectContainer, pos, Quaternion.Euler(rotation)));
-        effects[effects.Count - 1].GetComponent<EffectContainer>().Init(ID, isLoop);
-        effects[effects.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = layer;
-        return effects[effects.Count - 1];
-    }
-
-    private GameObject ProduceEffect(Vector3 pos, Vector3 rotation, int ID, bool isLoop, int layer)
-    {
-        GameObject effect;
-        effect = GameObject.Instantiate(effectContainer, pos, Quaternion.Euler(rotation));
-        effect.GetComponent<EffectContainer>().Init(ID, isLoop);
-        effect.GetComponent<SpriteRenderer>().sortingOrder = layer;
-        return effect;
-    }
-
     private GameObject ProduceEffect(Vector3 pos, Vector3 rotation, int ID, bool isLoop, Color color, int layer)
     {
         GameObject effect;
@@ -83,7 +66,7 @@ public class EffectManager : MonoBehaviour
         List<GameObject> effects = new List<GameObject>();
         Transform parent = GameObject.Find("MapManager").transform.Find("Portals");
         yield return new WaitForEndOfFrame();
-        ProduceEffect(effects, pos, new Vector3(0,0,0), 35, true, -1).transform.parent = parent;
+        ProduceEffect(effects, pos, new Vector3(0,0,0), 35, true, Color.white, -1).transform.parent = parent;
         ProduceEffect(effects, pos, new Vector3(0,0,0), 56, true, Color.cyan, -2).transform.parent = parent;
         yield return StartCoroutine(WaitFrames(34));
         ProduceEffect(effects, pos, new Vector3(0,0,0), 56, true, Color.cyan, -2).transform.parent = parent;
@@ -108,14 +91,14 @@ public class EffectManager : MonoBehaviour
 
     public IEnumerator BuildExplosiveEffect(Vector3 pos)
     {
-        ProduceEffect(pos, new Vector3(0,0,0), 0, false, 1);
+        ProduceEffect(pos, new Vector3(0,0,0), 0, false, Color.white, 1);
         yield return null;
     }
 
     public IEnumerator BuildDustEffect(Vector3 pos)
     {
         yield return new WaitForEndOfFrame();
-        ProduceEffect((pos + new Vector3(0f, -1.00f, 0f)), new Vector3(0,0,0), 4, false, 2);
+        ProduceEffect((pos + new Vector3(0f, -1.00f, 0f)), new Vector3(0,0,0), 4, false, Color.white, 2);
         //ProduceEffect(effects, (pos + new Vector3(-0.6f, -0.85f, 0f)), new Vector3(0,0,0), 5, false, 2);
         //effects[1].GetComponent<SpriteRenderer>().flipX = true;
         yield return null;
@@ -156,7 +139,7 @@ public class EffectManager : MonoBehaviour
     public IEnumerator BuildEnemySting(GameObject parent, Vector3 target)
     {
         yield return new WaitForEndOfFrame();
-        GameObject effect =  ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,30), 63, false, Color.white, 2);
+        GameObject effect =  ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,30), 63, true, Color.white, 2);
         LookAtAndMove(effect, target, 0.3f);
         effect.transform.localScale = new Vector3(1.0f, 0.5f, 1f);
         for(int i = 0; i < 20; i++)
@@ -169,5 +152,59 @@ public class EffectManager : MonoBehaviour
         }
         effect.transform.localScale = new Vector3(0.5f, 2.25f, 1f); 
         LookAtAndMove(effect, target, 0.9f);
+        yield return StartCoroutine(WaitFrames(10));
+        Destroy(effect);
+    }
+
+    public IEnumerator BuildFriendlyWildSlash(GameObject parent, Vector3 target)
+    {
+        yield return new WaitForEndOfFrame();
+        List<GameObject> effects = new List<GameObject>();
+        effects.Add(ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,30), 62, false, Color.red, 2));
+        LookAtAndMove(effects[0], target, 0.3f);
+        effects[0].transform.Rotate(new Vector3(0,0,30));
+        yield return StartCoroutine(WaitFrames(3));
+        effects.Add(ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,30), 62, false, Color.red, 2));
+        LookAtAndMove(effects[1], target, 0.3f);
+        effects[1].transform.Rotate(new Vector3(0,0,-30));
+    }
+
+    public IEnumerator BuildEnemyWildSlash(GameObject parent, Vector3 target)
+    {
+        yield return new WaitForEndOfFrame();
+        List<GameObject> effects = new List<GameObject>();
+
+        effects.Add(ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,30), 62, false, Color.white, 2));
+        LookAtAndMove(effects[0], target, 0.6f);
+        effects[0].transform.Rotate(new Vector3(0,0,25));
+        effects[0].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        yield return StartCoroutine(WaitFrames(3));
+
+        effects.Add(ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,30), 62, false, Color.white, 2));
+        LookAtAndMove(effects[1], target, 0.6f);
+        effects[1].transform.Rotate(new Vector3(0,0,0));
+        effects[1].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        yield return StartCoroutine(WaitFrames(3));
+
+        effects.Add(ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,30), 62, false, Color.white, 2));
+        LookAtAndMove(effects[2], target, 0.6f);
+        effects[2].transform.Rotate(new Vector3(0,0,-25));
+        effects[2].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+    }
+
+    public IEnumerator BuildFriendlyScissor(GameObject parent, Vector3 target)
+    {
+        yield return new WaitForEndOfFrame();
+        List<GameObject> effects = new List<GameObject>();
+        effects.Add(ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,30), 62, false, Color.red, 2));
+        LookAtAndMove(effects[0], target, 0.35f);
+        effects[0].transform.Rotate(new Vector3(0,0,-40));
+        effects[0].transform.localScale = new Vector3(1, 0.4f, 1);
+        yield return StartCoroutine(WaitFrames(15));
+        effects.Add(ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,30), 62, false, Color.red, 2));
+        LookAtAndMove(effects[1], target, 0.35f);
+        effects[1].transform.Rotate(new Vector3(0,0,40));
+        effects[1].transform.localScale = new Vector3(1, 0.4f, 1);
+        effects[1].GetComponent<SpriteRenderer>().flipX = true;
     }
 }

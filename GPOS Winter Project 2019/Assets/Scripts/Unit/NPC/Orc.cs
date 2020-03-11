@@ -59,6 +59,7 @@ public class Orc : NPC , IMeleeAttack
         if (Vector2.Distance(Target.position, this.position) <= OrcMeleeRange)
         {
             if (OrcMeleeCool > MeleeCool) return;
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildFriendlyWildSlash(gameObject, Target.position));
             Target.Damage((int)(OrcAttack * friendlyAttackFactor));
             MeleeCool = 0;
             if(Random.Range(0f,1.0f)<=0.2f) Target.Addbuff(new Stun());

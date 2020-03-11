@@ -60,6 +60,7 @@ public class Knight : NPC, IMeleeAttack
         if ( Vector2.Distance(Target.position, this.position) <= KnightMeleeRange)
         {
             if (KnightMeleeCool > MeleeCool) return;
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildEnemyWildSlash(gameObject, Target.position));
             Target.Damage(KnightAttack);
             MeleeCool = 0;
         }

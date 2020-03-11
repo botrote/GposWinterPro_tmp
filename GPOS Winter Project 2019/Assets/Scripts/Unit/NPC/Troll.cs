@@ -60,6 +60,7 @@ public class Troll : NPC , IMeleeAttack
         if (Vector2.Distance(Target.position, this.position) <= TrollMeleeRange)
         {
             if (TrollMeleeCool > MeleeCool) return;
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildFriendlyScissor(gameObject, Target.position));
             Target.Damage((int)(TrollAttack * friendlyAttackFactor));
             MeleeCool = 0;
             if(Random.Range(0f,1.0f)<=0.2f) Target.Addbuff(new Stun());
