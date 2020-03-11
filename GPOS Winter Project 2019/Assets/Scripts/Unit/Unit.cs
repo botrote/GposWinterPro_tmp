@@ -250,7 +250,7 @@ public abstract class Unit : MonoBehaviour
     private IEnumerator paintRed()
     {
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1,0,0) ;
-        yield return new  WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f);
         gameObject.GetComponent<SpriteRenderer>().color = original;
     }
     private IEnumerator DOT()

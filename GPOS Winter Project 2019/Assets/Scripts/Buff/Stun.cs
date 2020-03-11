@@ -10,6 +10,10 @@ public class Stun : IBuff
     {
         remainTime = Duration;
     }
+    public Stun(float duration)
+    {
+        remainTime = duration;
+    }
     public float getAttBuff()
     {
         return 1;

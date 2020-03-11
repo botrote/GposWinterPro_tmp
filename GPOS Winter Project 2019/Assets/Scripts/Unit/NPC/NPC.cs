@@ -63,6 +63,7 @@ public abstract class NPC : Unit
     {
         base.Awake();
         Init();
+        Addbuff(new Stun(0.8f));
     }
 
     // Update is called once per frame
@@ -92,7 +93,8 @@ public abstract class NPC : Unit
         {
             if (collision.gameObject.GetComponent<Unit>().TeamTag == this.TeamTag)
             {
-                unitRigidbody2D.AddForce((this.position - (Vector2)collision.transform.position).normalized * this.unitRigidbody2D.mass * 3 * ((Vector2)collision.transform.position - this.position).sqrMagnitude);
+                if(!isStunned)
+                    unitRigidbody2D.AddForce((this.position - (Vector2)collision.transform.position).normalized * this.unitRigidbody2D.mass * 3 * ((Vector2)collision.transform.position - this.position).sqrMagnitude);
             }
         }
     }
