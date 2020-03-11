@@ -79,6 +79,16 @@ public class Lich : NPC , IMissileAttack
     void Awake()
     {
         base.Awake();
+        StartCoroutine(SummonEffect());
+    }
+
+    IEnumerator SummonEffect()
+    {
+        yield return new WaitForEndOfFrame();
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildFriendlySpawn(gameObject));
+        yield return new WaitForSeconds(0.35f);
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     //Update is called once per frame

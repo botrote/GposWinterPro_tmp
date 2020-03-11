@@ -50,7 +50,7 @@ public class Building : Unit
         Product = _Product;
         MaxSpawn = _MaxSpawn;
         SpawnDelay = _SpawnDelay;
-        Debug.Log("Factory initialized : " + Product + "," + MaxSpawn + "," + SpawnDelay);
+        //Debug.Log("Factory initialized : " + Product + "," + MaxSpawn + "," + SpawnDelay);
         base.Awake();
         isInitialized = true;
         SpawnCoroutine = StartCoroutine(SpawnEnemy());
@@ -62,13 +62,25 @@ public class Building : Unit
     }
     protected IEnumerator SpawnEnemy()
     {
+        GameObject summoned;
+        bool isLava = GameObject.Find("MapManager").GetComponent<MapManager>().isLava;
         while (curHealth>0)
         {
             yield return new WaitForSeconds(SpawnDelay);
-            Debug.Log("Spawning"+ Product);
-            factorymanager.PlaceUnit(Product, this.position + new Vector2(2, 0));
+            summoned = factorymanager.PlaceUnit(Product, this.position + new Vector2(0, 0));
+            if(isLava)
+                StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildLavaEnemySpawn(summoned));
+            else
+                StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildGrassEnemySpawn(summoned));
+            StartCoroutine(EnableRenderer(summoned));
             curHealth--;
         }
         Die();
+    }
+
+    private IEnumerator EnableRenderer(GameObject summoned)
+    {
+        yield return new WaitForSeconds(0.3f);
+        summoned.GetComponent<SpriteRenderer>().enabled = true;
     }
 }

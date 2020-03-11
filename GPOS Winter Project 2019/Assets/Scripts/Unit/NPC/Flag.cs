@@ -89,6 +89,7 @@ public class Flag : NPC
     {
         yield return new WaitForEndOfFrame();
         origin=transform.position;
+        StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildDustEffect(origin));
         GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Curse", this, this.position, this.position, 0, 0f, 0, FlagEffectRadius, this);
     }
 

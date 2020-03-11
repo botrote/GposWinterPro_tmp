@@ -43,6 +43,26 @@ public class EffectManager : MonoBehaviour
         return effect;
     }
 
+    private GameObject ProduceEffect(Vector3 pos, Vector3 rotation, int ID, bool isLoop, Color color, int layer)
+    {
+        GameObject effect;
+        effect = GameObject.Instantiate(effectContainer, pos, Quaternion.Euler(rotation));
+        effect.GetComponent<EffectContainer>().Init(ID, isLoop, color);
+        effect.GetComponent<SpriteRenderer>().sortingOrder = layer;
+        return effect;
+    }
+
+    private GameObject ProduceEffect(GameObject parent, Vector3 localPos, Vector3 rotation, int ID, bool isLoop, Color color, int layer)
+    {
+        GameObject effect;
+        effect = GameObject.Instantiate(effectContainer, new Vector3(0,0,0), Quaternion.Euler(rotation));
+        effect.GetComponent<EffectContainer>().Init(ID, isLoop, color);
+        effect.GetComponent<SpriteRenderer>().sortingOrder = layer;
+        effect.transform.parent = parent.transform;
+        effect.transform.localPosition = localPos;
+        return effect;
+    }
+
     private IEnumerator WaitFrames(int n)
     {
         for(int i = 0; i < n; i++)
@@ -81,5 +101,32 @@ public class EffectManager : MonoBehaviour
     {
         ProduceEffect(pos, new Vector3(0,0,0), 0, false, 1);
         yield return null;
+    }
+
+    public IEnumerator BuildDustEffect(Vector3 pos)
+    {
+        yield return new WaitForEndOfFrame();
+        ProduceEffect((pos + new Vector3(0f, -1.00f, 0f)), new Vector3(0,0,0), 4, false, 2);
+        //ProduceEffect(effects, (pos + new Vector3(-0.6f, -0.85f, 0f)), new Vector3(0,0,0), 5, false, 2);
+        //effects[1].GetComponent<SpriteRenderer>().flipX = true;
+        yield return null;
+    }
+
+    public IEnumerator BuildFriendlySpawn(GameObject parent)
+    {
+        yield return new WaitForEndOfFrame();
+        ProduceEffect(parent, new Vector3(0f, -0.1f, 0f), new Vector3(0,0,0), 53, false, Color.black, 2).GetComponent<Animator>().speed = 1.2f;
+    }
+
+    public IEnumerator BuildGrassEnemySpawn(GameObject parent)
+    {
+        yield return new WaitForEndOfFrame();
+        ProduceEffect(parent, new Vector3(0f, -0.0f, 0f), new Vector3(0,0,0), 8, false, Color.white, 2);
+    }
+
+    public IEnumerator BuildLavaEnemySpawn(GameObject parent)
+    {
+        yield return new WaitForEndOfFrame();
+        ProduceEffect(parent, new Vector3(0f, -0.0f, 0f), new Vector3(0,0,0), 8, false, new Color(0.83f, 0.23f, 0.23f), 2);
     }
 }
