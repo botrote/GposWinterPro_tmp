@@ -59,6 +59,7 @@ public class SkeletonS : NPC , IMeleeAttack
         if (Vector2.Distance(Target.position, this.position) <= SkeletonSMeleeRange)
         {
             if (SkeletonSMeleeCool > MeleeCool) return;
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildFriendlySlash(gameObject, Target.position));
             Target.Damage((int)(SkeletonSAttack * friendlyAttackFactor));
             MeleeCool = 0;
         }

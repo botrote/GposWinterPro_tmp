@@ -69,6 +69,15 @@ public class EffectManager : MonoBehaviour
             yield return null;
     }
 
+    private void LookAtAndMove(GameObject source, Vector3 dest, float distance)
+    {
+        Vector3 sourcePos = source.transform.position;
+        Vector3 lineVector = new Vector3(dest.x - sourcePos.x, dest.y - sourcePos.y, 0);
+        float degree = Mathf.Atan2(lineVector.x, lineVector.y) * Mathf.Rad2Deg;
+        source.transform.rotation = Quaternion.Euler(0, 0, (-1)*degree);
+        source.transform.position += lineVector.normalized * (distance);
+    }
+
     public IEnumerator BuildBluePortalEffect(Vector3 pos)
     {
         List<GameObject> effects = new List<GameObject>();
@@ -128,5 +137,37 @@ public class EffectManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         ProduceEffect(parent, new Vector3(0f, -0.0f, 0f), new Vector3(0,0,0), 8, false, new Color(0.83f, 0.23f, 0.23f), 2);
+    }
+
+    public IEnumerator BuildFriendlySlash(GameObject parent, Vector3 target)
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject effect =  ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,30), 62, false, Color.red, 2);
+        LookAtAndMove(effect, target, 0.3f); 
+    }
+
+    public IEnumerator BuildEnemySlash(GameObject parent, Vector3 target)
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject effect =  ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,30), 62, false, Color.white, 2);
+        LookAtAndMove(effect, target, 0.3f); 
+    }
+
+    public IEnumerator BuildEnemySting(GameObject parent, Vector3 target)
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject effect =  ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,30), 63, false, Color.white, 2);
+        LookAtAndMove(effect, target, 0.3f);
+        effect.transform.localScale = new Vector3(1.0f, 0.5f, 1f);
+        for(int i = 0; i < 20; i++)
+        {
+            if(i == 3)
+                effect.transform.localScale = new Vector3(0.9f, 0.8f, 1f);
+            if(i == 7)
+                effect.transform.localScale = new Vector3(0.7f, 1.5f, 1f);
+            yield return null;
+        }
+        effect.transform.localScale = new Vector3(0.5f, 2.25f, 1f); 
+        LookAtAndMove(effect, target, 0.9f);
     }
 }

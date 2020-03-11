@@ -60,6 +60,7 @@ public class Soldier : NPC, IMeleeAttack
         if ( Vector2.Distance(Target.position, this.position) <= soldierMeleeRange)
         {
             if (soldierMeleeCool > MeleeCool) return;
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildEnemySlash(gameObject, Target.position));
             Target.Damage(soldierAttack);
             MeleeCool = 0;
         }

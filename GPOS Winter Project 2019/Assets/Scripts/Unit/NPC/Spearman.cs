@@ -60,6 +60,7 @@ public class Spearman : NPC, IMeleeAttack
         if ( Vector2.Distance(Target.position, this.position) <= SpearmanMeleeRange)
         {
             if (SpearmanMeleeCool > MeleeCool) return;
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildEnemySting(gameObject, Target.position));
             Target.Damage(SpearmanAttack);
             MeleeCool = 0;
         }
