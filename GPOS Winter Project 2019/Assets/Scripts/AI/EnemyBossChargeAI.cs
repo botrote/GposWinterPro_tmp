@@ -8,10 +8,11 @@ using UnityEngine;
 public class EnemyBossChargeAI : AI
 {
     
-    public enum Action { Idle, Pursue, Charge, Engage}
+    public enum Action { Idle, Pursue, LockOn, Charge, Engage}
     protected Action curAction;
     protected Player player;
     protected IEnumerator FSMCoroutine;
+    private LineRenderer line;
 
     private void Awake()
     {
@@ -51,7 +52,7 @@ public class EnemyBossChargeAI : AI
                         if(Target!=null)
                         {
                             ((HorseManBoss)body).charge=true;
-                            curAction = Action.Charge;
+                            curAction = Action.LockOn;
                         }
                         else
                         {
@@ -64,6 +65,15 @@ public class EnemyBossChargeAI : AI
                     Target = FindTarget("Friendly");
                     if(Target!=null) body.Dest = Target.position;
                     yield return null;
+                    break;
+                case Action.LockOn:
+                    for(float time=0; time<3&&Target!=null&&((HorseManBoss)body).charge; time+=Time.deltaTime)
+                    {
+                        Drawline(Target);
+                        yield return null;
+                        Destroy(line);
+                    }
+                    if(Target!=null&&((HorseManBoss)body).charge) curAction=Action.Charge;
                     break;
                 case Action.Charge:
                     if(Target!=null) body.Dest = Target.position;
@@ -103,5 +113,21 @@ public class EnemyBossChargeAI : AI
     protected void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag.Equals("Friendly")) Target=collision.gameObject.GetComponent<Unit>();
+    }
+    private void OnDestroy()
+    {
+        if(line!=null) Destroy(line);
+    }
+    private void Drawline(Unit Target)
+    {
+        if(Target==null) return;
+        line = new GameObject("Line").AddComponent<LineRenderer>();
+        line.material = new Material(Shader.Find("Sprites/Default"));
+        line.SetPosition(0, (Vector3)body.position+new Vector3(0,0,3));
+        line.SetPosition(1, (Vector3)Target.position+new Vector3(0,0,3));
+        line.startWidth=0.05f;
+        line.endWidth=0.05f;
+        line.startColor=new Color(1, 0.5f, 0);
+        line.endColor=new Color(1, 0.5f, 0);
     }
 }

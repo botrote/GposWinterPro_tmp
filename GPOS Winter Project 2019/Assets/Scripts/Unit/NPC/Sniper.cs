@@ -14,7 +14,9 @@ public class Sniper : NPC , IMissileAttack
     private const float SniperSpeed = 2.0f;
     private const Race SniperRace = Race.Soldier;
     private const float SniperMissileCool = 8.0f;
+    private const float SnipeTime = 3.0f;
     private float MissileCool;
+    private LineRenderer line;
 
     public override Team TeamTag
     {
@@ -60,10 +62,33 @@ public class Sniper : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= SniperMissileRange)
         {
             if (SniperMissileCool > MissileCool) return;
-            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Bolt", this, this.position, Target.position, (int)SniperAttack, 15f, 1f);
+            StartCoroutine(Snipe(Target));
             MissileCool = 0;
         }
     }
+    private IEnumerator Snipe(Unit Target)
+    {
+        for(float time=0; time<SnipeTime; time+=Time.deltaTime)
+        {
+            Drawline(Target);
+            yield return null;
+            Destroy(line);
+        }
+        GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Bolt", this, this.position, Target.position, (int)SniperAttack, 15f, 1f);
+    }
+    private void Drawline(Unit Target)
+    {
+        if(Target==null) return;
+        line = new GameObject("Line").AddComponent<LineRenderer>();
+        line.material = new Material(Shader.Find("Sprites/Default"));
+        line.SetPosition(0, (Vector3)this.position+new Vector3(0,0,3));
+        line.SetPosition(1, (Vector3)Target.position+new Vector3(0,0,3));
+        line.startWidth=0.03f;
+        line.endWidth=0.03f;
+        line.startColor=Color.red;
+        line.endColor=Color.red;
+    }
+    
     public void Shoot(Vector2 pos)
     {
         if (isStunned) return;
@@ -93,11 +118,12 @@ public class Sniper : NPC , IMissileAttack
 
     private void OnDestroy()
     {
-
+        if(line!=null) Destroy(line);
     }
 
     public float getMissileRange()
     {
         return SniperMissileRange;
     }
+    
 }
