@@ -14,7 +14,9 @@ public class SniperBoss : NPC , IMissileAttack
     private const float SniperBossSpeed = 7.0f;
     private const Race SniperBossRace = Race.Elite;
     private const float SniperBossMissileCool = 6.0f;
+    private const float SnipeTime=3f;
     private float MissileCool;
+    private LineRenderer line;
     UnitFactoryManager factorymanager;
 
     public override Team TeamTag
@@ -61,9 +63,32 @@ public class SniperBoss : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= SniperBossMissileRange)
         {
             if (SniperBossMissileCool > MissileCool) return;
-            GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Bolt", this, this.position, Target.position, (int)SniperBossAttack, 15f, 1f);
+            StartCoroutine(Snipe(Target));
             MissileCool = 0;
         }
+    }
+
+    private IEnumerator Snipe(Unit Target)
+    {
+        for(float time=0; time<SnipeTime; time+=Time.deltaTime)
+        {
+            Drawline(Target);
+            yield return null;
+            Destroy(line);
+        }
+        GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Bolt", this, this.position, Target.position, (int)SniperBossAttack, 15f, 1f);
+    }
+    private void Drawline(Unit Target)
+    {
+        if(Target==null) return;
+        line = new GameObject("Line").AddComponent<LineRenderer>();
+        line.material = new Material(Shader.Find("Sprites/Default"));
+        line.SetPosition(0, (Vector3)this.position+new Vector3(0,0,3));
+        line.SetPosition(1, (Vector3)Target.position+new Vector3(0,0,3));
+        line.startWidth=0.05f;
+        line.endWidth=0.05f;
+        line.startColor=Color.red;
+        line.endColor=Color.red;
     }
     public void Shoot(Vector2 pos)
     {
@@ -96,7 +121,7 @@ public class SniperBoss : NPC , IMissileAttack
 
     private void OnDestroy()
     {
-
+        if(line!=null) Destroy(line);
     }
 
     public float getMissileRange()
