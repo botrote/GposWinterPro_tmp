@@ -207,4 +207,20 @@ public class EffectManager : MonoBehaviour
         effects[1].transform.localScale = new Vector3(1, 0.4f, 1);
         effects[1].GetComponent<SpriteRenderer>().flipX = true;
     }
+
+    public IEnumerator BuildEnemySmite(GameObject parent, Vector3 target)
+    {
+        yield return new WaitForEndOfFrame();
+        Vector3 moveVector = (target - parent.transform.position);
+        List<GameObject> effects = new List<GameObject>();
+        effects.Add(ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,0), 2, false, new Color(0.5f, 0.35f, 0f), -5));
+        effects[0].transform.localPosition += moveVector.normalized * (1f);
+        effects[0].GetComponent<Animator>().speed = 1.8f;
+        yield return StartCoroutine(WaitFrames(18));
+        effects.Add(ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,0), 3, false, new Color(0.52f, 0.35f, 0.15f), 2));
+        effects[1].transform.localPosition += moveVector.normalized * (1f);
+        effects[1].transform.localPosition += new Vector3(0f, -0.6f, 0f);
+        effects[1].GetComponent<Animator>().speed = 1.8f;
+        //LookAtAndMove(effects[0], target, 0.35f);
+    }
 }

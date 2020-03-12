@@ -9,7 +9,7 @@ public class Arms : NPC , IMissileAttack
     private const int ArmsHealth = 100;
     private const int ArmsAttack = 15;
     private const int ArmsDefense = 40;
-    private const float ArmsMissileRange = 1.0f;
+    private const float ArmsMissileRange = 1.2f;
     private const float ArmsDamageRadius = 0.5f;
     private const float ArmsSpeed = 1.0f;
     private const Race ArmsRace = Race.Soldier;
@@ -62,6 +62,7 @@ public class Arms : NPC , IMissileAttack
         {
             if (ArmsMissileCool > MissileCool) return;
             GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Crack", this, Target.position, Target.position, (int)ArmsAttack, 0f, 1f, ArmsDamageRadius);
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildEnemySmite(gameObject, Target.position));
             MissileCool = 0;
         }
     }
