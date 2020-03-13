@@ -60,6 +60,7 @@ public class Archer : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= ArcherMissileRange)
         {
             if (ArcherMissileCool > MissileCool) return;
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildSingleDust(gameObject, Target.gameObject));
             GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Arrow", this, this.position, Target.position, (int)ArcherAttack, 10f, 1f);
             MissileCool = 0;
         }

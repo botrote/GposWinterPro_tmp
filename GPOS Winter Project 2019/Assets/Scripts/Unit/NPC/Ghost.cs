@@ -59,7 +59,11 @@ public class Ghost : NPC , IHealer
         if (Vector2.Distance(Target.position, this.position) <= GhostHealRange)
         {
             if (GhostHealCool > HealCool) return;
+            EffectManager effectManager = GameObject.Find("Manager").GetComponent<EffectManager>();
             Target.Heal(GhostHeal);
+            Debug.Log("Healed");
+            StartCoroutine(effectManager.BuildFriendlyHeal(Target.gameObject));
+            StartCoroutine(effectManager.BuildFriendlyHeal(gameObject));
             HealCool = 0;
         }
     }

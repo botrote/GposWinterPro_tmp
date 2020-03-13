@@ -105,8 +105,20 @@ public class EffectManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         ProduceEffect((pos + new Vector3(0f, -1.00f, 0f)), new Vector3(0,0,0), 4, false, Color.white, 2);
-        //ProduceEffect(effects, (pos + new Vector3(-0.6f, -0.85f, 0f)), new Vector3(0,0,0), 5, false, 2);
-        //effects[1].GetComponent<SpriteRenderer>().flipX = true;
+        yield return null;
+    }
+
+    public IEnumerator BuildSingleDust(GameObject parent, GameObject target)
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject effect;
+        bool flipX = (parent.transform.position.x < target.transform.position.x);
+        effect = ProduceEffect(parent, new Vector3(0f, 0.00f, 0f), new Vector3(0,0,0), 5, false, Color.white, 2);
+        effect.GetComponent<SpriteRenderer>().flipX = flipX;
+        if(flipX)
+            effect.transform.localPosition -= new Vector3(0.4f, 0f, 0f);
+        else
+            effect.transform.localPosition += new Vector3(0.4f, 0f, 0f);
         yield return null;
     }
 
@@ -325,6 +337,14 @@ public class EffectManager : MonoBehaviour
         List<GameObject> effects = new List<GameObject>();
         effects.Add(ProduceEffect(Target, new Vector3(0,0,0), new Vector3(0,0,0), 57, false, Color.black, -5));
         effects.Add(ProduceEffect(Summoner, new Vector3(0,-0.20f,0), new Vector3(0,0,0), 40, false, Color.black, -5));
+    }
+
+    public IEnumerator BuildFriendlyHeal(GameObject parent)
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject effect;
+        effect = ProduceEffect(parent, new Vector3(0,+0.05f,0), new Vector3(0,0,0), 54, false, new Color(1,1,1,0.8f), 2);
+        effect.GetComponent<Animator>().speed = 1.5f;
     }
 
     public IEnumerator BuildEnemyHeal(GameObject parent)
