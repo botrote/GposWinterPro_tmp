@@ -33,6 +33,11 @@ public class EnemyHeroAI : AI
         yield return null;
         while (true)
         {
+            if(body.isStunned)
+            {
+                yield return null;
+                continue;
+            }
             if (Target == null) curAction = Action.Idle;
             else
             {

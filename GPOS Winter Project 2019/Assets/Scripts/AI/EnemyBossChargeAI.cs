@@ -34,6 +34,11 @@ public class EnemyBossChargeAI : AI
         yield return null;
         while (true)
         {
+            if(body.isStunned)
+            {
+                yield return null;
+                continue;
+            }
             if (Target == null)
             {
                 ((HorseManBoss)body).charge=false;
