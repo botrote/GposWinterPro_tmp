@@ -105,6 +105,7 @@ public class EnemyBossChargeAI : AI
                         }
                         Target = null;
                     }
+                    curAction=Action.Pursue;
                     yield return null;
                     break;
             }
@@ -112,7 +113,7 @@ public class EnemyBossChargeAI : AI
     }
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag.Equals("Friendly")) Target=collision.gameObject.GetComponent<Unit>();
+        if (((HorseManBoss)body).charge&&collision.gameObject.tag.Equals("Friendly")) Target=collision.gameObject.GetComponent<Unit>();
     }
     private void OnDestroy()
     {
