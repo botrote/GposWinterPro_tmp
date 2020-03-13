@@ -40,10 +40,19 @@ public class UnitFactoryManager : MonoBehaviour
     public GameObject PlaceUnit(string name, Vector2 pos, params object[] parameter)
     {
         UnitFactory factory;
+        MapManager mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
         if (factoryDict.TryGetValue(name, out factory))
         {
             GameObject product = factory.MakeUnit(parameter);
-            product.GetComponent<Transform>().position = pos + new Vector2(Random.Range(-0.8f, +0.8f), Random.Range(-0.8f, +0.8f));
+            Vector2 finalPos = pos + new Vector2(Random.Range(-0.8f, +0.8f), Random.Range(-0.8f, +0.8f));
+            
+            if(mapManager.IsOutOfBoundary(pos))
+                pos = mapManager.GetAdjustedVector(pos);
+            
+            while(mapManager.IsOutOfBoundary(finalPos))
+                finalPos = pos + new Vector2(Random.Range(-0.8f, +0.8f), Random.Range(-0.8f, +0.8f));
+            
+            product.GetComponent<Transform>().position = finalPos;
             return product;
         }
         else

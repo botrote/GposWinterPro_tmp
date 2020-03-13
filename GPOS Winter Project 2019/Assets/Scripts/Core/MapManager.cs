@@ -123,4 +123,21 @@ public class MapManager : MonoBehaviour
     {
         return (testPos.x > GetMaximumX() || testPos.y > GetMaximumY() || testPos.x < GetMinimumX() || testPos.y < GetMinimumY());
     }
+
+    public Vector2 GetAdjustedVector(Vector2 pos)
+    {
+        Vector2 returnPos = pos;
+
+        if(pos.x > GetMaximumX())
+            returnPos.x = GetMaximumX() - 1f;
+        else if(pos.x < GetMinimumX())
+            returnPos.x = GetMinimumX() + 1f;
+
+        if(pos.y > GetMaximumY())
+            returnPos.y = GetMaximumY() - 2f;
+        else if(pos.y < GetMinimumY())
+            returnPos.y = GetMinimumY() + 2f;
+
+        return returnPos;
+    }
 }
