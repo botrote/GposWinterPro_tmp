@@ -16,6 +16,16 @@ public class Explosive : MonoBehaviour
         duration = _duration;
         DamageRadius = _DamageRadius;
         StartCoroutine(LifeTime(duration));
+        StartCoroutine(BuildEffect());
+        
+    }
+
+    private IEnumerator BuildEffect()
+    {
+        yield return new WaitForEndOfFrame();
+        EffectManager effectManager = GameObject.Find("Manager").GetComponent<EffectManager>();
+        if(gameObject.name.Equals("Flame(Clone)"))
+            StartCoroutine(effectManager.BuildFlameProjectile(gameObject));
     }
 
     protected void OnTriggerEnter2D(Collider2D collision)

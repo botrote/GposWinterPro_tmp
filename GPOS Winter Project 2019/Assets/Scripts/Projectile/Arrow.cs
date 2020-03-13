@@ -21,8 +21,12 @@ public class Arrow : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         EffectManager effectManager = GameObject.Find("Manager").GetComponent<EffectManager>();
+
         if(gameObject.name.Equals("Death(Clone)"))
             StartCoroutine(effectManager.BuildDeathProjectile(gameObject));
+        else if(gameObject.name.Equals("Holy(Clone)"))
+            StartCoroutine(effectManager.BuildHolyProjectile(gameObject));
+
     }
 
     protected void OnTriggerEnter2D(Collider2D collision)
@@ -32,8 +36,14 @@ public class Arrow : MonoBehaviour
             if (!collision.gameObject.tag.Equals(team.ToString()))
             {
                 EffectManager effectManager = GameObject.Find("Manager").GetComponent<EffectManager>();
+
                 if(gameObject.name.Equals("Death(Clone)"))
                     StartCoroutine(effectManager.BuildDeathExplosion(gameObject.transform.position));
+                else if(gameObject.name.Equals("Holy(Clone)"))
+                    StartCoroutine(effectManager.BuildHolyExplosion(gameObject.transform.position));
+                else if(gameObject.name.Equals("Flame(Clone)"))
+                    StartCoroutine(effectManager.BuildBurnEffect(gameObject.transform.position));
+
                 collision.gameObject.GetComponent<Unit>().Damage(damage);
                 Destroy(gameObject);
             }

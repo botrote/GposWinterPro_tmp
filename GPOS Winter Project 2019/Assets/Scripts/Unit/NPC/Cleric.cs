@@ -104,11 +104,19 @@ public class Cleric : NPC , IMissileAttack
     }
     private void AreaHeal()
     {
+        EffectManager effectManager = GameObject.Find("Manager").GetComponent<EffectManager>();
         Collider2D[] Targets = Physics2D.OverlapCircleAll(this.position, 7.0f);
         for(int i=0; i<Targets.Length; i++)
         {
-            if(Targets[i]==null) break;
-            else if(Targets[i].tag.Equals("Enemy")) Targets[i].gameObject.GetComponent<Unit>().Heal(20);
+            if(Targets[i]==null) 
+                break;
+            else if (Targets[i].tag.Equals("Enemy")) 
+            {
+                Targets[i].gameObject.GetComponent<Unit>().Heal(20);
+                StartCoroutine(effectManager.BuildEnemyHeal(Targets[i].gameObject));
+                if(Targets[i].gameObject == gameObject)
+                    StartCoroutine(effectManager.BuildEnemyHealer(Targets[i].gameObject));
+            }
              
         }
     }

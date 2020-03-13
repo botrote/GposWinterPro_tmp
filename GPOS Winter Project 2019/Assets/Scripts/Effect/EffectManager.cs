@@ -154,6 +154,39 @@ public class EffectManager : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator BuildHolyProjectile(GameObject parent)
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject effect = ProduceEffect(parent, new Vector3(0f, -0.0f, 0f), new Vector3(0,0,0), 27, true, Color.yellow, 2);
+        effect.transform.rotation = parent.transform.rotation;
+        effect.GetComponent<SpriteRenderer>().flipY = true;
+        effect.GetComponent<Animator>().speed = 1.5f;
+    }
+
+    public IEnumerator BuildHolyExplosion(Vector3 pos)
+    {
+        ProduceEffect(pos, new Vector3(0,0,0), 22, false, Color.white, 1);
+        yield return null;
+    }
+
+    public IEnumerator BuildFlameProjectile(GameObject parent)
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject effect = ProduceEffect(parent, new Vector3(0f, -0.0f, 0f), new Vector3(0,0,0), 29, true, Color.white, 2);
+        effect.transform.rotation = parent.transform.rotation;
+        effect.GetComponent<SpriteRenderer>().flipY = true;
+        effect.GetComponent<Animator>().speed = 2.0f;
+    }
+
+    public IEnumerator BuildFlameCast(GameObject parent)
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject effect;
+        effect = ProduceEffect(parent, new Vector3(0,-0.2f,0), new Vector3(0,0,0), 32, false, Color.white, +1);
+        effect.GetComponent<Animator>().speed = 1.5f;
+        effect.transform.localScale += new Vector3(0.5f, 0f, 0f);
+    }
+
     public IEnumerator BuildFriendlySlash(GameObject parent, Vector3 target)
     {
         yield return new WaitForEndOfFrame();
@@ -293,4 +326,21 @@ public class EffectManager : MonoBehaviour
         effects.Add(ProduceEffect(Target, new Vector3(0,0,0), new Vector3(0,0,0), 57, false, Color.black, -5));
         effects.Add(ProduceEffect(Summoner, new Vector3(0,-0.20f,0), new Vector3(0,0,0), 40, false, Color.black, -5));
     }
+
+    public IEnumerator BuildEnemyHeal(GameObject parent)
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject effect;
+        effect = ProduceEffect(parent, new Vector3(0,+0.5f,0), new Vector3(0,0,0), 50, false, Color.green, 2);
+        effect.GetComponent<Animator>().speed = 1.5f;
+    }
+
+    public IEnumerator BuildEnemyHealer(GameObject parent)
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject effect;
+        effect = ProduceEffect(parent, new Vector3(0,-0.2f,0), new Vector3(0,0,0), 40, false, Color.green, -5);
+        effect.GetComponent<Animator>().speed = 1.5f;
+        effect.transform.localScale += new Vector3(1f, 0f, 0f);
+    } 
 }

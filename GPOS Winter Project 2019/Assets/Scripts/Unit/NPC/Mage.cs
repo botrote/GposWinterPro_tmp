@@ -61,6 +61,7 @@ public class Mage : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= MageMissileRange)
         {
             if (MageMissileCool > MissileCool) return;
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildFlameCast(gameObject));
             GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Flame", this, this.position, Target.position, (int)(MageAttack), 10f, 1f, MageDamageRadius);
             MissileCool = 0;
         }
