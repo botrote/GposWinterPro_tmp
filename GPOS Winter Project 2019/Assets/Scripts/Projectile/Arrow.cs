@@ -14,6 +14,15 @@ public class Arrow : MonoBehaviour
         damage = _damage;
         duration = _duration;
         StartCoroutine(LifeTime(duration));
+        StartCoroutine(BuildEffect());
+    }
+
+    IEnumerator BuildEffect()
+    {
+        yield return new WaitForEndOfFrame();
+        EffectManager effectManager = GameObject.Find("Manager").GetComponent<EffectManager>();
+        if(gameObject.name.Equals("Death(Clone)"))
+            StartCoroutine(effectManager.BuildDeathProjectile(gameObject));
     }
 
     protected void OnTriggerEnter2D(Collider2D collision)
@@ -22,6 +31,9 @@ public class Arrow : MonoBehaviour
         {
             if (!collision.gameObject.tag.Equals(team.ToString()))
             {
+                EffectManager effectManager = GameObject.Find("Manager").GetComponent<EffectManager>();
+                if(gameObject.name.Equals("Death(Clone)"))
+                    StartCoroutine(effectManager.BuildDeathExplosion(gameObject.transform.position));
                 collision.gameObject.GetComponent<Unit>().Damage(damage);
                 Destroy(gameObject);
             }

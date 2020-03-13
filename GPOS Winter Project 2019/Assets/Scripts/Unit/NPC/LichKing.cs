@@ -113,7 +113,8 @@ public class LichKing : NPC , IMissileAttack
                     dest=this.position+(new Vector2(Mathf.Cos(theta) ,Mathf.Sin(theta)))*1.5f;
                 }
                 while(GameObject.Find("MapManager").GetComponent<MapManager>().IsOutOfBoundary(dest));
-                GameObject.Find("UnitFactory").GetComponent<UnitFactoryManager>().PlaceUnit("Zombie", dest);
+                GameObject Zombie = GameObject.Find("UnitFactory").GetComponent<UnitFactoryManager>().PlaceUnit("Zombie", dest);
+                StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildZombieSpawn(gameObject, Zombie));
                 SummonCool = 0;
             }
         }

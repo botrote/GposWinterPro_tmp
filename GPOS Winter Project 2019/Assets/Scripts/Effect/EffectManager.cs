@@ -95,6 +95,12 @@ public class EffectManager : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator BuildBurnEffect(Vector3 pos)
+    {
+        ProduceEffect(pos, new Vector3(0,0,0), 1, false, Color.white, 1);
+        yield return null;
+    }
+
     public IEnumerator BuildDustEffect(Vector3 pos)
     {
         yield return new WaitForEndOfFrame();
@@ -110,6 +116,17 @@ public class EffectManager : MonoBehaviour
         ProduceEffect(parent, new Vector3(0f, -0.1f, 0f), new Vector3(0,0,0), 53, false, Color.black, 2).GetComponent<Animator>().speed = 1.2f;
     }
 
+    public IEnumerator BuildZombieSpawn(GameObject richKing, GameObject zombie)
+    {
+        yield return new WaitForEndOfFrame();
+        List<GameObject> effects = new List<GameObject>();
+        effects.Add(ProduceEffect(richKing, new Vector3(0f, -0.20f, 0f), new Vector3(0,0,0), 57, false, Color.green, -5));
+        effects[0].transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+        effects.Add(ProduceEffect(zombie, new Vector3(0f, +0.1f, 0f), new Vector3(0,0,0), 44, false, Color.white, 2));
+        effects[1].GetComponent<Animator>().speed = 1.2f;
+    }
+
+
     public IEnumerator BuildGrassEnemySpawn(GameObject parent)
     {
         yield return new WaitForEndOfFrame();
@@ -120,6 +137,21 @@ public class EffectManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         ProduceEffect(parent, new Vector3(0f, -0.0f, 0f), new Vector3(0,0,0), 8, false, new Color(0.83f, 0.23f, 0.23f), 2);
+    }
+
+    public IEnumerator BuildDeathProjectile(GameObject parent)
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject effect = ProduceEffect(parent, new Vector3(0f, -0.0f, 0f), new Vector3(0,0,0), 30, true, Color.black, 2);
+        effect.transform.rotation = parent.transform.rotation;
+        effect.GetComponent<SpriteRenderer>().flipY = true;
+        effect.GetComponent<Animator>().speed = 1.5f;
+    }
+
+    public IEnumerator BuildDeathExplosion(Vector3 pos)
+    {
+        ProduceEffect(pos, new Vector3(0,0,0), 18, false, Color.black, 1);
+        yield return null;
     }
 
     public IEnumerator BuildFriendlySlash(GameObject parent, Vector3 target)
@@ -208,6 +240,36 @@ public class EffectManager : MonoBehaviour
         effects[1].GetComponent<SpriteRenderer>().flipX = true;
     }
 
+    public IEnumerator BuildFriendlyClaw(GameObject parent, GameObject target)
+    {
+        yield return new WaitForEndOfFrame();
+        List<GameObject> effects = new List<GameObject>();
+        Vector3 moveVector = (target.transform.position - parent.transform.position);
+        SpriteRenderer sRenderer;
+        bool flipY = !(moveVector.y > 0);
+
+        effects.Add(ProduceEffect(target, new Vector3(0,0,0), new Vector3(0,0,0), 62, false, Color.red, 2));
+        effects[0].transform.Rotate(new Vector3(0,0,-45));
+        effects[0].transform.localScale = new Vector3(1, 0.4f, 1);
+        effects[0].transform.localPosition += new Vector3(0.15f, 0.15f, 0);
+        sRenderer = effects[0].GetComponent<SpriteRenderer>();
+        sRenderer.flipY = flipY;
+
+        effects.Add(ProduceEffect(target, new Vector3(0,0,0), new Vector3(0,0,0), 62, false, Color.red, 2));
+        effects[1].transform.Rotate(new Vector3(0,0,-45));
+        effects[1].transform.localScale = new Vector3(1, 0.4f, 1);
+        sRenderer = effects[1].GetComponent<SpriteRenderer>();
+        sRenderer.flipY = flipY;
+
+        effects.Add(ProduceEffect(target, new Vector3(0,0,0), new Vector3(0,0,0), 62, false, Color.red, 2));
+        effects[2].transform.Rotate(new Vector3(0,0,-45));
+        effects[2].transform.localScale = new Vector3(1, 0.4f, 1);
+        effects[2].transform.localPosition -= new Vector3(0.15f, 0.15f, 0);
+        sRenderer = effects[2].GetComponent<SpriteRenderer>();
+        sRenderer.flipY = flipY;
+
+    }
+
     public IEnumerator BuildEnemySmite(GameObject parent, Vector3 target)
     {
         yield return new WaitForEndOfFrame();
@@ -222,5 +284,13 @@ public class EffectManager : MonoBehaviour
         effects[1].transform.localPosition += new Vector3(0f, -0.6f, 0f);
         effects[1].GetComponent<Animator>().speed = 1.8f;
         //LookAtAndMove(effects[0], target, 0.35f);
+    }
+
+    public IEnumerator BuildLichMagicCircle(GameObject Summoner, GameObject Target)
+    {
+        yield return new WaitForEndOfFrame();
+        List<GameObject> effects = new List<GameObject>();
+        effects.Add(ProduceEffect(Target, new Vector3(0,0,0), new Vector3(0,0,0), 57, false, Color.black, -5));
+        effects.Add(ProduceEffect(Summoner, new Vector3(0,-0.20f,0), new Vector3(0,0,0), 40, false, Color.black, -5));
     }
 }

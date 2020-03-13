@@ -36,7 +36,10 @@ public class Explosive : MonoBehaviour
                     }        
                 }
                 EffectManager effectManager = GameObject.Find("Manager").GetComponent<EffectManager>();
-                StartCoroutine(effectManager.BuildExplosiveEffect(gameObject.transform.position));
+                if(gameObject.name.Equals("Explosive(Clone)"))
+                    StartCoroutine(effectManager.BuildExplosiveEffect(gameObject.transform.position));
+                else if(gameObject.name.Equals("Flame(Clone)"))
+                    StartCoroutine(effectManager.BuildBurnEffect(gameObject.transform.position));
                 Destroy(gameObject);
             }
         }

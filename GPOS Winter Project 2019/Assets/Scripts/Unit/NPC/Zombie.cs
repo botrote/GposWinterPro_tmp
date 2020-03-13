@@ -59,6 +59,7 @@ public class Zombie : NPC , IMeleeAttack
         if (Vector2.Distance(Target.position, this.position) <= zombieMeleeRange)
         {
             if (zombieMeleeCool > MeleeCool) return;
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildFriendlyClaw(gameObject, Target.gameObject));
             Target.Damage((int)(zombieAttack * friendlyAttackFactor));
             MeleeCool = 0;
         }
@@ -81,7 +82,6 @@ public class Zombie : NPC , IMeleeAttack
     {
         yield return new WaitForEndOfFrame();
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildFriendlySpawn(gameObject));
         yield return new WaitForSeconds(0.35f);
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
     }
