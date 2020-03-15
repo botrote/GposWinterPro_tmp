@@ -342,25 +342,36 @@ public class EffectManager : MonoBehaviour
     public IEnumerator BuildFriendlyHeal(GameObject parent)
     {
         yield return new WaitForEndOfFrame();
+        
         GameObject effect;
         effect = ProduceEffect(parent, new Vector3(0,+0.05f,0), new Vector3(0,0,0), 54, false, new Color(1,1,1,0.8f), 2);
+        effect.name = "Healed";
         effect.GetComponent<Animator>().speed = 1.5f;
+        
+        yield return null;
     }
 
     public IEnumerator BuildEnemyHeal(GameObject parent)
     {
         yield return new WaitForEndOfFrame();
-        GameObject effect;
-        effect = ProduceEffect(parent, new Vector3(0,+0.5f,0), new Vector3(0,0,0), 50, false, Color.green, 2);
-        effect.GetComponent<Animator>().speed = 1.5f;
+        if(parent.transform.Find("Healed") == null && !parent.name.Equals("Cleric(Clone)"))
+        {
+            GameObject effect;
+            effect = ProduceEffect(parent, new Vector3(0f,0f,0f), new Vector3(0,0,0), 10, false, Color.green, 2);
+            effect.name = "Healed";
+            effect.GetComponent<Animator>().speed = 0.60f;
+        }
+        yield return null;
     }
 
     public IEnumerator BuildEnemyHealer(GameObject parent)
     {
         yield return new WaitForEndOfFrame();
-        GameObject effect;
-        effect = ProduceEffect(parent, new Vector3(0,-0.2f,0), new Vector3(0,0,0), 40, false, Color.green, -5);
-        effect.GetComponent<Animator>().speed = 1.5f;
-        effect.transform.localScale += new Vector3(1f, 0f, 0f);
+        List<GameObject> effects = new List<GameObject>();
+        effects.Add(ProduceEffect(parent, new Vector3(0,-0.2f,0), new Vector3(0,0,0), 40, false, Color.green, -5));
+        effects[0].GetComponent<Animator>().speed = 1.5f;
+        effects[0].transform.localScale += new Vector3(1f, 0f, 0f);
+        effects.Add(ProduceEffect(parent, new Vector3(0,+0.5f,0), new Vector3(0,0,0), 50, false, Color.green, 2));
+        effects[1].GetComponent<Animator>().speed = 1.5f;
     } 
 }
