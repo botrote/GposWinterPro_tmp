@@ -72,7 +72,7 @@ public class Sniper : NPC , IMissileAttack
         {
             Drawline(Target);
             yield return null;
-            Destroy(line);
+            Destroy(line.gameObject);
         }
         GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Bolt", this, this.position, Target.position, (int)SniperAttack, 15f, 1f);
     }

@@ -76,7 +76,7 @@ public class EnemyBossChargeAI : AI
                     {
                         Drawline(Target);
                         yield return null;
-                        Destroy(line);
+                        Destroy(line.gameObject);
                     }
                     if(Target!=null&&((HorseManBoss)body).charge) curAction=Action.Charge;
                     break;
@@ -122,7 +122,7 @@ public class EnemyBossChargeAI : AI
     }
     private void OnDestroy()
     {
-        if(line!=null) Destroy(line);
+        if(line!=null) Destroy(line.gameObject);
     }
     private void Drawline(Unit Target)
     {
