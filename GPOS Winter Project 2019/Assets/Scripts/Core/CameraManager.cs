@@ -55,4 +55,18 @@ public class CameraManager : MonoBehaviour
         }
         
     }
+
+    public IEnumerator Shake(float _amount,float _duration)
+    {
+        Vector3 originPos = cam.gameObject.transform.localPosition;
+        float timer = 0;
+        while(timer <= _duration)
+        {
+            transform.localPosition = (Vector3)Random.insideUnitCircle * _amount + originPos;
+ 
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        cam.gameObject.transform.localPosition = originPos;
+    } 
 }
