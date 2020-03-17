@@ -72,15 +72,10 @@ public class Building : Unit
                 StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildLavaEnemySpawn(summoned));
             else
                 StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildGrassEnemySpawn(summoned));
-            StartCoroutine(EnableRenderer(summoned));
             curHealth--;
         }
         Die();
     }
 
-    private IEnumerator EnableRenderer(GameObject summoned)
-    {
-        yield return new WaitForSeconds(0.3f);
-        summoned.GetComponent<SpriteRenderer>().enabled = true;
-    }
+    
 }

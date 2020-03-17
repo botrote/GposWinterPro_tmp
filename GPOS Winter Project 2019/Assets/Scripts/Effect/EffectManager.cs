@@ -52,12 +52,12 @@ public class EffectManager : MonoBehaviour
             yield return null;
     }
 
-    private void LookAtAndMove(GameObject source, Vector3 dest, float distance)
+    public static void LookAtAndMove(GameObject source, Vector3 dest, float distance)
     {
         Vector3 sourcePos = source.transform.position;
         Vector3 lineVector = new Vector3(dest.x - sourcePos.x, dest.y - sourcePos.y, 0);
         float degree = Mathf.Atan2(lineVector.x, lineVector.y) * Mathf.Rad2Deg;
-        source.transform.rotation = Quaternion.Euler(0, 0, (-1)*degree);
+        source.transform.localRotation = Quaternion.Euler(0, 0, (-1)*degree);
         source.transform.position += lineVector.normalized * (distance);
     }
 
@@ -319,6 +319,7 @@ public class EffectManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         Vector3 moveVector = (target - parent.transform.position);
+        StartCoroutine(GameObject.Find("Main Camera").GetComponent<CameraManager>().Shake(0.15f, 0.5f));
         List<GameObject> effects = new List<GameObject>();
         effects.Add(ProduceEffect(parent, new Vector3(0,0,0), new Vector3(0,0,0), 2, false, new Color(0.5f, 0.35f, 0f), -5));
         effects[0].transform.localPosition += moveVector.normalized * (1f);
@@ -374,4 +375,68 @@ public class EffectManager : MonoBehaviour
         effects.Add(ProduceEffect(parent, new Vector3(0,+0.5f,0), new Vector3(0,0,0), 50, false, Color.green, 2));
         effects[1].GetComponent<Animator>().speed = 1.5f;
     } 
+
+    public IEnumerator BuildHeroPunch(GameObject parent, GameObject target)
+    {
+        yield return new WaitForEndOfFrame();
+        List<GameObject> effects = new List<GameObject>();
+        GameObject curObj;
+        for(int i = 0; i < 5; i++)
+        {
+            effects.Add(ProduceEffect(parent, new Vector3(0,-0.2f,0), new Vector3(0,0,0), 22, false, Color.white, 2));
+            curObj = effects[i];
+            LookAtAndMove(curObj, target.transform.position, 0.3f);
+            curObj.transform.position += new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), UnityEngine.Random.Range(-0.2f, 0.2f), 0);
+            curObj.transform.localRotation = Quaternion.Euler(new Vector3(0,0,UnityEngine.Random.Range(-180, 180)));
+            yield return StartCoroutine(WaitFrames(8));
+        }
+    }
+
+    public IEnumerator BuildHeroFist(GameObject parent, GameObject target)
+    {
+        yield return new WaitForEndOfFrame();
+        List<GameObject> effects = new List<GameObject>();
+        effects.Add(ProduceEffect(parent, new Vector3(0,-0.2f,0), new Vector3(0,0,0), 23, false, Color.yellow, 2));
+        LookAtAndMove(effects[0], target.transform.position, 3.5f);
+        effects[0].transform.localScale = new Vector3(1f, 1.2f, 1f);
+        effects[0].GetComponent<Animator>().speed = 1.6f;
+    }
+
+    public IEnumerator BuildHeroLaser(GameObject parent, GameObject target)
+    {
+        List<GameObject> effects = new List<GameObject>();
+
+        GameObject.Find("Canvas").transform.Find("AbsoluteWhite").gameObject.SetActive(true);
+        GameObject.Find("Canvas").transform.Find("AbsoluteWhite").transform.position = parent.transform.position;
+        parent.GetComponent<SpriteRenderer>().sortingOrder = 11;
+
+        yield return StartCoroutine(GameManager.StopTimeCoroutine(0.3f));
+
+        GameObject.Find("Canvas").transform.Find("AbsoluteWhite").gameObject.SetActive(false);
+        parent.GetComponent<SpriteRenderer>().sortingOrder = 0;
+
+        effects.Add(ProduceEffect(parent, new Vector3(0,0f,0), new Vector3(0,0,0), 64, true, Color.red, 3));
+        LookAtAndMove(effects[0], target.transform.position, 7f);
+        effects[0].transform.localScale = new Vector3(3f, 8f, 1f);
+        effects[0].GetComponent<Animator>().speed = 1.6f;
+
+        effects.Add(ProduceEffect(parent, new Vector3(0,0f,0), new Vector3(0,0,0), 65, true, Color.red, 4));
+        LookAtAndMove(effects[1], target.transform.position, 1f);
+        effects[1].transform.localScale = new Vector3(2f, 0.5f, 1f);
+        effects[1].GetComponent<Animator>().speed = 1.6f;
+
+        yield return new WaitForSeconds(1.5f);
+        Destroy(effects[0]);
+        Destroy(effects[1]);
+    }
+
+    public IEnumerator BuildHeroCharge(GameObject parent, GameObject target)
+    {
+        yield return new WaitForEndOfFrame();
+    }
+
+    public IEnumerator BuildHeroTeleport(GameObject parent, GameObject target)
+    {
+        yield return new WaitForEndOfFrame();
+    }
 }

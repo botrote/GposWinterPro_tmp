@@ -37,6 +37,7 @@ public class Hero : NPC, IMeleeAttack
 
     private const float HeroSummonCool = 15f;
     private float SummonCool;
+    private EffectManager effectManager;
 
     public override Team TeamTag
     {
@@ -83,6 +84,7 @@ public class Hero : NPC, IMeleeAttack
         if ( Vector2.Distance(Target.position, this.position) <= HeroMeleeRange)
         {
             if (HeroMeleeCool > MeleeCool) return;
+            StartCoroutine(effectManager.BuildHeroPunch(gameObject, Target.gameObject));
             Target.Damage(HeroAttack);
             MeleeCool = 0;
         }
@@ -94,8 +96,10 @@ public class Hero : NPC, IMeleeAttack
         if (isStunned||Target==null) return;
         if (HeroFistCool > FistCool) return;
         hAnimator.SetBool("IsAttacking", true);
+        StartCoroutine(effectManager.BuildHeroFist(gameObject, Target.gameObject));
         GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Fist", this, this.position, Target.position, (int)(FistDamage), 10f, 0.5f);
         FistCool=0;
+        this.Addbuff(new Stun(0.5f));
         hAnimator.SetBool("IsAttacking", false);
         UpdateAnimationDirection(gameObject.transform.position, Target.gameObject.transform.position);
     }
@@ -146,11 +150,17 @@ public class Hero : NPC, IMeleeAttack
         if (isStunned||Target==null||this.curHealth>this.MaxHealth/2) return;
         if (HeroBeamCool > BeamCool) return;
         hAnimator.SetBool("IsAttacking", true);
-        GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Beam", this, this.position, Target.position, (int)(BeamDamage), 16f, 10f);
+        StartCoroutine(Unit.GiveStun(this, 2f));
+        StartCoroutine(effectManager.BuildHeroLaser(gameObject, Target.gameObject));
+        GameObject beam = GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Beam", this, this.position, Target.position, (int)(BeamDamage), 0f, 10f);
+        beam.transform.parent = gameObject.transform;
+        EffectManager.LookAtAndMove(beam, Target.gameObject.transform.position, 5.75f);
         BeamCool=0;
         hAnimator.SetBool("IsAttacking", false);
         UpdateAnimationDirection(gameObject.transform.position, Target.gameObject.transform.position);
     }
+
+    
     protected override void Init()
     {
         MeleeCool = 0;
@@ -168,6 +178,7 @@ public class Hero : NPC, IMeleeAttack
         factoryManager = GameObject.Find("UnitFactory").GetComponent<UnitFactoryManager>();
         hAnimator = gameObject.GetComponent<Animator>();
         hSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        effectManager = GameObject.Find("Manager").GetComponent<EffectManager>();
     }
 
     // Update is called once per frame

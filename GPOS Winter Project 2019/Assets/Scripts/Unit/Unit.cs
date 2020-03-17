@@ -271,4 +271,17 @@ public abstract class Unit : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
     }
+
+    /// <summary>
+    /// 유닛에 다이렉트로 스턴을 부여하면 rigidbody관련 버그 발생(유닛이 미끄러지는 등)
+    /// 스턴을 부여하고 싶다면 이 코루틴을 사용할것
+    /// </summary>
+    public static IEnumerator GiveStun(Unit target, float time)
+    {
+        target.Addbuff(new Stun(time));
+        target.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        yield return new WaitForSeconds(time);
+        target.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+    }
 }
+

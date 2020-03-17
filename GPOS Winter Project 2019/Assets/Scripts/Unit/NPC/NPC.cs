@@ -64,6 +64,13 @@ public abstract class NPC : Unit
         base.Awake();
         Init();
         Addbuff(new Stun(0.8f));
+        StartCoroutine((EnableRenderer()));
+    }
+
+    private IEnumerator EnableRenderer()
+    {
+        yield return new WaitForSeconds(0.4f);
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     // Update is called once per frame
@@ -110,4 +117,5 @@ public abstract class NPC : Unit
         Destroy(instance);
         return;
     }
+
 }

@@ -21,12 +21,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// n초동안 게임 전체를 정지시킴
     /// </summary>
-    void StopTime(float n)
-    {
-        StartCoroutine(StopTimeCoroutine(n));
-    }
-
-    IEnumerator StopTimeCoroutine(float n)
+    public static IEnumerator StopTimeCoroutine(float n)
     {
         if(n <= 0)
             yield break;   
