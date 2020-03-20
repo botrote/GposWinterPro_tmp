@@ -460,4 +460,43 @@ public class EffectManager : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator BuildFireBallCast(GameObject parent, Vector3 target)
+    {
+        GameObject effect;
+        effect = ProduceEffect(parent, new Vector3(0f,0f,0f), new Vector3(0,0,0), 13, false, Color.red, 1);
+        LookAtAndMove(effect, target, 0.75f);
+        effect.transform.localRotation = Quaternion.Euler(0f,0f,0f);
+        effect.transform.localScale = new Vector3(1.5f, 1.5f, 1f);
+        effect.GetComponent<Animator>().speed = 1.8f;
+        yield return null;
+    }
+
+    public IEnumerator BuildFireBallEffect(GameObject parent)
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject effect = ProduceEffect(parent, new Vector3(0f, -0.0f, 0f), new Vector3(0,0,0), 30, true, Color.red, 2);
+        effect.transform.rotation = parent.transform.rotation;
+        effect.transform.localScale = new Vector3(1.5f, 1.5f, 1f);
+        effect.GetComponent<SpriteRenderer>().flipY = true;
+        effect.GetComponent<Animator>().speed = 1.25f;
+    }
+
+    public IEnumerator BuildFireBallExplosion(Vector3 pos)
+    {
+        GameObject effect;
+        effect = ProduceEffect(pos, new Vector3(0,0,0), 60, false, Color.white, 0);
+        effect.transform.localScale = new Vector3(1.5f, 1.5f, 1f);
+        effect.GetComponent<Animator>().speed = 0.75f;
+        yield return null;
+    }
+
+    public void Delegate_FireBallCast(GameObject parent, Vector3 target)
+    {
+        StartCoroutine(BuildFireBallCast(parent, target));
+    }
+
+    public void Delegate_FireBallExplosion(Vector3 pos)
+    {
+        StartCoroutine(BuildFireBallExplosion(pos));
+    }
 }

@@ -16,6 +16,7 @@ public class FireBall : MonoBehaviour
         duration = _duration;
         DamageRadius = _DamageRadius;
         StartCoroutine(LifeTime(duration));
+        StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildFireBallEffect(gameObject));
     }
     
     
@@ -29,6 +30,7 @@ public class FireBall : MonoBehaviour
     protected void OnDestroy()
     {
         Collider2D[] Targets = Physics2D.OverlapCircleAll(this.gameObject.GetComponent<Transform>().position, DamageRadius);
+        GameObject.Find("Manager").GetComponent<EffectManager>().Delegate_FireBallExplosion(gameObject.transform.position);
         for (int i = 0; i < Targets.Length; i++)
         {
             if (Targets[i].gameObject.GetComponent<Unit>() == null) continue;

@@ -22,6 +22,7 @@ public class FireballSkill : ISkill
         Vector2 cursor = GameObject.Find("Manager").GetComponent<InputManager>().getMousePosition();
         float duration = Vector2.Distance(Player.position, cursor) / speed;
         GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("FireBall", Player, Player.position, cursor, damage, speed, duration, radius);
+        GameObject.Find("Manager").GetComponent<EffectManager>().Delegate_FireBallCast(Player.gameObject, cursor);
     }
 
     public override void UseSkill(Unit user, Unit Target)
