@@ -115,6 +115,7 @@ public class Hero : NPC, IMeleeAttack
             dest=Target.position+(new Vector2(Mathf.Cos(theta) ,Mathf.Sin(theta)));
         }
         while(GameObject.Find("MapManager").GetComponent<MapManager>().IsOutOfBoundary(dest));
+        StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildFlameTrail(gameObject.transform.position, dest));
         transform.position=dest;
         ChargeCool=0;
         UpdateAnimationDirection(gameObject.transform.position, Target.gameObject.transform.position);
@@ -131,6 +132,7 @@ public class Hero : NPC, IMeleeAttack
             dest=Target.position+(new Vector2(Mathf.Cos(theta) ,Mathf.Sin(theta)));
         }
         while(GameObject.Find("MapManager").GetComponent<MapManager>().IsOutOfBoundary(dest));
+        StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildFlameTrail(gameObject.transform.position, dest));
         transform.position=dest;
 
         Collider2D[] Targets = Physics2D.OverlapCircleAll(Target.position, TeleportDamageRadius);

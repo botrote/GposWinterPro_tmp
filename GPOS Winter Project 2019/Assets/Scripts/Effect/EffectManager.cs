@@ -490,6 +490,25 @@ public class EffectManager : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator BuildFlameTrail(Vector3 source, Vector3 dest)
+    {
+        float length = Mathf.Abs(Vector3.Distance(dest, source));
+        Vector3 moveVector = (dest - source).normalized;
+        List<GameObject> effects = new List<GameObject>();
+
+        for(float i = 0f; i < 20; i++)
+        {
+            Debug.Log("I'm in iteration");
+            float randX, randY;
+            randX = Random.Range(-0.15f, 0.15f);
+            randY = Random.Range(-0.15f, 0.15f);
+            Vector3 pos = source + moveVector*(i/20)*(length) + new Vector3(randX, randY, 0);
+            effects.Add(ProduceEffect(pos, Vector3.zero, 61, false, Color.white, -1));
+            yield return null;
+        }
+        yield return null;
+    }
+
     public void Delegate_FireBallCast(GameObject parent, Vector3 target)
     {
         StartCoroutine(BuildFireBallCast(parent, target));
