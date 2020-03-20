@@ -98,6 +98,6 @@ public class InputManager : MonoBehaviour
     }
     void PrintInput(Vector2 pos)
     {
-        Debug.Log("Click on" + pos.ToString());
+        //Debug.Log("Click on" + pos.ToString());
     }
 }

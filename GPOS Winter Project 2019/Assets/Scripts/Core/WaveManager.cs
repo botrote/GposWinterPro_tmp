@@ -149,13 +149,13 @@ public class WaveManager : MonoBehaviour
 
     protected IEnumerator SetTimer(float time)
     {
-        Debug.Log("Timer set");
+        //Debug.Log("Timer set");
         Remainingtime = time;
         while (Remainingtime > 0)
         {
             yield return null;
             Remainingtime -= Time.deltaTime;
         }
-        Debug.Log("Timer done");
+        //Debug.Log("Timer done");
     }
 }

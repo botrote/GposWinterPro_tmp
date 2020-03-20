@@ -439,4 +439,25 @@ public class EffectManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
     }
+
+    public IEnumerator BuildFleshDeath(Vector3 pos)
+    {
+        GameObject effect;
+        int rand = Random.Range(0,100);
+        if(rand < 50)
+            effect = ProduceEffect(pos, new Vector3(0,0,0), 33, false, Color.white, 0);
+        else
+            effect = ProduceEffect(pos, new Vector3(0,0,0), 34, false, Color.white, 0);
+        effect.transform.localRotation = Quaternion.Euler(0f,0f,Random.Range(-180, 180));
+        yield return null;
+    }
+
+    public IEnumerator BuildSkeletonDeath(Vector3 pos)
+    {
+        GameObject effect;
+        int rand = Random.Range(0,100);
+        effect = ProduceEffect(pos, new Vector3(0,0,0), 14, false, Color.white, 0);
+        yield return null;
+    }
+
 }

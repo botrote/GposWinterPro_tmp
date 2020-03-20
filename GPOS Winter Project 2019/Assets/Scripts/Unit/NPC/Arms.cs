@@ -56,7 +56,6 @@ public class Arms : NPC , IMissileAttack
 
     public void Shoot(Unit Target)
     {
-        Debug.Log("currently shooting");
         if (isStunned) return;
         if (Vector2.Distance(Target.position, this.position) <= ArmsMissileRange)
         {

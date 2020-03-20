@@ -86,10 +86,19 @@ public abstract class NPC : Unit
 
     public override void Die()
     {
+        Vector3 pos = gameObject.transform.position;
         if (this.TeamTag == Team.Enemy)
         {   
             GameObject.Find("Player").GetComponent<Player>().addExp(Exp);
-            Debug.Log(Exp + " added");
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildFleshDeath(pos));
+        }
+        else if(gameObject.name.Equals("Orc(Clone)")||gameObject.name.Equals("Troll(Clone)")||gameObject.name.Equals("Goblin(Clone)")||gameObject.name.Equals("Dragon(Clone)")||gameObject.name.Equals("Zombie(Clone)"))
+        {
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildFleshDeath(pos));
+        }
+        else if(gameObject.name.Equals("SkeletonB(Clone)")||gameObject.name.Equals("SkeletonS(Clone)")||gameObject.name.Equals("Lich(Clone)")||gameObject.name.Equals("LichKing(Clone)")||gameObject.name.Equals("Ghost(Clone)"))
+        {
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildSkeletonDeath(pos));
         }
         base.Die();
     }

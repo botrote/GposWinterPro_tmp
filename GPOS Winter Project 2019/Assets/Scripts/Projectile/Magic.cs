@@ -27,13 +27,13 @@ public class Magic : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
         Collider2D[] Targets = Physics2D.OverlapCircleAll(gameObject.transform.position, DamageRadius);
-        Debug.Log("Targets length: " + Targets.Length);
+        //Debug.Log("Targets length: " + Targets.Length);
         for(int i=0; i<Targets.Length; i++)
         {
             if(Targets[i].gameObject.GetComponent<Unit>()==null) continue;
             else
             {
-                Debug.Log(i.ToString() + " : " + Targets[i].gameObject.ToString());
+                //Debug.Log(i.ToString() + " : " + Targets[i].gameObject.ToString());
                 if ( Targets[i].gameObject.GetComponent<Unit>().tag.Equals("Enemy") || Targets[i].gameObject.GetComponent<Unit>().tag.Equals("Friendly"))
                 {
                     if(Targets[i].gameObject.GetComponent<Unit>().TeamTag != team) Targets[i].gameObject.GetComponent<Unit>().Damage(damage);
