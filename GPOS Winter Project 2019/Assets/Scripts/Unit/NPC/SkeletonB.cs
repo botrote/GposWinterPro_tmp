@@ -59,6 +59,7 @@ public class SkeletonB : NPC , IMissileAttack
         if (Vector2.Distance(Target.position, this.position) <= SkeletonBMissileRange)
         {
             if (SkeletonBMissileCool > MissileCool) return;
+            StartCoroutine(GameObject.Find("Manager").GetComponent<EffectManager>().BuildSingleDust(gameObject, Target.gameObject));
             GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Arrow", this, this.position, Target.position, (int)(SkeletonBAttack* friendlyAttackFactor), 10f, 1f);
             MissileCool = 0;
         }

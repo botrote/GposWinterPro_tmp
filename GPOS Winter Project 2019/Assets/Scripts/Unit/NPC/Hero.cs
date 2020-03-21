@@ -152,6 +152,7 @@ public class Hero : NPC, IMeleeAttack
         if (isStunned||Target==null||this.curHealth>this.MaxHealth/2) return;
         if (HeroBeamCool > BeamCool) return;
         hAnimator.SetBool("IsAttacking", true);
+        UpdateAnimationDirection(gameObject.transform.position, Target.gameObject.transform.position);
         StartCoroutine(Unit.GiveStun(this, 2f));
         StartCoroutine(effectManager.BuildHeroLaser(gameObject, Target.gameObject));
         GameObject beam = GameObject.Find("ProjectileFactory").GetComponent<ProjectileFactoryManager>().PlaceProjectile("Beam", this, this.position, Target.position, (int)(BeamDamage), 0f, 10f);
@@ -159,7 +160,6 @@ public class Hero : NPC, IMeleeAttack
         EffectManager.LookAtAndMove(beam, Target.gameObject.transform.position, 5.75f);
         BeamCool=0;
         hAnimator.SetBool("IsAttacking", false);
-        UpdateAnimationDirection(gameObject.transform.position, Target.gameObject.transform.position);
     }
 
     
