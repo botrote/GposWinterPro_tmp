@@ -10,7 +10,7 @@ public class MinimapScreenManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Vector2 size = cam.ScreenToWorldPoint(new Vector2(cam.scaledPixelWidth, cam.scaledPixelHeight)) * 5 / 2;
+        Vector2 size = (cam.ScreenToWorldPoint(new Vector2(cam.scaledPixelWidth, cam.scaledPixelHeight)) - cam.ScreenToWorldPoint(new Vector2(0,0))) * 5 / 2;
         rect = gameObject.GetComponent<RectTransform>();
         rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
         rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);

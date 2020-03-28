@@ -100,6 +100,7 @@ public abstract class NPC : Unit
     public static void getNameAndCost<T>(out int notch, out string name, out int unlockCost) where T : NPC
     {
         GameObject instance = new GameObject();
+        instance.name = "PseudoUnit";
         instance.AddComponent<SpriteRenderer>();
         instance.AddComponent<T>();
         notch = instance.GetComponent<T>().Notch;

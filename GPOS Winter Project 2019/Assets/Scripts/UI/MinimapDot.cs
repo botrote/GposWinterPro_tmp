@@ -22,13 +22,13 @@ public class MinimapDot : MonoBehaviour
         switch (unitPointing.TeamTag) {
             default:
             case Unit.Team.Enemy:
-                pointColor = Color.blue;
+                pointColor = Color.red;
                 break;
             case Unit.Team.Building:
                 pointColor = Color.white;
                 break;
             case Unit.Team.Friendly:
-                pointColor = Color.red;
+                pointColor = Color.blue;
                 break;
         }
         gameObject.GetComponent<Image>().color = pointColor;

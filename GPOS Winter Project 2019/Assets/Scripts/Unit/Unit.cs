@@ -117,7 +117,7 @@ public abstract class Unit : MonoBehaviour
         curHealth = MaxHealth;
         Buffs = new List<IBuff>();
         HPBuffCoroutine = StartCoroutine(DOT());
-        UnitSpawnEvent(this);
+        UnitSpawnEvent?.Invoke(this);
     }
     // Start is called before the first frame update
     protected void Start()
