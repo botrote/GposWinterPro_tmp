@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public abstract class Unit : MonoBehaviour
 {
+    public delegate void UnitSpawnHandler(Unit _unit);
+    public static event UnitSpawnHandler UnitSpawnEvent;
     /// <summary>
     /// 종족값, 사제의 언데드 추가 데미지 등에 필요함.
     /// </summary>
@@ -115,6 +117,7 @@ public abstract class Unit : MonoBehaviour
         curHealth = MaxHealth;
         Buffs = new List<IBuff>();
         HPBuffCoroutine = StartCoroutine(DOT());
+        UnitSpawnEvent?.Invoke(this);
     }
     // Start is called before the first frame update
     protected void Start()
